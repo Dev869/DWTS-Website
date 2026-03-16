@@ -16,7 +16,6 @@ export default function Contact() {
       </div>
 
       <SlidingBars className="absolute top-20 right-[5%] hidden lg:block" direction="right" />
-      <ConfettiBurst className="absolute bottom-12 left-[6%] hidden lg:block" />
 
       <div className="relative z-10 mx-auto max-w-5xl">
         {/* Horizontal rule with label */}
@@ -49,9 +48,9 @@ export default function Contact() {
           {/* Right */}
           <div className="animate-fade-up md:w-1/2" style={{ animationDelay: "0.15s" }}>
             <p className="mb-6 text-base leading-relaxed text-[#2C2C2C]">
-              Let's get your idea off the ground. If you're interested in a quote
-              for your project, please reach out with any information — ideas,
-              budget, timeline, whatever you've got. The more the better.
+              Let's get your idea off the ground! If you're interested in a quote
+              for your project, please reach out with any information. Ideas,
+              budget, timeline, whatever you've got. The more, the better!
             </p>
 
             {/* Email bar */}
@@ -60,7 +59,7 @@ export default function Contact() {
                 Send an Email
               </span>
               <span className="flex-1 bg-[#037B7E] px-4 py-3 font-[Bungee] text-sm text-white md:text-base">
-                hello@dwtailored.com
+                info@dwtailored.com
               </span>
             </div>
 
@@ -77,6 +76,7 @@ export default function Contact() {
           {/* Corner squares */}
           <span className="absolute -top-1.5 -left-1.5 hidden h-3 w-3 bg-[#D4A843] md:block" />
           <span className="absolute -top-1.5 -right-1.5 hidden h-3 w-3 bg-[#049B9F] md:block" />
+      <ConfettiBurst className="absolute bottom-12 left-[6%] hidden lg:block" />
 
           {/* Photo */}
           <div className="relative shrink-0">

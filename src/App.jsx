@@ -12,7 +12,6 @@ function App() {
       <main className="min-h-screen bg-[#EDE6D6]">
         <Navbar />
         <Brand />
-        <Clients />
         <ProjectGrid />
         <Services />
         <Contact />

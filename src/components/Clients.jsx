@@ -12,7 +12,6 @@ const clients = [
 export default function Clients() {
   return (
     <section className="relative w-full px-6 py-16 md:px-12 lg:px-20">
-      <ConfettiBurst className="absolute top-8 right-[8%] hidden lg:block" />
       <ZigzagDraw className="absolute bottom-10 left-[5%] hidden lg:block" />
       <div className="relative z-10 mx-auto max-w-5xl">
         {/* Header */}
