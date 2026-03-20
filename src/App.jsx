@@ -1,24 +1,25 @@
-import Navbar from './components/Navbar'
-import Brand from './components/Brand'
-import Clients from './components/Clients'
-import ProjectGrid from './components/ProjectGrid'
-import Services from './components/Services'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import Home from "./pages/Home";
+import ProjectHighlight from "./pages/ProjectHighlight";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
+  const location = useLocation();
+
   return (
     <div className="paper-grain binary-watermark relative">
       <main className="min-h-screen bg-[#EDE6D6]">
-        <Navbar />
-        <Brand />
-        <ProjectGrid />
-        <Services />
-        <Contact />
-        <Footer />
+        <ScrollToTop />
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Home />} />
+            <Route path="/project/:slug" element={<ProjectHighlight />} />
+          </Routes>
+        </AnimatePresence>
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,4 +1,9 @@
+import { Link, useLocation } from "react-router-dom";
+
 export default function Navbar() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   return (
     <nav className="relative z-40 w-full">
       {/* Top stripe bar */}
@@ -12,22 +17,28 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-5 md:px-12 lg:px-20">
-        <a href="#" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <img src="/logo-dw.png" alt="DW" className="h-12 w-auto object-contain" />
           <span className="font-[Bungee] text-xl tracking-wide text-[#2C2C2C] md:text-2xl">
             Tailored Systems
           </span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-8 md:flex">
           {["Portfolio", "Services", "About", "Contact"].map((link) => (
-            <a
+            <Link
               key={link}
-              href={`#${link.toLowerCase()}`}
+              to={isHome ? `#${link.toLowerCase()}` : `/#${link.toLowerCase()}`}
+              onClick={(e) => {
+                if (isHome) {
+                  e.preventDefault();
+                  document.getElementById(link.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               className="text-base font-semibold text-[#2C2C2C] transition-colors duration-200 hover:text-[#049B9F] md:text-lg"
             >
               {link}
-            </a>
+            </Link>
           ))}
         </div>
 
