@@ -41,7 +41,7 @@ export default function ArchitectureDiagram({ techStack = [], title = "" }) {
 
           {/* Title */}
           <div className="relative mb-8 text-center">
-            <span className="font-[Bungee] text-xs tracking-[0.2em] text-[#049B9F]/40">
+            <span className="font-[Bungee] text-xs tracking-[0.2em] text-[#049B9F]/70">
               {title || "SYSTEM OVERVIEW"}
             </span>
           </div>

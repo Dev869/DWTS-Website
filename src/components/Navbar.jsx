@@ -25,7 +25,7 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
-          {["Portfolio", "Services", "About", "Contact"].map((link) => (
+          {["Portfolio", "About", "Contact"].map((link) => (
             <Link
               key={link}
               to={isHome ? `#${link.toLowerCase()}` : `/#${link.toLowerCase()}`}

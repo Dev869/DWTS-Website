@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Brand from "../components/Brand";
 import ProjectGrid from "../components/ProjectGrid";
-import Services from "../components/Services";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 
@@ -17,7 +16,6 @@ export default function Home() {
       <Navbar />
       <Brand />
       <ProjectGrid />
-      <Services />
       <Contact />
       <Footer />
     </motion.div>

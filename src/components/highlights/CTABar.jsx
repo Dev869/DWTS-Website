@@ -33,7 +33,7 @@ export default function CTABar({ project }) {
               href={project.demoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#049B9F] px-6 py-2.5 font-mono text-sm text-[#EDE6D6] transition-all hover:-translate-y-0.5 hover:bg-[#06B5B9] hover:shadow-[0_4px_16px_rgba(4,155,159,0.3)]"
+              className="animate-pulse-glow bg-[#049B9F] px-6 py-2.5 font-mono text-sm text-[#EDE6D6] transition-all hover:-translate-y-0.5 hover:bg-[#06B5B9] hover:shadow-[0_4px_16px_rgba(4,155,159,0.3)] active:scale-95"
             >
               Try it Live &rarr;
             </a>

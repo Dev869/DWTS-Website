@@ -39,7 +39,7 @@ export default function ProcessFlow({ steps = defaultSteps, title = "How It Work
               return (
                 <motion.div
                   key={step.label}
-                  className="relative z-10 flex w-1/4 flex-col items-center text-center"
+                  className="group relative z-10 flex w-1/4 flex-col items-center text-center cursor-default"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -47,7 +47,7 @@ export default function ProcessFlow({ steps = defaultSteps, title = "How It Work
                 >
                   {/* Step circle */}
                   <div
-                    className="mb-4 flex h-14 w-14 items-center justify-center shadow-lg"
+                    className="mb-4 flex h-14 w-14 items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
                     style={{ background: accent }}
                   >
                     <span className="font-[Bungee] text-base text-[#EDE6D6]">

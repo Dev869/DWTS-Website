@@ -48,16 +48,17 @@ export default function Contact() {
           {/* Right */}
           <div className="animate-fade-up md:w-1/2" style={{ animationDelay: "0.15s" }}>
             <p className="mb-6 text-base leading-relaxed text-[#2C2C2C]">
-              Let's get your idea off the ground! If you're interested in a quote
-              for your project, please reach out with any information. Ideas,
-              budget, timeline, whatever you've got. The more, the better!
+              Got an idea that needs building? Share what you're working with — the problem,
+              a rough timeline, a budget range — and we'll figure out the best path forward together.
             </p>
 
             {/* Email bar */}
             <div className="flex items-center gap-0 overflow-hidden">
-              <span className="bg-[#049B9F] px-4 py-3 text-sm font-semibold uppercase tracking-[0.1em] text-white">
+              <a href="mailto:info@dwtailored.com" className="link-span">
+              <span className="bg-[#049B9F] px-4 py-3 text-sm font-semibold uppercase tracking-[0.1em] text-white transition-all duration-200 hover:bg-[#06B5B9] active:scale-95">
                 Send an Email
               </span>
+              </a>
               <span className="flex-1 bg-[#037B7E] px-4 py-3 font-[Bungee] text-sm text-white md:text-base">
                 info@dwtailored.com
               </span>
@@ -103,12 +104,24 @@ export default function Contact() {
             <h3 className="font-[Bungee] text-xl text-[#2C2C2C] md:text-2xl">
               Devin Wilson
             </h3>
-            <p className="mt-4 text-[15px] leading-relaxed text-[#2C2C2C]">
-              Hi there, and welcome to my portfolio!
-              I started out developing solutions for biotech, with a focus on
-              streamlining workflows while prioritizing simplicity over complexity. Since then, I've taken
-              that approach and applied it to other industries.
-            </p>
+            <div className="mt-4 text-[15px] leading-relaxed text-[#2C2C2C]">
+              <p>
+                Hi there, and welcome to my portfolio!
+                I started out developing solutions in biotech - with the primary focus being to save time and money.
+                Since then, I've taken to building applications in a broad market with one key focus: <strong>accessibility</strong>.
+                Nobody wants software that only one person in the company can use. That said, I follow these few key priorities in every project:
+              </p>
+              <ul className="my-3 space-y-1">
+                <li>&#10023; Simplicity over Complexity</li>
+                <li>&#10023; Security</li>
+                <li>&#10023; Functionality</li>
+                <li>&#10023; User Experience</li>
+              </ul>
+              <p>
+                Feel free to browse my projects! I'd love to hear what you have to think - questions are always welcome.
+              </p>
+            </div>
+            
           </div>
         </div>
       </div>

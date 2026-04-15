@@ -4,25 +4,25 @@ const services = [
   {
     title: "Product Engineering",
     description:
-      "End-to-end product development from concept to launch. Scalable, maintainable systems using modern frameworks and battle-tested architecture patterns.",
+      "End-to-end development from idea to launch. Clean, maintainable code using modern frameworks — built to work on day one and hold up on day 1,000.",
     icon: "{ }",
   },
   {
     title: "AI Integration",
     description:
-      "Intelligent automation and AI-powered features woven into your workflows. Document pipelines, chat interfaces, recommendation engines — built for real ROI.",
+      "Smart features that actually save time — document processing, chat agents, automated workflows. AI where it makes sense, not where it's trendy.",
     icon: "◈",
   },
   {
     title: "Systems Architecture",
     description:
-      "We design the infrastructure that powers your business. Multi-tenant platforms, microservices, event-driven systems — built for scale.",
+      "The right foundation for your product. Whether it's a simple API or a full cloud deployment, we design systems that don't fall over when you grow.",
     icon: "△",
   },
   {
-    title: "Data Platforms",
+    title: "Data & Reporting",
     description:
-      "From raw data to actionable insight. Analytics dashboards, ETL pipelines, and ML-driven forecasting that turn data into competitive advantage.",
+      "Turn your data into something useful. Dashboards, automated reports, and pipelines that give you answers instead of more spreadsheets.",
     icon: "◎",
   },
 ];
@@ -65,7 +65,7 @@ export default function Services() {
           {services.map((s, i) => (
             <div
               key={s.title}
-              className="animate-fade-up relative border border-[#049B9F]/15 bg-[#EDE6D6] p-6"
+              className="animate-fade-up press-feedback relative border border-[#049B9F]/15 bg-[#EDE6D6] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#049B9F]/30 hover:shadow-lg"
               style={{ animationDelay: `${0.1 * i}s` }}
             >
               {/* Icon stamp */}

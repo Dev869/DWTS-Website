@@ -5,8 +5,8 @@ const ROTATING_WORDS = [
   { text: "TIME", color: "#049B9F" },
   { text: "MONEY", color: "#C05A30" },
   { text: "STRESS", color: "#D4A843" },
-  { text: "HEADACHES", color: "#7A8B4A" },
-  { text: "EFFORT", color: "#06B5B9" },
+  { text: "EFFORT", color: "#7A8B4A" },
+  { text: "HASSLE", color: "#06B5B9" },
 ];
 
 const CARD_ACCENTS = ["#049B9F", "#C05A30", "#D4A843", "#7A8B4A", "#037B7E", "#06B5B9"];
@@ -260,23 +260,22 @@ export default function Brand() {
               className="mb-4 w-64 md:w-80"
             />
             <h1 className="font-[Bungee] text-3xl leading-tight text-[#2C2C2C] md:text-5xl">
-              CUSTOM BUILT SOFTWARE<br />
+              SOFTWARE THAT FITS.<br />
               GUARANTEED TO SAVE YOU
             </h1>
             <div className="mt-3">
               <FlippingWord />
             </div>
             <p className="mt-4 max-w-md text-base leading-relaxed text-[#2C2C2C]">
-              Bespoke software consultancy. From AI-powered pipelines to reporting
-              applications, every system crafted to the exact shape of your problem. <strong>We provide solutions.</strong>
+              From automating tedious workflows to building the tools your team actually needs — we ship clean, reliable software tailored to your problem. <strong>No bloat. No compromises.</strong>
               <a href="#contact" className="ml-1 font-medium text-[#049B9F] underline decoration-[#049B9F]/30 underline-offset-2 transition-colors hover:text-[#037B7E]">
-                Let's get started &raquo;
+                Let's talk &raquo;
               </a>
             </p>
 
             {/* Inline teal tag row */}
             <div className="mt-6 flex flex-wrap gap-2">
-              {["React", "Node.js", "AI/ML", "Cloud", "Firebase"].map((t) => (
+              {["React", "Node.js", "AI/ML", "Cloud", "Firebase", "Python"].map((t) => (
                 <span key={t} className="border border-[#049B9F]/25 bg-[#049B9F]/5 px-3 py-1 text-[13px] font-medium uppercase tracking-[0.1em] text-[#049B9F]">
                   {t}
                 </span>

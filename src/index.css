@@ -97,8 +97,46 @@ html { scroll-behavior: smooth; }
   box-shadow: 6px 6px 0 var(--teal);
 }
 
+/* Blur-reveal fade slide up */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Gentle pulse glow for CTAs */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(4, 155, 159, 0); }
+  50% { box-shadow: 0 0 20px 4px rgba(4, 155, 159, 0.15); }
+}
+.animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+
+/* Press feedback for interactive cards */
+.press-feedback {
+  transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
+.press-feedback:active {
+  transform: scale(0.97) !important;
+}
+
+/* Smooth image zoom on hover */
+.hover-zoom img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-zoom:hover img {
+  transform: scale(1.05);
+}
+
 /* Selection */
 ::selection {
   background: var(--teal);
   color: white;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

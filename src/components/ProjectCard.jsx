@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 const accentColors = ["#049B9F", "#C05A30", "#D4A843", "#7A8B4A", "#037B7E", "#049B9F"];
 
 export default function ProjectCard({ project, index }) {
-  const { title, description, tags, category, slug, image } = project;
+  const { title, description, tags, category, slug, image, beta } = project;
   const accent = accentColors[index % accentColors.length];
   const [imgError, setImgError] = useState(false);
 
   return (
     <Link
       to={`/project/${slug}`}
-      className="animate-fade-up retro-card group relative block border-2 border-[#2C2C2C]/8 bg-[#F5F0E3] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px] focus-visible:outline-2 focus-visible:outline-offset-2"
+      className="animate-fade-up retro-card press-feedback group relative block border-2 border-[#2C2C2C]/8 bg-[#F5F0E3] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#049B9F]"
       style={{
         animationDelay: `${0.1 * index}s`,
         "--tw-shadow-color": accent,
@@ -25,6 +25,13 @@ export default function ProjectCard({ project, index }) {
       >
         {String(index + 1).padStart(2, "0")}
       </span>
+
+      {/* Beta badge — top left */}
+      {beta && (
+        <span className="absolute -top-2.5 -left-2.5 z-10 bg-[#2C2C2C] px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#F5F0E3]">
+          Beta
+        </span>
+      )}
 
       {/* Preview image */}
       <div className="relative overflow-hidden border-b-2 border-dashed border-[#2C2C2C]/8">

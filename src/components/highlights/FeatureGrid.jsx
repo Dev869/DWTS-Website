@@ -106,7 +106,7 @@ export default function FeatureGrid({ features = [] }) {
             return (
               <motion.div
                 key={feature.title}
-                className="group relative border border-dashed border-[#2C2C2C]/10 bg-[#F5F0E3] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group relative border border-dashed border-[#2C2C2C]/10 bg-[#F5F0E3] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#2C2C2C]/20"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

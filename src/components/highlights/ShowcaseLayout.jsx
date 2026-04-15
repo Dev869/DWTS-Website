@@ -61,7 +61,7 @@ export default function ShowcaseLayout({ project }) {
           </motion.h1>
 
           <motion.p
-            className="mt-5 max-w-xl text-lg leading-relaxed text-[#EDE6D6]/60"
+            className="mt-5 max-w-xl text-lg leading-relaxed text-[#EDE6D6]/75"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}

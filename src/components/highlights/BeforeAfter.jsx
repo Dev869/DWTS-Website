@@ -40,7 +40,7 @@ export default function BeforeAfter({ before, after }) {
               {before.map((item, i) => (
                 <motion.li
                   key={i}
-                  className="flex items-start gap-3 text-sm leading-relaxed text-[#2C2C2C]/60"
+                  className="flex items-start gap-3 text-sm leading-relaxed text-[#2C2C2C]/70"
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -77,7 +77,7 @@ export default function BeforeAfter({ before, after }) {
               {after.map((item, i) => (
                 <motion.li
                   key={i}
-                  className="flex items-start gap-3 text-sm leading-relaxed text-[#EDE6D6]/70"
+                  className="flex items-start gap-3 text-sm leading-relaxed text-[#EDE6D6]/90"
                   initial={{ opacity: 0, x: 10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}

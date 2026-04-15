@@ -24,10 +24,10 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center gap-6">
-          {["LinkedIn", "GitHub"].map((item) => (
+          {["GitHub"].map((item) => (
             <a
               key={item}
-              href="#"
+              href="https://github.com/Dev869" rel="nofollow"
               className="text-sm text-white/40 transition-colors duration-200 hover:text-[#049B9F]"
             >
               {item}

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import CountUp from "../ui/CountUp";
 
 export default function ResultsMetrics({ results = [] }) {
   if (results.length === 0) return null;
@@ -9,7 +10,7 @@ export default function ResultsMetrics({ results = [] }) {
         {results.map((result, i) => (
           <motion.div
             key={result.label}
-            className="text-center"
+            className="group text-center"
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
@@ -19,10 +20,10 @@ export default function ResultsMetrics({ results = [] }) {
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <div className="font-[Bungee] text-5xl text-[#06B5B9] md:text-6xl">
-              {result.metric}
+            <div className="font-[Bungee] text-5xl text-[#06B5B9] transition-transform duration-300 group-hover:scale-110 md:text-6xl">
+              <CountUp value={result.metric} duration={1200 + i * 200} />
             </div>
-            <div className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-[#EDE6D6]/50">
+            <div className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-[#EDE6D6]/80">
               {result.label}
             </div>
           </motion.div>

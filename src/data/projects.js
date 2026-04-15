@@ -167,6 +167,7 @@ const projects = [
     title: "Ten99",
     slug: "ten99",
     layout: "showcase",
+    beta: true,
     description:
       "A suite of tools directed toward 1099 contractors. Includes feautres like work orders, invoicing, finance reporting, automated transaction parsing and categorization, and more.",
     headline: "The all-in-one toolkit for independent contractors.",

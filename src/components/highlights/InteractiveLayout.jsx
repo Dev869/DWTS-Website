@@ -48,7 +48,7 @@ export default function InteractiveLayout({ project }) {
           </motion.h1>
 
           <motion.p
-            className="mx-auto mt-4 max-w-lg text-lg text-[#EDE6D6]/50"
+            className="mx-auto mt-4 max-w-lg text-lg text-[#EDE6D6]/70"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -180,7 +180,7 @@ export default function InteractiveLayout({ project }) {
                     {project.results.map((r) => (
                       <div key={r.label}>
                         <span className="font-[Bungee] text-2xl text-[#049B9F]">{r.metric}</span>
-                        <span className="ml-2 font-mono text-xs uppercase tracking-wider text-[#2C2C2C]/40">
+                        <span className="ml-2 font-mono text-xs uppercase tracking-wider text-[#2C2C2C]/65">
                           {r.label}
                         </span>
                       </div>

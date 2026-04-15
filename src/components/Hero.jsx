@@ -1,3 +1,5 @@
+import BlurText from "./ui/BlurText";
+
 export default function Hero() {
   return (
     <section className="noise-bg scanlines relative min-h-screen overflow-hidden bg-[#4A9A9C] px-6 pt-28 pb-20 md:px-12 md:pt-36 lg:px-20">
@@ -25,24 +27,25 @@ export default function Hero() {
             style={{ animationDelay: "0.45s" }}
           />
 
-          {/* Tagline */}
-          <p
-            className="animate-fade-up mx-auto max-w-md text-[13px] leading-relaxed tracking-wide text-[#1a1a18]/60 md:text-sm"
-            style={{ animationDelay: "0.55s" }}
-          >
-            We design and build software that fits — not software that compromises.
-            Every system crafted to the exact shape of your problem.
-          </p>
+          {/* Tagline — blur reveal */}
+          <BlurText
+            text="We design and build software that fits — not software that compromises. Every system crafted to the exact shape of your problem."
+            delay={30}
+            animateBy="words"
+            direction="bottom"
+            className="mx-auto max-w-md text-[13px] leading-relaxed tracking-wide text-[#1a1a18]/60 md:text-sm justify-center"
+          />
 
-          {/* Services */}
-          <div
-            className="animate-fade-up mt-10 flex flex-wrap justify-center gap-3"
-            style={{ animationDelay: "0.7s" }}
-          >
-            {["Product Engineering", "AI Integration", "Systems Architecture", "Data Platforms"].map((s) => (
+          {/* Services — staggered blur reveal */}
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            {["Product Engineering", "AI Integration", "Systems Architecture", "Data Platforms"].map((s, i) => (
               <span
                 key={s}
-                className="border border-[#1a1a18]/15 bg-[#1a1a18]/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.15em] text-[#1a1a18]/50"
+                className="border border-[#1a1a18]/15 bg-[#1a1a18]/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.15em] text-[#1a1a18]/50 transition-all duration-300 hover:border-[#1a1a18]/30 hover:bg-[#1a1a18]/10 hover:text-[#1a1a18]/70 active:scale-95"
+                style={{
+                  opacity: 0,
+                  animation: `fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${0.8 + i * 0.1}s forwards`,
+                }}
               >
                 {s}
               </span>
@@ -50,13 +53,19 @@ export default function Hero() {
           </div>
 
           {/* Scroll */}
-          <div className="animate-fade-up mt-20" style={{ animationDelay: "0.9s" }}>
+          <div
+            className="mt-20"
+            style={{
+              opacity: 0,
+              animation: "fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards",
+            }}
+          >
             <a
               href="#projects"
-              className="inline-block text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/40 transition-colors hover:text-[#1a1a18]/70"
+              className="group inline-block text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/40 transition-colors hover:text-[#1a1a18]/70"
             >
               Scroll Down
-              <span className="mt-2 block text-lg">&#8595;</span>
+              <span className="mt-2 block text-lg transition-transform duration-300 group-hover:translate-y-1">&#8595;</span>
             </a>
           </div>
         </div>

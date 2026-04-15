@@ -50,7 +50,7 @@ export default function CaseStudyLayout({ project }) {
           </motion.h1>
 
           <motion.p
-            className="mt-4 max-w-xl text-lg leading-relaxed text-[#EDE6D6]/50"
+            className="mt-4 max-w-xl text-lg leading-relaxed text-[#EDE6D6]/70"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
