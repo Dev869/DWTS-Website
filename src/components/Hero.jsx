@@ -12,15 +12,6 @@ export default function Hero() {
       {/* Main content */}
       <div className="relative z-10 flex min-h-[70vh] flex-col justify-center">
         <div className="mx-auto max-w-3xl text-center">
-          {/* Logo */}
-          <div className="animate-fade-up mb-8" style={{ animationDelay: "0.2s" }}>
-            <img
-              src="/logo.png"
-              alt="DW Tailored Systems"
-              className="mx-auto w-full max-w-xl"
-            />
-          </div>
-
           {/* Divider */}
           <div
             className="animate-fade-up mx-auto mb-8 h-px w-24 bg-[#1a1a18]/20"
