@@ -249,11 +249,6 @@ export default function Brand() {
           </div>
 
           <div className="animate-fade-up flex-1" style={{ animationDelay: "0.3s" }}>
-            <img
-              src="/logo-transparent-5.png"
-              alt="DW Tailored Systems"
-              className="mb-4 w-64 md:w-80"
-            />
             <h1 className="font-[Bungee] text-3xl leading-tight text-[#2C2C2C] md:text-5xl">
               SOFTWARE THAT FITS.<br />
               GUARANTEED TO SAVE YOU

@@ -19,9 +19,9 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-6 py-5 md:px-12 lg:px-20">
         <Link to="/" className="flex items-center" aria-label="DW Tailored Systems — Home">
           <img
-            src="/logo.png"
+            src="/logo-transparent-5.png"
             alt="DW Tailored Systems"
-            className="h-10 w-auto object-contain md:h-12"
+            className="h-12 w-auto object-contain md:h-14"
           />
         </Link>
 
