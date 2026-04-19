@@ -23,3 +23,14 @@ dist-ssr
 *.sln
 *.sw?
 CLAUDE.md
+
+# Superpowers brainstorm artifacts
+.superpowers/
+
+# Vercel
+.vercel
+.env
+.env.local
+
+# Firebase (legacy)
+.firebase/
