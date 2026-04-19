@@ -49,16 +49,11 @@ function FloatingCards() {
         return (
           <div
             key={project.id}
-            className="animate-floating-card absolute w-36 md:w-44"
+            className="absolute w-36 md:w-44"
             style={{
               top: slot.top,
               left: slot.left,
-              "--duration": `${duration}s`,
-              "--delay": `${delay}s`,
-              "--card-opacity": "0.55",
-              "--rot-start": `${parseFloat(slot.rot) - 4}deg`,
-              "--rot-mid": slot.rot,
-              "--rot-end": `${parseFloat(slot.rot) + 4}deg`,
+              opacity: 0.55,
             }}
           >
             <div
@@ -224,9 +219,9 @@ export default function Brand() {
       {/* Corner bracket — bottom left */}
       <div className="absolute bottom-4 left-6 h-16 w-16 border-b-2 border-l-2 border-[#049B9F]/25 lg:left-20" />
 
-      {/* Floating teal circle — decorative */}
+      {/* Teal circle — decorative */}
       <div className="absolute top-12 right-[15%] hidden lg:block">
-        <div className="animate-spin-slow h-20 w-20 rounded-full border-2 border-dashed border-[#049B9F]/20" />
+        <div className="h-20 w-20 rounded-full border-2 border-dashed border-[#049B9F]/20" />
         <div className="absolute inset-3 rounded-full border border-[#049B9F]/10" />
       </div>
 

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import SectionReveal from "./SectionReveal";
 import ResultsMetrics from "./ResultsMetrics";
 import TechStackBar from "./TechStackBar";
@@ -29,32 +28,17 @@ export default function InteractiveLayout({ project }) {
         />
 
         <div className="relative z-10 mx-auto max-w-4xl text-center">
-          <motion.span
-            className="mb-4 inline-block border border-dashed border-[#049B9F] px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-[#06B5B9]"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
+          <span className="mb-4 inline-block border border-dashed border-[#049B9F] px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-[#06B5B9]">
             {project.category} — Interactive
-          </motion.span>
+          </span>
 
-          <motion.h1
-            className="font-[Bungee] text-3xl leading-tight text-[#F5F6F8] md:text-4xl lg:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <h1 className="font-[Bungee] text-3xl leading-tight text-[#F5F6F8] md:text-4xl lg:text-5xl">
             {project.title}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            className="mx-auto mt-4 max-w-lg text-lg text-[#F5F6F8]/70"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <p className="mx-auto mt-4 max-w-lg text-lg text-[#F5F6F8]/70">
             {project.headline}
-          </motion.p>
+          </p>
         </div>
       </div>
 

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import SectionReveal from "./SectionReveal";
 import ResultsMetrics from "./ResultsMetrics";
 import TechStackBar from "./TechStackBar";
@@ -28,48 +27,27 @@ export default function CaseStudyLayout({ project }) {
         />
 
         <div className="relative z-10 mx-auto max-w-4xl">
-          <motion.div
-            className="mb-8 flex flex-wrap items-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div className="mb-8 flex flex-wrap items-center gap-4">
             <span className="border border-dashed border-[#049B9F] px-3 py-1 font-mono text-xs uppercase tracking-[0.2em] text-[#06B5B9]">
               {project.category}
             </span>
             <span className="font-mono text-xs text-[#F5F6F8]/30">Case Study</span>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            className="font-[Bungee] text-3xl leading-tight text-[#F5F6F8] md:text-4xl lg:text-5xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <h1 className="font-[Bungee] text-3xl leading-tight text-[#F5F6F8] md:text-4xl lg:text-5xl">
             {project.title}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            className="mt-4 max-w-xl text-lg leading-relaxed text-[#F5F6F8]/70"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-[#F5F6F8]/70">
             {project.headline}
-          </motion.p>
+          </p>
 
           {/* Decorative accent bar */}
-          <motion.div
-            className="mt-8 flex gap-1.5"
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ delay: 0.8, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: "left" }}
-          >
+          <div className="mt-8 flex gap-1.5" style={{ transformOrigin: "left" }}>
             <span className="h-1.5 w-12 bg-[#049B9F]" />
             <span className="h-1.5 w-6 bg-[#C05A30]" />
             <span className="h-1.5 w-3 bg-[#D4A843]" />
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -205,20 +183,16 @@ export default function CaseStudyLayout({ project }) {
                 <h2 className="font-[Bungee] text-xl text-[#2C2C2C] md:text-2xl">Key Decisions</h2>
                 <div className="mt-3 h-[3px] w-12 bg-[#D4A843]" />
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  {project.techStack.map((tech, i) => (
-                    <motion.div
+                  {project.techStack.map((tech) => (
+                    <div
                       key={tech}
                       className="border border-dashed border-[#2C2C2C]/10 bg-[#FFFFFF] p-5"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1, duration: 0.5 }}
                     >
                       <span className="font-mono text-sm font-semibold text-[#049B9F]">{tech}</span>
                       <p className="mt-1 text-sm text-[#2C2C2C]/50">
                         Chosen for reliability and ecosystem support.
                       </p>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>

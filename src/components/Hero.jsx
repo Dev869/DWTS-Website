@@ -13,7 +13,7 @@ export default function Hero() {
       <div className="relative z-10 flex min-h-[70vh] flex-col justify-center">
         <div className="mx-auto max-w-3xl text-center">
           {/* Logo */}
-          <div className="animate-fade-up animate-flicker mb-8" style={{ animationDelay: "0.2s" }}>
+          <div className="animate-fade-up mb-8" style={{ animationDelay: "0.2s" }}>
             <img
               src="/logo.png"
               alt="DW Tailored Systems"
@@ -41,11 +41,7 @@ export default function Hero() {
             {["Product Engineering", "AI Integration", "Systems Architecture", "Data Platforms"].map((s, i) => (
               <span
                 key={s}
-                className="border border-[#1a1a18]/15 bg-[#1a1a18]/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.15em] text-[#1a1a18]/50 transition-all duration-300 hover:border-[#1a1a18]/30 hover:bg-[#1a1a18]/10 hover:text-[#1a1a18]/70 active:scale-95"
-                style={{
-                  opacity: 0,
-                  animation: `fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${0.8 + i * 0.1}s forwards`,
-                }}
+                className="border border-[#1a1a18]/15 bg-[#1a1a18]/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.15em] text-[#1a1a18]/50 transition-colors duration-200 hover:border-[#1a1a18]/30 hover:bg-[#1a1a18]/10 hover:text-[#1a1a18]/70"
               >
                 {s}
               </span>
@@ -53,19 +49,13 @@ export default function Hero() {
           </div>
 
           {/* Scroll */}
-          <div
-            className="mt-20"
-            style={{
-              opacity: 0,
-              animation: "fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards",
-            }}
-          >
+          <div className="mt-20">
             <a
               href="#projects"
               className="group inline-block text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/40 transition-colors hover:text-[#1a1a18]/70"
             >
               Scroll Down
-              <span className="mt-2 block text-lg transition-transform duration-300 group-hover:translate-y-1">&#8595;</span>
+              <span className="mt-2 block text-lg">&#8595;</span>
             </a>
           </div>
         </div>

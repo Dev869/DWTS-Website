@@ -62,39 +62,13 @@ html { scroll-behavior: smooth; }
   background-size: 800px 320px;
 }
 
-/* Animations */
+/* Animations — minimal, entrance-only */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-@keyframes dash {
-  to { stroke-dashoffset: 0; }
-}
 
-@keyframes floatingCard {
-  0%   { opacity: 0; transform: translateY(-20px) rotate(var(--rot-start)); }
-  10%  { opacity: var(--card-opacity); transform: translateY(0px) rotate(var(--rot-mid)); }
-  40%  { opacity: var(--card-opacity); transform: translateY(20px) rotate(var(--rot-end)); }
-  50%  { opacity: 0; transform: translateY(40px) rotate(var(--rot-end)); }
-  100% { opacity: 0; transform: translateY(40px) rotate(var(--rot-end)); }
-}
-.animate-floating-card {
-  animation: floatingCard var(--duration) ease-in-out infinite;
-  animation-delay: var(--delay);
-  opacity: 0;
-}
-
-.animate-fade-up { animation: fadeUp 0.6s ease-out both; }
-.animate-spin-slow { animation: spin-slow 20s linear infinite; }
-.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-fade-up { animation: fadeUp 0.5s ease-out both; }
 
 /* Card hover — soft modern elevation */
 .retro-card {
@@ -108,33 +82,12 @@ html { scroll-behavior: smooth; }
   border-color: rgba(4, 155, 159, 0.35);
 }
 
-/* Blur-reveal fade slide up */
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-
-/* Gentle pulse glow for CTAs */
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(4, 155, 159, 0); }
-  50% { box-shadow: 0 0 20px 4px rgba(4, 155, 159, 0.15); }
-}
-.animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
-
 /* Press feedback for interactive cards */
 .press-feedback {
   transition: transform 0.15s ease, box-shadow 0.25s ease;
 }
 .press-feedback:active {
-  transform: scale(0.97) !important;
-}
-
-/* Smooth image zoom on hover */
-.hover-zoom img {
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hover-zoom:hover img {
-  transform: scale(1.05);
+  transform: scale(0.98) !important;
 }
 
 /* Selection */

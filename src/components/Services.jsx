@@ -1,5 +1,3 @@
-import { DiamondGrid, ScatterDots } from "./ScrollGraphics";
-
 const services = [
   {
     title: "Product Engineering",
@@ -44,10 +42,7 @@ export default function Services() {
         <div className="absolute inset-12 rounded-full bg-[#049B9F]/3" />
       </div>
 
-      <DiamondGrid className="absolute top-24 left-[4%] hidden lg:block" />
-      <ScatterDots className="absolute bottom-16 right-[6%] hidden lg:block" />
-
-      <div className="relative z-10 mx-auto max-w-5xl">
+<div className="relative z-10 mx-auto max-w-5xl">
         {/* Header with line */}
         <div className="animate-fade-up mb-12 flex items-end gap-6">
           <h2 className="font-[Bungee] text-4xl text-[#2C2C2C] md:text-5xl">

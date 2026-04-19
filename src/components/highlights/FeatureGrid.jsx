@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 const iconMap = {
   microscope: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-8 w-8">
@@ -91,30 +89,16 @@ export default function FeatureGrid({ features = [] }) {
   return (
     <div className="px-6 py-16 md:px-12 lg:px-20">
       <div className="mx-auto max-w-4xl">
-        <motion.h3
-          className="font-[Bungee] mb-10 text-sm tracking-[0.15em] text-[#2C2C2C]"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <h3 className="font-[Bungee] mb-10 text-sm tracking-[0.15em] text-[#2C2C2C]">
           Key Features
-        </motion.h3>
+        </h3>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {features.map((feature, i) => {
             const accent = accentColors[i % accentColors.length];
             return (
-              <motion.div
+              <div
                 key={feature.title}
                 className="group relative border border-dashed border-[#2C2C2C]/10 bg-[#FFFFFF] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#2C2C2C]/20"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: i * 0.12,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
               >
                 {/* Accent top bar */}
                 <div className="mb-4 flex gap-1">
@@ -142,7 +126,7 @@ export default function FeatureGrid({ features = [] }) {
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
-              </motion.div>
+              </div>
             );
           })}
         </div>

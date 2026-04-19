@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import SectionReveal from "./SectionReveal";
 import ResultsMetrics from "./ResultsMetrics";
 import TechStackBar from "./TechStackBar";
@@ -16,7 +15,7 @@ export default function ShowcaseLayout({ project }) {
       {/* Hero — full-bleed with parallax-style gradient */}
       <div className="relative overflow-hidden bg-gradient-to-br from-[#2C2C2C] to-[#1a1a2e]">
         {/* Animated background */}
-        <motion.div
+        <div
           className="absolute inset-0"
           style={{
             background: `
@@ -25,49 +24,24 @@ export default function ShowcaseLayout({ project }) {
               radial-gradient(circle at 50% 50%, rgba(212,168,67,0.08) 0%, transparent 70%)
             `,
           }}
-          animate={{ y: [0, -20, 0], scale: [1, 1.02, 1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
 
         {/* Orbit ring decorations */}
-        <motion.div
-          className="absolute -right-12 top-[10%] h-[300px] w-[300px] rounded-full border border-dashed border-[#049B9F]/20"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute -left-24 bottom-[-50px] h-[400px] w-[400px] rounded-full border border-dashed border-[#049B9F]/10"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        />
+        <div className="absolute -right-12 top-[10%] h-[300px] w-[300px] rounded-full border border-dashed border-[#049B9F]/20" />
+        <div className="absolute -left-24 bottom-[-50px] h-[400px] w-[400px] rounded-full border border-dashed border-[#049B9F]/10" />
 
         <div className="relative z-10 mx-auto max-w-4xl px-6 py-28 md:px-12 md:py-36 lg:px-20">
-          <motion.span
-            className="mb-6 inline-block border border-dashed border-[#049B9F] px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-[#06B5B9]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <span className="mb-6 inline-block border border-dashed border-[#049B9F] px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-[#06B5B9]">
             {project.category}
-          </motion.span>
+          </span>
 
-          <motion.h1
-            className="font-[Bungee] text-4xl leading-tight text-[#F5F6F8] md:text-5xl lg:text-6xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <h1 className="font-[Bungee] text-4xl leading-tight text-[#F5F6F8] md:text-5xl lg:text-6xl">
             {project.title}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            className="mt-5 max-w-xl text-lg leading-relaxed text-[#F5F6F8]/75"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#F5F6F8]/75">
             {project.headline}
-          </motion.p>
+          </p>
         </div>
       </div>
 
