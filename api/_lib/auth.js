@@ -89,15 +89,50 @@ export function requireAdmin(req, res) {
   return session;
 }
 
-export function verifyPassword(input) {
-  const expected = process.env.ADMIN_PASSWORD;
-  if (!expected) {
-    throw new Error("ADMIN_PASSWORD env var is not set.");
+const DEFAULT_ADMIN_EMAIL = "devin@dwtailored.com";
+
+function getAllowedEmails() {
+  const raw = process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL;
+  return raw
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+let cachedOAuthClient;
+async function getOAuthClient() {
+  if (cachedOAuthClient) return cachedOAuthClient;
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  if (!clientId) {
+    throw new Error("GOOGLE_CLIENT_ID env var is not set.");
   }
-  const a = Buffer.from(input || "", "utf8");
-  const b = Buffer.from(expected, "utf8");
-  if (a.length !== b.length) return false;
-  return crypto.timingSafeEqual(a, b);
+  const { OAuth2Client } = await import("google-auth-library");
+  cachedOAuthClient = new OAuth2Client(clientId);
+  return cachedOAuthClient;
+}
+
+export async function verifyGoogleCredential(idToken) {
+  if (!idToken || typeof idToken !== "string") {
+    throw new Error("Missing Google credential.");
+  }
+  const client = await getOAuthClient();
+  const ticket = await client.verifyIdToken({
+    idToken,
+    audience: process.env.GOOGLE_CLIENT_ID,
+  });
+  const payload = ticket.getPayload();
+  if (!payload) throw new Error("Invalid Google credential.");
+  if (!payload.email || !payload.email_verified) {
+    throw new Error("Email not verified by Google.");
+  }
+  const email = payload.email.toLowerCase();
+  const allowed = getAllowedEmails();
+  if (!allowed.includes(email)) {
+    const err = new Error("This Google account is not authorized.");
+    err.code = "FORBIDDEN";
+    throw err;
+  }
+  return { email, name: payload.name, picture: payload.picture };
 }
 
 export const SESSION_COOKIE_NAME = COOKIE_NAME;
