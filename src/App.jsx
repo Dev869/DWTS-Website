@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Home from "./pages/Home";
 import ProjectHighlight from "./pages/ProjectHighlight";
+import Admin from "./pages/Admin";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/project/:slug" element={<ProjectHighlight />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </AnimatePresence>
       </main>
