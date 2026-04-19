@@ -2,9 +2,7 @@ import { createContext, useContext, useState } from 'react';
 
 const ChatContext = createContext(null);
 
-const API_URL =
-  import.meta.env.VITE_API_URL ||
-  'http://localhost:5001/dw-tailored-systems/us-central1/handleChat';
+const API_URL = import.meta.env.VITE_API_URL || '/api/chat';
 
 export function ChatProvider({ children }) {
   const [messages, setMessages] = useState([]);
