@@ -62,7 +62,7 @@ function FloatingCards() {
             }}
           >
             <div
-              className="rounded border border-[#2C2C2C]/8 bg-[#F5F0E3] p-2.5 shadow-md"
+              className="rounded border border-[#2C2C2C]/8 bg-[#FFFFFF] p-2.5 shadow-md"
               style={{ transform: `rotate(${slot.rot})` }}
             >
               <div className="mb-1.5 flex gap-0.5">

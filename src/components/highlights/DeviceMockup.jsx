@@ -24,7 +24,7 @@ export default function DeviceMockup({ image, title, url }) {
                 <span className="h-2.5 w-2.5 rounded-full bg-[#7A8B4A]/70" />
               </div>
               <div className="flex-1 rounded bg-[#2C2C2C] px-4 py-1">
-                <span className="font-mono text-[10px] text-[#EDE6D6]/30">
+                <span className="font-mono text-[10px] text-[#F5F6F8]/30">
                   {url || `dwtailoredsystems.com/project/${title?.toLowerCase().replace(/\s+/g, '-')}`}
                 </span>
               </div>

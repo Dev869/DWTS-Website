@@ -6,7 +6,7 @@ export default function QuoteCallout({ quote, attribution }) {
   return (
     <div className="px-6 py-16 md:px-12 lg:px-20">
       <motion.div
-        className="relative mx-auto max-w-3xl border-l-4 border-[#049B9F] bg-[#F5F0E3] py-10 pl-8 pr-8 md:pl-12 md:pr-12"
+        className="relative mx-auto max-w-3xl border-l-4 border-[#049B9F] bg-[#FFFFFF] py-10 pl-8 pr-8 md:pl-12 md:pr-12"
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}

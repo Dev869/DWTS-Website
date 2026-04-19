@@ -8,8 +8,8 @@ function App() {
   const location = useLocation();
 
   return (
-    <div className="paper-grain binary-watermark relative">
-      <main className="min-h-screen bg-[#EDE6D6]">
+    <div className="relative">
+      <main className="min-h-screen bg-[#F5F6F8]">
         <ScrollToTop />
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>

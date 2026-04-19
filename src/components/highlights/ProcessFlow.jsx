@@ -50,7 +50,7 @@ export default function ProcessFlow({ steps = defaultSteps, title = "How It Work
                     className="mb-4 flex h-14 w-14 items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
                     style={{ background: accent }}
                   >
-                    <span className="font-[Bungee] text-base text-[#EDE6D6]">
+                    <span className="font-[Bungee] text-base text-[#F5F6F8]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -101,7 +101,7 @@ export default function ProcessFlow({ steps = defaultSteps, title = "How It Work
                       className="flex h-10 w-10 flex-shrink-0 items-center justify-center"
                       style={{ background: accent }}
                     >
-                      <span className="font-[Bungee] text-xs text-[#EDE6D6]">
+                      <span className="font-[Bungee] text-xs text-[#F5F6F8]">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                     </div>

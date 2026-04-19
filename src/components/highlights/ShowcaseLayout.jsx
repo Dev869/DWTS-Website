@@ -52,7 +52,7 @@ export default function ShowcaseLayout({ project }) {
           </motion.span>
 
           <motion.h1
-            className="font-[Bungee] text-4xl leading-tight text-[#EDE6D6] md:text-5xl lg:text-6xl"
+            className="font-[Bungee] text-4xl leading-tight text-[#F5F6F8] md:text-5xl lg:text-6xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -61,7 +61,7 @@ export default function ShowcaseLayout({ project }) {
           </motion.h1>
 
           <motion.p
-            className="mt-5 max-w-xl text-lg leading-relaxed text-[#EDE6D6]/75"
+            className="mt-5 max-w-xl text-lg leading-relaxed text-[#F5F6F8]/75"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -136,8 +136,8 @@ export default function ShowcaseLayout({ project }) {
                   delay={i * 0.1}
                   direction={i % 2 === 0 ? "left" : "right"}
                 >
-                  <div className="group cursor-pointer overflow-hidden border border-dashed border-[#2C2C2C]/10 bg-[#F5F0E3] transition-all duration-500 hover:scale-[1.03] hover:shadow-lg">
-                    <div className="flex h-52 items-center justify-center overflow-hidden bg-[#EDE6D6]">
+                  <div className="group cursor-pointer overflow-hidden border border-dashed border-[#2C2C2C]/10 bg-[#FFFFFF] transition-all duration-500 hover:scale-[1.03] hover:shadow-lg">
+                    <div className="flex h-52 items-center justify-center overflow-hidden bg-[#F5F6F8]">
                       {item.src ? (
                         <img
                           src={item.src}

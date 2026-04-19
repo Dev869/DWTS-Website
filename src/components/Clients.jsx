@@ -31,7 +31,7 @@ export default function Clients() {
             return (
               <div
                 key={name}
-                className="animate-fade-up flex flex-col items-center justify-center border border-[#2C2C2C]/8 bg-[#F5F0E3] px-4 py-6 transition-all duration-200 hover:border-[#049B9F]/30 hover:shadow-md"
+                className="animate-fade-up flex flex-col items-center justify-center border border-[#2C2C2C]/8 bg-[#FFFFFF] px-4 py-6 transition-all duration-200 hover:border-[#049B9F]/30 hover:shadow-md"
                 style={{ animationDelay: `${0.08 * i}s` }}
               >
                 {/* Placeholder mark */}

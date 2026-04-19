@@ -58,7 +58,7 @@ export default function ArchitectureDiagram({ techStack = [], title = "" }) {
                 transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
               >
                 <span className="h-2 w-2 rounded-full bg-[#049B9F]" />
-                <span className="font-mono text-xs text-[#EDE6D6]/80">{tech}</span>
+                <span className="font-mono text-xs text-[#F5F6F8]/80">{tech}</span>
               </motion.div>
             ))}
           </div>
@@ -87,7 +87,7 @@ export default function ArchitectureDiagram({ techStack = [], title = "" }) {
             transition={{ delay: 0.7, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="h-3 w-3 rounded-full bg-[#D4A843] shadow-[0_0_8px_rgba(212,168,67,0.4)]" />
-            <span className="font-[Bungee] text-xs tracking-wider text-[#EDE6D6]/80">
+            <span className="font-[Bungee] text-xs tracking-wider text-[#F5F6F8]/80">
               {title || "APPLICATION"}
             </span>
           </motion.div>
@@ -119,7 +119,7 @@ export default function ArchitectureDiagram({ techStack = [], title = "" }) {
                 transition={{ delay: 0.9 + i * 0.1, duration: 0.5 }}
               >
                 <span className="h-2 w-2 rounded-full bg-[#7A8B4A]" />
-                <span className="font-mono text-xs text-[#EDE6D6]/80">{tech}</span>
+                <span className="font-mono text-xs text-[#F5F6F8]/80">{tech}</span>
               </motion.div>
             ))}
           </div>

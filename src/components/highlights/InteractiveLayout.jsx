@@ -39,7 +39,7 @@ export default function InteractiveLayout({ project }) {
           </motion.span>
 
           <motion.h1
-            className="font-[Bungee] text-3xl leading-tight text-[#EDE6D6] md:text-4xl lg:text-5xl"
+            className="font-[Bungee] text-3xl leading-tight text-[#F5F6F8] md:text-4xl lg:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -48,7 +48,7 @@ export default function InteractiveLayout({ project }) {
           </motion.h1>
 
           <motion.p
-            className="mx-auto mt-4 max-w-lg text-lg text-[#EDE6D6]/70"
+            className="mx-auto mt-4 max-w-lg text-lg text-[#F5F6F8]/70"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -68,7 +68,7 @@ export default function InteractiveLayout({ project }) {
                 <span className="h-3 w-3 rounded-full bg-[#C05A30]/60" />
                 <span className="h-3 w-3 rounded-full bg-[#D4A843]/60" />
                 <span className="h-3 w-3 rounded-full bg-[#7A8B4A]/60" />
-                <span className="ml-4 font-mono text-xs text-[#EDE6D6]/30">
+                <span className="ml-4 font-mono text-xs text-[#F5F6F8]/30">
                   {project.demoUrl || project.link}
                 </span>
               </div>
@@ -93,7 +93,7 @@ export default function InteractiveLayout({ project }) {
                       href={project.demoUrl || project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-block bg-[#049B9F] px-6 py-2.5 font-mono text-sm text-[#EDE6D6] transition-all hover:bg-[#06B5B9]"
+                      className="mt-4 inline-block bg-[#049B9F] px-6 py-2.5 font-mono text-sm text-[#F5F6F8] transition-all hover:bg-[#06B5B9]"
                     >
                       Launch App &rarr;
                     </a>
@@ -109,7 +109,7 @@ export default function InteractiveLayout({ project }) {
                   href={project.demoUrl || project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-[#049B9F] px-8 py-3 font-mono text-sm text-[#EDE6D6] transition-all hover:-translate-y-0.5 hover:bg-[#06B5B9] hover:shadow-[0_4px_16px_rgba(4,155,159,0.3)]"
+                  className="inline-block bg-[#049B9F] px-8 py-3 font-mono text-sm text-[#F5F6F8] transition-all hover:-translate-y-0.5 hover:bg-[#06B5B9] hover:shadow-[0_4px_16px_rgba(4,155,159,0.3)]"
                 >
                   Try it Live &rarr;
                 </a>
@@ -132,7 +132,7 @@ export default function InteractiveLayout({ project }) {
             <SectionReveal delay={0.1}>
               <div className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <span className="flex h-10 w-10 items-center justify-center bg-[#049B9F] font-[Bungee] text-sm text-[#EDE6D6]">
+                  <span className="flex h-10 w-10 items-center justify-center bg-[#049B9F] font-[Bungee] text-sm text-[#F5F6F8]">
                     01
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export default function InteractiveLayout({ project }) {
             <SectionReveal delay={0.2}>
               <div className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <span className="flex h-10 w-10 items-center justify-center bg-[#C05A30] font-[Bungee] text-sm text-[#EDE6D6]">
+                  <span className="flex h-10 w-10 items-center justify-center bg-[#C05A30] font-[Bungee] text-sm text-[#F5F6F8]">
                     02
                   </span>
                 </div>
@@ -170,7 +170,7 @@ export default function InteractiveLayout({ project }) {
             <SectionReveal delay={0.3}>
               <div className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <span className="flex h-10 w-10 items-center justify-center bg-[#D4A843] font-[Bungee] text-sm text-[#EDE6D6]">
+                  <span className="flex h-10 w-10 items-center justify-center bg-[#D4A843] font-[Bungee] text-sm text-[#F5F6F8]">
                     03
                   </span>
                 </div>
@@ -221,8 +221,8 @@ export default function InteractiveLayout({ project }) {
                   delay={i * 0.1}
                   direction={i % 2 === 0 ? "left" : "right"}
                 >
-                  <div className="group cursor-pointer overflow-hidden border border-dashed border-[#2C2C2C]/10 bg-[#F5F0E3] transition-all duration-500 hover:scale-[1.03] hover:shadow-lg">
-                    <div className="flex h-52 items-center justify-center overflow-hidden bg-[#EDE6D6]">
+                  <div className="group cursor-pointer overflow-hidden border border-dashed border-[#2C2C2C]/10 bg-[#FFFFFF] transition-all duration-500 hover:scale-[1.03] hover:shadow-lg">
+                    <div className="flex h-52 items-center justify-center overflow-hidden bg-[#F5F6F8]">
                       {item.src ? (
                         <img
                           src={item.src}

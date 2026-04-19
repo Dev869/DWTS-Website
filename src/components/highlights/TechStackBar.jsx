@@ -13,7 +13,7 @@ export default function TechStackBar({ techStack = [] }) {
           {techStack.map((tech, i) => (
             <motion.span
               key={tech}
-              className="cursor-default border border-dashed border-[#2C2C2C]/15 bg-[#F5F0E3] px-5 py-2.5 font-mono text-sm text-[#2C2C2C] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#049B9F] hover:shadow-[0_4px_12px_rgba(4,155,159,0.15)]"
+              className="cursor-default border border-dashed border-[#2C2C2C]/15 bg-[#FFFFFF] px-5 py-2.5 font-mono text-sm text-[#2C2C2C] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#049B9F] hover:shadow-[0_4px_12px_rgba(4,155,159,0.15)]"
               initial={{ opacity: 0, y: 20, rotate: -3 }}
               whileInView={{ opacity: 1, y: 0, rotate: 0 }}
               viewport={{ once: true }}

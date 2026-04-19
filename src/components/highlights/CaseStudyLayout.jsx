@@ -37,11 +37,11 @@ export default function CaseStudyLayout({ project }) {
             <span className="border border-dashed border-[#049B9F] px-3 py-1 font-mono text-xs uppercase tracking-[0.2em] text-[#06B5B9]">
               {project.category}
             </span>
-            <span className="font-mono text-xs text-[#EDE6D6]/30">Case Study</span>
+            <span className="font-mono text-xs text-[#F5F6F8]/30">Case Study</span>
           </motion.div>
 
           <motion.h1
-            className="font-[Bungee] text-3xl leading-tight text-[#EDE6D6] md:text-4xl lg:text-5xl"
+            className="font-[Bungee] text-3xl leading-tight text-[#F5F6F8] md:text-4xl lg:text-5xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -50,7 +50,7 @@ export default function CaseStudyLayout({ project }) {
           </motion.h1>
 
           <motion.p
-            className="mt-4 max-w-xl text-lg leading-relaxed text-[#EDE6D6]/70"
+            className="mt-4 max-w-xl text-lg leading-relaxed text-[#F5F6F8]/70"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -168,8 +168,8 @@ export default function CaseStudyLayout({ project }) {
                   delay={i * 0.1}
                   direction={i % 2 === 0 ? "left" : "right"}
                 >
-                  <div className="group cursor-pointer overflow-hidden border border-dashed border-[#2C2C2C]/10 bg-[#F5F0E3] transition-all duration-500 hover:scale-[1.03] hover:shadow-lg">
-                    <div className="flex h-52 items-center justify-center overflow-hidden bg-[#EDE6D6]">
+                  <div className="group cursor-pointer overflow-hidden border border-dashed border-[#2C2C2C]/10 bg-[#FFFFFF] transition-all duration-500 hover:scale-[1.03] hover:shadow-lg">
+                    <div className="flex h-52 items-center justify-center overflow-hidden bg-[#F5F6F8]">
                       {item.src ? (
                         <img
                           src={item.src}
@@ -208,7 +208,7 @@ export default function CaseStudyLayout({ project }) {
                   {project.techStack.map((tech, i) => (
                     <motion.div
                       key={tech}
-                      className="border border-dashed border-[#2C2C2C]/10 bg-[#F5F0E3] p-5"
+                      className="border border-dashed border-[#2C2C2C]/10 bg-[#FFFFFF] p-5"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}

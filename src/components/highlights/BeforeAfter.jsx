@@ -18,7 +18,7 @@ export default function BeforeAfter({ before, after }) {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Before */}
           <motion.div
-            className="relative border-2 border-dashed border-[#C05A30]/20 bg-[#F5F0E3] p-8"
+            className="relative border-2 border-dashed border-[#C05A30]/20 bg-[#FFFFFF] p-8"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -77,7 +77,7 @@ export default function BeforeAfter({ before, after }) {
               {after.map((item, i) => (
                 <motion.li
                   key={i}
-                  className="flex items-start gap-3 text-sm leading-relaxed text-[#EDE6D6]/90"
+                  className="flex items-start gap-3 text-sm leading-relaxed text-[#F5F6F8]/90"
                   initial={{ opacity: 0, x: 10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}

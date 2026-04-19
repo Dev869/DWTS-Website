@@ -23,7 +23,7 @@ export default function ResultsMetrics({ results = [] }) {
             <div className="font-[Bungee] text-5xl text-[#06B5B9] transition-transform duration-300 group-hover:scale-110 md:text-6xl">
               <CountUp value={result.metric} duration={1200 + i * 200} />
             </div>
-            <div className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-[#EDE6D6]/80">
+            <div className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-[#F5F6F8]/80">
               {result.label}
             </div>
           </motion.div>
