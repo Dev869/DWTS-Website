@@ -1,7 +1,7 @@
 import {
   createSessionCookie,
   serializeSetCookie,
-  verifyPassword,
+  verifyGoogleCredential,
   SESSION_TTL_SEC,
 } from "../_lib/auth.js";
 
@@ -14,20 +14,17 @@ export default async function handler(req, res) {
     return;
   }
   try {
-    const { password } = req.body || {};
-    if (!password || typeof password !== "string") {
-      res.status(400).json({ error: "Password required" });
-      return;
-    }
-    if (!verifyPassword(password)) {
-      res.status(401).json({ error: "Invalid password" });
-      return;
-    }
-    const cookie = createSessionCookie("admin");
+    const { credential } = req.body || {};
+    const user = await verifyGoogleCredential(credential);
+    const cookie = createSessionCookie(user.email);
     res.setHeader("Set-Cookie", serializeSetCookie(cookie, { maxAgeSec: SESSION_TTL_SEC }));
-    res.status(200).json({ ok: true, user: "admin" });
+    res.status(200).json({ ok: true, user });
   } catch (err) {
+    if (err.code === "FORBIDDEN") {
+      res.status(403).json({ error: err.message });
+      return;
+    }
     console.error("POST /api/admin/login", err);
-    res.status(500).json({ error: "Server error" });
+    res.status(401).json({ error: err.message || "Login failed" });
   }
 }
