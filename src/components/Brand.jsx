@@ -1,5 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
-import projects from "../data/projects";
+import { useState, useEffect } from "react";
 
 const ROTATING_WORDS = [
   { text: "TIME", color: "#049B9F" },
@@ -8,95 +7,6 @@ const ROTATING_WORDS = [
   { text: "EFFORT", color: "#7A8B4A" },
   { text: "HASSLE", color: "#06B5B9" },
 ];
-
-const CARD_ACCENTS = ["#049B9F", "#C05A30", "#D4A843", "#7A8B4A", "#037B7E", "#06B5B9"];
-
-// Generate non-overlapping random positions in a grid with jitter
-function generateSlots(count, seed = 42) {
-  const cols = 3;
-  const rows = Math.ceil(count / cols);
-  const cellW = 100 / cols;
-  const cellH = 100 / rows;
-  // Simple seeded RNG for stable positions per mount
-  let s = seed;
-  const rand = () => { s = (s * 16807 + 0) % 2147483647; return (s - 1) / 2147483646; };
-
-  return Array.from({ length: count }, (_, i) => {
-    const col = i % cols;
-    const row = Math.floor(i / cols);
-    const jitterX = (rand() - 0.5) * cellW * 0.6;
-    const jitterY = (rand() - 0.5) * cellH * 0.5;
-    const rot = (rand() - 0.5) * 8;
-    return {
-      top: `${row * cellH + cellH * 0.3 + jitterY}%`,
-      left: `${col * cellW + cellW * 0.15 + jitterX}%`,
-      rot: `${rot.toFixed(1)}deg`,
-    };
-  });
-}
-
-function FloatingCards() {
-  const slots = useMemo(() => generateSlots(projects.length), []);
-
-  return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      {projects.map((project, i) => {
-        const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
-        const slot = slots[i];
-        const duration = 14 + (i % 3) * 4;
-        const delay = i * 3.5;
-
-        return (
-          <div
-            key={project.id}
-            className="animate-floating-card absolute w-36 md:w-44"
-            style={{
-              top: slot.top,
-              left: slot.left,
-              "--duration": `${duration}s`,
-              "--delay": `${delay}s`,
-              "--card-opacity": "0.55",
-              "--rot-start": `${parseFloat(slot.rot) - 4}deg`,
-              "--rot-mid": slot.rot,
-              "--rot-end": `${parseFloat(slot.rot) + 4}deg`,
-            }}
-          >
-            <div
-              className="rounded border border-[#2C2C2C]/8 bg-[#F5F0E3] p-2.5 shadow-md"
-              style={{ transform: `rotate(${slot.rot})` }}
-            >
-              <div className="mb-1.5 flex gap-0.5">
-                <span className="h-1 w-6" style={{ background: accent }} />
-                <span className="h-1 w-3" style={{ background: accent, opacity: 0.4 }} />
-              </div>
-              <div
-                className={`mb-2 aspect-[4/3] w-full rounded-sm bg-gradient-to-br ${project.gradient}`}
-                style={{ border: `1px solid ${accent}30` }}
-              />
-              <p className="font-[Bungee] text-[7px] leading-tight text-[#2C2C2C]/80 md:text-[8px]">
-                {project.title}
-              </p>
-              <span
-                className="mt-0.5 inline-block text-[6px] font-semibold uppercase tracking-wider md:text-[7px]"
-                style={{ color: accent }}
-              >
-                {project.category}
-              </span>
-            </div>
-          </div>
-        );
-      })}
-
-      {/* Gradient fade over center where text lives */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "radial-gradient(ellipse 60% 50% at 40% 50%, var(--paper) 30%, transparent 70%)",
-        }}
-      />
-    </div>
-  );
-}
 
 const STAGGER_MS = 120;
 const FLIP_DURATION = 400;
@@ -216,17 +126,14 @@ function FlippingWord() {
 export default function Brand() {
   return (
     <section className="relative overflow-hidden px-6 pb-16 pt-4 md:px-12 lg:px-20">
-      {/* Floating project cards */}
-      <FloatingCards />
-
       {/* Corner bracket — top right */}
       <div className="absolute top-4 right-6 h-16 w-16 border-t-2 border-r-2 border-[#049B9F]/25 lg:right-20" />
       {/* Corner bracket — bottom left */}
       <div className="absolute bottom-4 left-6 h-16 w-16 border-b-2 border-l-2 border-[#049B9F]/25 lg:left-20" />
 
-      {/* Floating teal circle — decorative */}
+      {/* Teal circle — decorative */}
       <div className="absolute top-12 right-[15%] hidden lg:block">
-        <div className="animate-spin-slow h-20 w-20 rounded-full border-2 border-dashed border-[#049B9F]/20" />
+        <div className="h-20 w-20 rounded-full border-2 border-dashed border-[#049B9F]/20" />
         <div className="absolute inset-3 rounded-full border border-[#049B9F]/10" />
       </div>
 
@@ -254,11 +161,6 @@ export default function Brand() {
           </div>
 
           <div className="animate-fade-up flex-1" style={{ animationDelay: "0.3s" }}>
-            <img
-              src="/logo-transparent-5.png"
-              alt="DW Tailored Systems"
-              className="mb-4 w-64 md:w-80"
-            />
             <h1 className="font-[Bungee] text-3xl leading-tight text-[#2C2C2C] md:text-5xl">
               SOFTWARE THAT FITS.<br />
               GUARANTEED TO SAVE YOU

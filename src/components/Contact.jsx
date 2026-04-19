@@ -1,5 +1,3 @@
-import { SlidingBars, ConfettiBurst } from "./ScrollGraphics";
-
 export default function Contact() {
   return (
     <section id="contact" className="relative w-full px-6 py-20 md:px-12 lg:px-20">
@@ -10,14 +8,12 @@ export default function Contact() {
         <span className="absolute top-2 left-[-1.5px] h-1 w-1 rounded-full bg-[#049B9F]/20" />
       </div>
 
-      {/* Floating diamond */}
+      {/* Static diamond */}
       <div className="absolute bottom-20 right-[8%] hidden lg:block">
-        <div className="animate-float h-5 w-5 rotate-45 border border-[#049B9F]/20" />
+        <div className="h-5 w-5 rotate-45 border border-[#049B9F]/20" />
       </div>
 
-      <SlidingBars className="absolute top-20 right-[5%] hidden lg:block" direction="right" />
-
-      <div className="relative z-10 mx-auto max-w-5xl">
+<div className="relative z-10 mx-auto max-w-5xl">
         {/* Horizontal rule with label */}
         <div className="mb-12 flex items-center gap-3">
           <span className="h-px flex-1 bg-[#049B9F]/15" />
@@ -77,7 +73,6 @@ export default function Contact() {
           {/* Corner squares */}
           <span className="absolute -top-1.5 -left-1.5 hidden h-3 w-3 bg-[#D4A843] md:block" />
           <span className="absolute -top-1.5 -right-1.5 hidden h-3 w-3 bg-[#049B9F] md:block" />
-      <ConfettiBurst className="absolute bottom-12 left-[6%] hidden lg:block" />
 
           {/* Photo */}
           <div className="relative shrink-0">

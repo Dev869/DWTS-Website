@@ -1,5 +1,3 @@
-import { DiamondGrid, ScatterDots } from "./ScrollGraphics";
-
 const services = [
   {
     title: "Product Engineering",
@@ -29,7 +27,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative w-full bg-[#F5F0E3] px-6 py-20 md:px-12 lg:px-20">
+    <section id="services" className="relative w-full bg-[#FFFFFF] px-6 py-20 md:px-12 lg:px-20">
       {/* Top zigzag border */}
       <div className="absolute top-0 left-0 right-0 h-3 overflow-hidden">
         <svg viewBox="0 0 1200 12" preserveAspectRatio="none" className="h-3 w-full">
@@ -44,10 +42,7 @@ export default function Services() {
         <div className="absolute inset-12 rounded-full bg-[#049B9F]/3" />
       </div>
 
-      <DiamondGrid className="absolute top-24 left-[4%] hidden lg:block" />
-      <ScatterDots className="absolute bottom-16 right-[6%] hidden lg:block" />
-
-      <div className="relative z-10 mx-auto max-w-5xl">
+<div className="relative z-10 mx-auto max-w-5xl">
         {/* Header with line */}
         <div className="animate-fade-up mb-12 flex items-end gap-6">
           <h2 className="font-[Bungee] text-4xl text-[#2C2C2C] md:text-5xl">
@@ -65,11 +60,11 @@ export default function Services() {
           {services.map((s, i) => (
             <div
               key={s.title}
-              className="animate-fade-up press-feedback relative border border-[#049B9F]/15 bg-[#EDE6D6] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#049B9F]/30 hover:shadow-lg"
+              className="animate-fade-up press-feedback relative border border-[#049B9F]/15 bg-[#F5F6F8] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#049B9F]/30 hover:shadow-lg"
               style={{ animationDelay: `${0.1 * i}s` }}
             >
               {/* Icon stamp */}
-              <span className="absolute -top-3 left-5 bg-[#F5F0E3] px-2 font-[Bungee] text-lg text-[#049B9F]">
+              <span className="absolute -top-3 left-5 bg-[#FFFFFF] px-2 font-[Bungee] text-lg text-[#049B9F]">
                 {s.icon}
               </span>
 

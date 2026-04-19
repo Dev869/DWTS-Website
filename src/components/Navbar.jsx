@@ -17,11 +17,12 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-5 md:px-12 lg:px-20">
-        <Link to="/" className="flex items-center gap-3">
-          <img src="/logo-dw.png" alt="DW" className="h-12 w-auto object-contain" />
-          <span className="font-[Bungee] text-xl tracking-wide text-[#2C2C2C] md:text-2xl">
-            Tailored Systems
-          </span>
+        <Link to="/" className="flex items-center" aria-label="DW Tailored Systems — Home">
+          <img
+            src="/logo-transparent-5.png"
+            alt="DW Tailored Systems"
+            className="h-12 w-auto object-contain md:h-14"
+          />
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">

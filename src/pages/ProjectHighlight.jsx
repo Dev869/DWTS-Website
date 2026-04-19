@@ -1,5 +1,4 @@
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import projects from "../data/projects";
 import ShowcaseLayout from "../components/highlights/ShowcaseLayout";
 import CaseStudyLayout from "../components/highlights/CaseStudyLayout";
@@ -38,15 +37,10 @@ export default function ProjectHighlight() {
   const LayoutComponent = layouts[project.layout] || ShowcaseLayout;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-    >
+    <div>
       <Navbar />
       <LayoutComponent project={project} />
       <Footer />
-    </motion.div>
+    </div>
   );
 }

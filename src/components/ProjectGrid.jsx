@@ -1,6 +1,5 @@
 import projects from "../data/projects";
 import ProjectCard from "./ProjectCard";
-import { OrbitRings, SlidingBars } from "./ScrollGraphics";
 
 export default function ProjectGrid() {
   return (
@@ -14,10 +13,7 @@ export default function ProjectGrid() {
         <span className="absolute top-2.5 left-[-2.5px] block h-px w-6 bg-[#049B9F]/20" />
       </div>
 
-      <OrbitRings className="absolute top-32 right-[3%] hidden lg:block" />
-      <SlidingBars className="absolute bottom-24 left-[2%] hidden lg:block" />
-
-      <div className="relative z-10 mx-auto max-w-5xl">
+<div className="relative z-10 mx-auto max-w-5xl">
         {/* Section header */}
         <div className="animate-fade-up mb-10 flex items-end gap-6">
           <h2 className="font-[Bungee] text-4xl text-[#2C2C2C] md:text-5xl">

@@ -1,19 +1,10 @@
-import { motion } from "framer-motion";
-
 export default function DeviceMockup({ image, title, url }) {
   if (!image) return null;
 
   return (
     <div className="px-6 py-16 md:px-12 lg:px-20">
       <div className="mx-auto max-w-5xl">
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0, y: 40, rotateX: 8 }}
-          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ perspective: 1200 }}
-        >
+        <div className="relative" style={{ perspective: 1200 }}>
           {/* Laptop body */}
           <div className="overflow-hidden rounded-t-xl border-2 border-[#2C2C2C]/20 bg-[#2C2C2C] shadow-2xl">
             {/* Browser chrome */}
@@ -24,7 +15,7 @@ export default function DeviceMockup({ image, title, url }) {
                 <span className="h-2.5 w-2.5 rounded-full bg-[#7A8B4A]/70" />
               </div>
               <div className="flex-1 rounded bg-[#2C2C2C] px-4 py-1">
-                <span className="font-mono text-[10px] text-[#EDE6D6]/30">
+                <span className="font-mono text-[10px] text-[#F5F6F8]/30">
                   {url || `dwtailoredsystems.com/project/${title?.toLowerCase().replace(/\s+/g, '-')}`}
                 </span>
               </div>
@@ -51,7 +42,7 @@ export default function DeviceMockup({ image, title, url }) {
 
           {/* Shadow */}
           <div className="mx-auto mt-2 h-2 w-[80%] rounded-full bg-[#2C2C2C]/10 blur-md" />
-        </motion.div>
+        </div>
       </div>
     </div>
   );
