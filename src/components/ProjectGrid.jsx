@@ -1,7 +1,8 @@
-import projects from "../data/projects";
 import ProjectCard from "./ProjectCard";
+import { useProjects } from "../hooks/useProjects";
 
 export default function ProjectGrid() {
+  const { projects } = useProjects();
   return (
     <section id="portfolio" className="relative w-full px-6 pb-20 md:px-12 lg:px-20">
       {/* Decorative side line */}

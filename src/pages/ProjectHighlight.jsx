@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import projects from "../data/projects";
+import { useProjects } from "../hooks/useProjects";
 import ShowcaseLayout from "../components/highlights/ShowcaseLayout";
 import CaseStudyLayout from "../components/highlights/CaseStudyLayout";
 import InteractiveLayout from "../components/highlights/InteractiveLayout";
@@ -14,7 +14,18 @@ const layouts = {
 
 export default function ProjectHighlight() {
   const { slug } = useParams();
+  const { projects, loading } = useProjects();
   const project = projects.find((p) => p.slug === slug);
+
+  if (!project && loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="flex min-h-[60vh] items-center justify-center text-sm text-[#4B5563]">Loading…</div>
+        <Footer />
+      </>
+    );
+  }
 
   if (!project) {
     return (
