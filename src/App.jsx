@@ -1,11 +1,11 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Admin from "./pages/Admin";
-import Home from "./pages/Mockup";
-import About from "./pages/mockup/About";
-import Work from "./pages/mockup/Work";
-import Contact from "./pages/mockup/Contact";
-import ProjectDetail from "./pages/mockup/ProjectDetail";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Work from "./pages/Work";
+import Contact from "./pages/Contact";
+import ProjectDetail from "./pages/ProjectDetail";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
