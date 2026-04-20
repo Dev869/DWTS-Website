@@ -5,6 +5,7 @@ import CTABar from "./CTABar";
 import FeatureGrid from "./FeatureGrid";
 import ArchitectureDiagram from "./ArchitectureDiagram";
 import DeviceMockup from "./DeviceMockup";
+import GalleryGrid from "./GalleryGrid";
 import ProcessFlow from "./ProcessFlow";
 import BeforeAfter from "./BeforeAfter";
 import QuoteCallout from "./QuoteCallout";
@@ -95,45 +96,7 @@ export default function ShowcaseLayout({ project }) {
       <ArchitectureDiagram techStack={project.techStack} title={project.title} />
 
       {/* Gallery */}
-      {project.gallery && project.gallery.length > 0 && (
-        <div className="px-6 py-10 md:px-12 lg:px-20">
-          <div className="mx-auto max-w-5xl">
-            <SectionReveal>
-              <h3 className="font-[Bungee] mb-8 text-sm tracking-[0.15em] text-[#2C2C2C]">
-                Gallery
-              </h3>
-            </SectionReveal>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {project.gallery.map((item, i) => (
-                <SectionReveal
-                  key={i}
-                  delay={i * 0.1}
-                  direction={i % 2 === 0 ? "left" : "right"}
-                >
-                  <div className="group cursor-pointer overflow-hidden border border-dashed border-[#2C2C2C]/10 bg-[#FFFFFF] transition-all duration-500 hover:scale-[1.03] hover:shadow-lg">
-                    <div className="flex h-52 items-center justify-center overflow-hidden bg-[#F5F6F8]">
-                      {item.src ? (
-                        <img
-                          src={item.src}
-                          alt={item.caption || ""}
-                          className="h-full w-full object-cover object-top"
-                        />
-                      ) : (
-                        <span className="font-mono text-xs text-[#2C2C2C]/25">
-                          {item.caption || "screenshot"}
-                        </span>
-                      )}
-                    </div>
-                    {item.caption && (
-                      <div className="px-4 py-3 text-sm text-[#2C2C2C]/50">{item.caption}</div>
-                    )}
-                  </div>
-                </SectionReveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      <GalleryGrid items={project.gallery} siteUrl={project.link} />
 
       {/* Results */}
       <ResultsMetrics results={project.results} />

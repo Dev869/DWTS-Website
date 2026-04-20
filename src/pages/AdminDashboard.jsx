@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ImageField from "../components/admin/ImageField";
 
 const EMPTY_PROJECT = {
   title: "",
@@ -257,7 +258,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       results: pruneObjects(draft.results, ["metric", "label"]),
       features: pruneObjects(draft.features, ["icon", "title", "desc"]),
       processSteps: pruneObjects(draft.processSteps, ["label", "desc"]),
-      gallery: pruneObjects(draft.gallery, ["src", "caption"]),
+      gallery: pruneObjects(draft.gallery, ["src", "caption", "frame", "url"]),
       before: draft.before.map((s) => s.trim()).filter(Boolean),
       after: draft.after.map((s) => s.trim()).filter(Boolean),
     };
@@ -362,12 +363,11 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               className={inputClass}
             />
           </Field>
-          <Field label="Preview image URL">
-            <input
-              type="text"
+          <Field label="Preview image" className="md:col-span-2" hint="Shown in the project card + laptop mockup on the highlight page">
+            <ImageField
               value={draft.image}
-              onChange={(e) => update({ image: e.target.value })}
-              className={inputClass}
+              onChange={(v) => update({ image: v })}
+              placeholder="/previews/project.png or upload"
             />
           </Field>
           <Field label="Gradient classes" hint="e.g. from-amber-200 via-orange-100 to-yellow-50">
@@ -520,15 +520,9 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
         </Section>
 
         <Section title="Gallery">
-          <RowsEditor
+          <GalleryEditor
             rows={draft.gallery}
             onChange={(rows) => update({ gallery: rows })}
-            columns={[
-              { key: "src", label: "Image path", placeholder: "/previews/foo.png" },
-              { key: "caption", label: "Caption", placeholder: "Dashboard overview", textarea: true },
-            ]}
-            addLabel="+ Add image"
-            empty={{ src: "", caption: "" }}
           />
         </Section>
 
@@ -735,6 +729,104 @@ function StringListEditor({ items, onChange, placeholder, addLabel }) {
         className="rounded border border-dashed border-[#049B9F] bg-white px-3 py-1.5 text-xs font-semibold text-[#049B9F] transition-colors hover:bg-[#049B9F]/5"
       >
         {addLabel}
+      </button>
+    </div>
+  );
+}
+
+function GalleryEditor({ rows, onChange }) {
+  function updateRow(i, patch) {
+    onChange(rows.map((row, idx) => (idx === i ? { ...row, ...patch } : row)));
+  }
+  function removeRow(i) {
+    onChange(rows.filter((_, idx) => idx !== i));
+  }
+  function moveRow(i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= rows.length) return;
+    const next = [...rows];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  }
+  function addRow() {
+    onChange([...rows, { src: "", caption: "", frame: "browser", url: "" }]);
+  }
+
+  return (
+    <div className="md:col-span-2 space-y-3">
+      {rows.length === 0 && (
+        <p className="rounded border border-dashed border-[#E4E7EC] bg-[#F9FAFB] px-3 py-4 text-center text-xs text-[#4B5563]">
+          No images yet.
+        </p>
+      )}
+      {rows.map((row, i) => (
+        <div
+          key={i}
+          className="flex flex-col gap-3 rounded border border-[#E4E7EC] bg-[#F9FAFB] p-3 md:flex-row md:items-start"
+        >
+          <div className="flex-1 space-y-3">
+            <ImageField
+              label="Image"
+              value={row.src}
+              onChange={(v) => updateRow(i, { src: v })}
+              placeholder="/path or upload"
+            />
+            <div className="grid gap-3 md:grid-cols-3">
+              <div className="md:col-span-2">
+                <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-[#4B5563]">
+                  Caption
+                </span>
+                <input
+                  type="text"
+                  value={row.caption || ""}
+                  onChange={(e) => updateRow(i, { caption: e.target.value })}
+                  placeholder="Dashboard overview"
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-[#4B5563]">
+                  Frame
+                </span>
+                <select
+                  value={row.frame || "browser"}
+                  onChange={(e) => updateRow(i, { frame: e.target.value })}
+                  className={inputClass}
+                >
+                  <option value="browser">Browser</option>
+                  <option value="phone">Phone</option>
+                  <option value="none">None</option>
+                </select>
+              </div>
+            </div>
+            {row.frame !== "phone" && (row.frame === "browser" || !row.frame) && (
+              <div>
+                <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-[#4B5563]">
+                  URL shown in browser bar (optional)
+                </span>
+                <input
+                  type="text"
+                  value={row.url || ""}
+                  onChange={(e) => updateRow(i, { url: e.target.value })}
+                  placeholder="dwtailored.com/app"
+                  className={inputClass}
+                />
+              </div>
+            )}
+          </div>
+          <div className="flex items-start gap-1 md:flex-col">
+            <IconButton title="Move up" onClick={() => moveRow(i, -1)} disabled={i === 0}>↑</IconButton>
+            <IconButton title="Move down" onClick={() => moveRow(i, 1)} disabled={i === rows.length - 1}>↓</IconButton>
+            <IconButton title="Remove" onClick={() => removeRow(i)} variant="danger">✕</IconButton>
+          </div>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={addRow}
+        className="rounded border border-dashed border-[#049B9F] bg-white px-3 py-1.5 text-xs font-semibold text-[#049B9F] transition-colors hover:bg-[#049B9F]/5"
+      >
+        + Add image
       </button>
     </div>
   );
