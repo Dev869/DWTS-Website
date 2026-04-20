@@ -208,7 +208,8 @@ function SectionRule({ left, right, accent = PALETTE.teal }) {
 }
 
 function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
-  const hasImage = Boolean(project.image);
+  const previewSrc = project.previewImage || project.image;
+  const hasImage = Boolean(previewSrc);
   const quote = project.quote || project.headline || project.description?.slice(0, 160);
   const tags = (project.techStack || project.tags || []).slice(0, 4);
 
@@ -322,7 +323,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
           <span className="absolute bottom-6 right-6 h-4 w-4 border-b-2 border-r-2" style={{ borderColor: `${accent}55` }} />
           {hasImage ? (
             <motion.img
-              src={project.image}
+              src={previewSrc}
               alt={project.title}
               initial={{ scale: 0.96, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -460,9 +461,9 @@ function CarouselCard({ project, distance, isActive, accent }) {
         }}
         className="relative overflow-hidden rounded-[22px] border"
       >
-        {project.image ? (
+        {(project.previewImage || project.image) ? (
           <motion.img
-            src={project.image}
+            src={project.previewImage || project.image}
             alt={project.title}
             draggable={false}
             animate={{ scale: isActive && hovering ? 1.06 : 1 }}

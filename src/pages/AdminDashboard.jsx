@@ -234,6 +234,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     layout: project.layout || "showcase",
     headline: project.headline || "",
     image: project.image || "",
+    previewImage: project.previewImage || "",
     problemImage: project.problemImage || "",
     approachImage: project.approachImage || "",
     link: project.link || "",
@@ -293,6 +294,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       layout: draft.layout,
       headline: draft.headline,
       image: draft.image,
+      previewImage: draft.previewImage,
       problemImage: draft.problemImage,
       approachImage: draft.approachImage,
       link: draft.link,
@@ -442,7 +444,22 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               className={inputClass}
             />
           </Field>
-          <Field label="Preview image" className="md:col-span-2" hint="Shown in the project card + laptop mockup on the highlight page">
+          <Field
+            label="Card preview image"
+            className="md:col-span-2"
+            hint="Small thumbnail shown on the home carousel and the Work list. Leave blank to fall back to the hero image."
+          >
+            <ImageField
+              value={draft.previewImage}
+              onChange={(v) => update({ previewImage: v })}
+              placeholder="/previews/project-card.png or upload"
+            />
+          </Field>
+          <Field
+            label="Project hero image"
+            className="md:col-span-2"
+            hint="Full-width image at the top of the project detail page."
+          >
             <ImageField
               value={draft.image}
               onChange={(v) => update({ image: v })}

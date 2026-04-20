@@ -77,9 +77,9 @@ function ProjectRow({ project, index }) {
             />
 
             <div className="relative aspect-[4/3] overflow-hidden">
-              {project.image ? (
+              {(project.previewImage || project.image) ? (
                 <motion.img
-                  src={project.image}
+                  src={project.previewImage || project.image}
                   alt={project.title}
                   className="h-full w-full object-cover"
                   initial={{ scale: 1 }}
