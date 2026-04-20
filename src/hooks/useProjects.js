@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import seedProjects from "../data/projects";
 
 export function useProjects() {
-  const [projects, setProjects] = useState(seedProjects);
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -17,10 +17,14 @@ export function useProjects() {
         if (cancelled) return;
         if (Array.isArray(data.projects) && data.projects.length > 0) {
           setProjects(data.projects);
+        } else {
+          setProjects(seedProjects);
         }
       })
       .catch((err) => {
-        if (!cancelled) setError(err);
+        if (cancelled) return;
+        setError(err);
+        setProjects(seedProjects);
       })
       .finally(() => {
         if (!cancelled) setLoading(false);

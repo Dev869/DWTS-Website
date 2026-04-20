@@ -2,7 +2,7 @@ import ProjectCard from "./ProjectCard";
 import { useProjects } from "../hooks/useProjects";
 
 export default function ProjectGrid() {
-  const { projects } = useProjects();
+  const { projects, loading } = useProjects();
   return (
     <section id="portfolio" className="relative w-full px-6 pb-20 md:px-12 lg:px-20">
       {/* Decorative side line */}
@@ -38,11 +38,22 @@ export default function ProjectGrid() {
           <span className="absolute -bottom-1.5 -left-1.5 h-3 w-3 bg-[#06B5B9]" />
           <span className="absolute -bottom-1.5 -right-1.5 h-3 w-3 bg-[#03888B]" />
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  className="h-[360px] animate-pulse rounded-lg border border-[#E4E7EC] bg-white"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {projects.map((project, i) => (
+                <ProjectCard key={project.id} project={project} index={i} />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Bottom flourish */}
