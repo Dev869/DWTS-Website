@@ -193,26 +193,19 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     beta: !!project.beta,
     tags: (project.tags || []).join(", "),
     techStack: (project.techStack || []).join(", "),
+    problem: project.problem || "",
+    approach: project.approach || "",
+    quote: project.quote || "",
+    quoteAttribution: project.quoteAttribution || "",
+    gradient: project.gradient || "",
+    results: project.results || [],
+    features: project.features || [],
+    processSteps: project.processSteps || [],
+    before: project.before || [],
+    after: project.after || [],
+    gallery: project.gallery || [],
   }));
-  const [advancedJson, setAdvancedJson] = useState(() =>
-    JSON.stringify(
-      {
-        problem: project.problem || "",
-        approach: project.approach || "",
-        results: project.results || [],
-        features: project.features || [],
-        processSteps: project.processSteps || [],
-        before: project.before || [],
-        after: project.after || [],
-        quote: project.quote || "",
-        quoteAttribution: project.quoteAttribution || "",
-        gallery: project.gallery || [],
-        gradient: project.gradient || "",
-      },
-      null,
-      2,
-    ),
-  );
+  const [showRawJson, setShowRawJson] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -227,20 +220,23 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       .filter(Boolean);
   }
 
+  function pruneObjects(rows, keys) {
+    return rows
+      .map((row) => {
+        const cleaned = {};
+        for (const k of keys) {
+          if (row[k] != null && String(row[k]).trim() !== "") cleaned[k] = row[k];
+        }
+        return cleaned;
+      })
+      .filter((row) => Object.keys(row).length > 0);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setSaving(true);
     setError("");
-    let advanced;
-    try {
-      advanced = advancedJson.trim() ? JSON.parse(advancedJson) : {};
-    } catch (err) {
-      setError(`Advanced JSON is invalid: ${err.message}`);
-      setSaving(false);
-      return;
-    }
     const payload = {
-      ...advanced,
       title: draft.title,
       slug: draft.slug,
       description: draft.description,
@@ -253,6 +249,17 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       beta: draft.beta,
       tags: toArray(draft.tags),
       techStack: toArray(draft.techStack),
+      problem: draft.problem,
+      approach: draft.approach,
+      quote: draft.quote,
+      quoteAttribution: draft.quoteAttribution,
+      gradient: draft.gradient,
+      results: pruneObjects(draft.results, ["metric", "label"]),
+      features: pruneObjects(draft.features, ["icon", "title", "desc"]),
+      processSteps: pruneObjects(draft.processSteps, ["label", "desc"]),
+      gallery: pruneObjects(draft.gallery, ["src", "caption"]),
+      before: draft.before.map((s) => s.trim()).filter(Boolean),
+      after: draft.after.map((s) => s.trim()).filter(Boolean),
     };
 
     const url = isNew ? "/api/admin/projects" : `/api/admin/projects/${project.id}`;
@@ -286,7 +293,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               {isNew ? "New project" : `Edit — ${project.title}`}
             </h1>
             <p className="text-xs text-[#4B5563]">
-              Top-level fields are direct inputs. Nested content is edited as JSON below.
+              All fields are editable below. Use the Raw JSON view for bulk paste/backup.
             </p>
           </div>
           <button
@@ -415,18 +422,129 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
           </Field>
         </div>
 
-        <div className="mt-8">
-          <Field
-            label="Advanced (JSON)"
-            hint="Nested fields: problem, approach, results, features, processSteps, before, after, quote, quoteAttribution, gallery, gradient."
-          >
+        <Section title="Narrative">
+          <Field label="Problem" className="md:col-span-2">
             <textarea
-              value={advancedJson}
-              onChange={(e) => setAdvancedJson(e.target.value)}
-              className={`${inputClass} min-h-[320px] font-mono text-xs`}
-              spellCheck={false}
+              value={draft.problem}
+              onChange={(e) => update({ problem: e.target.value })}
+              className={`${inputClass} min-h-[100px]`}
+              placeholder="What problem did this project solve?"
             />
           </Field>
+          <Field label="Approach" className="md:col-span-2">
+            <textarea
+              value={draft.approach}
+              onChange={(e) => update({ approach: e.target.value })}
+              className={`${inputClass} min-h-[100px]`}
+              placeholder="How did you solve it?"
+            />
+          </Field>
+        </Section>
+
+        <Section title="Results">
+          <RowsEditor
+            rows={draft.results}
+            onChange={(rows) => update({ results: rows })}
+            columns={[
+              { key: "metric", label: "Metric", placeholder: "80%", width: "w-32" },
+              { key: "label", label: "Label", placeholder: "Time saved" },
+            ]}
+            addLabel="+ Add result"
+            empty={{ metric: "", label: "" }}
+          />
+        </Section>
+
+        <Section title="Features">
+          <RowsEditor
+            rows={draft.features}
+            onChange={(rows) => update({ features: rows })}
+            columns={[
+              { key: "icon", label: "Icon", placeholder: "chart", width: "w-28" },
+              { key: "title", label: "Title", placeholder: "Auto-Categorization", width: "w-56" },
+              { key: "desc", label: "Description", placeholder: "What it does…", textarea: true },
+            ]}
+            addLabel="+ Add feature"
+            empty={{ icon: "", title: "", desc: "" }}
+          />
+        </Section>
+
+        <Section title="Process steps">
+          <RowsEditor
+            rows={draft.processSteps}
+            onChange={(rows) => update({ processSteps: rows })}
+            columns={[
+              { key: "label", label: "Step", placeholder: "Detect", width: "w-40" },
+              { key: "desc", label: "Description", placeholder: "What happens…", textarea: true },
+            ]}
+            addLabel="+ Add step"
+            empty={{ label: "", desc: "" }}
+          />
+        </Section>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <Section title="Before (pain points)">
+            <StringListEditor
+              items={draft.before}
+              onChange={(items) => update({ before: items })}
+              placeholder="Manual expense tracking…"
+              addLabel="+ Add before item"
+            />
+          </Section>
+          <Section title="After (outcomes)">
+            <StringListEditor
+              items={draft.after}
+              onChange={(items) => update({ after: items })}
+              placeholder="Fully automated pipeline…"
+              addLabel="+ Add after item"
+            />
+          </Section>
+        </div>
+
+        <Section title="Testimonial / quote">
+          <Field label="Quote" className="md:col-span-2">
+            <textarea
+              value={draft.quote}
+              onChange={(e) => update({ quote: e.target.value })}
+              className={`${inputClass} min-h-[80px]`}
+            />
+          </Field>
+          <Field label="Attribution">
+            <input
+              type="text"
+              value={draft.quoteAttribution}
+              onChange={(e) => update({ quoteAttribution: e.target.value })}
+              className={inputClass}
+              placeholder="Built for Acme Corp"
+            />
+          </Field>
+        </Section>
+
+        <Section title="Gallery">
+          <RowsEditor
+            rows={draft.gallery}
+            onChange={(rows) => update({ gallery: rows })}
+            columns={[
+              { key: "src", label: "Image path", placeholder: "/previews/foo.png" },
+              { key: "caption", label: "Caption", placeholder: "Dashboard overview", textarea: true },
+            ]}
+            addLabel="+ Add image"
+            empty={{ src: "", caption: "" }}
+          />
+        </Section>
+
+        <div className="mt-10">
+          <button
+            type="button"
+            onClick={() => setShowRawJson((v) => !v)}
+            className="text-xs font-medium uppercase tracking-wide text-[#4B5563] transition-colors hover:text-[#049B9F]"
+          >
+            {showRawJson ? "▾ Hide" : "▸ Show"} raw JSON (read-only)
+          </button>
+          {showRawJson && (
+            <pre className="mt-3 max-h-80 overflow-auto rounded border border-[#E4E7EC] bg-[#F9FAFB] p-3 font-mono text-[11px] text-[#1F2328]">
+              {JSON.stringify(draft, null, 2)}
+            </pre>
+          )}
         </div>
 
         {error && (
@@ -469,5 +587,175 @@ function Field({ label, hint, children, required, className = "" }) {
       {children}
       {hint && <span className="mt-1 block text-xs text-[#4B5563]">{hint}</span>}
     </label>
+  );
+}
+
+function Section({ title, children }) {
+  return (
+    <section className="mt-8 rounded-lg border border-[#E4E7EC] bg-white p-5">
+      <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#1F2328]">{title}</h3>
+      <div className="grid gap-4 md:grid-cols-2">{children}</div>
+    </section>
+  );
+}
+
+function RowsEditor({ rows, onChange, columns, addLabel, empty }) {
+  function updateRow(i, patch) {
+    const next = rows.map((row, idx) => (idx === i ? { ...row, ...patch } : row));
+    onChange(next);
+  }
+  function removeRow(i) {
+    onChange(rows.filter((_, idx) => idx !== i));
+  }
+  function moveRow(i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= rows.length) return;
+    const next = [...rows];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  }
+  function addRow() {
+    onChange([...rows, { ...empty }]);
+  }
+
+  return (
+    <div className="md:col-span-2 space-y-3">
+      {rows.length === 0 && (
+        <p className="rounded border border-dashed border-[#E4E7EC] bg-[#F9FAFB] px-3 py-4 text-center text-xs text-[#4B5563]">
+          No entries yet.
+        </p>
+      )}
+      {rows.map((row, i) => (
+        <div
+          key={i}
+          className="flex flex-col gap-2 rounded border border-[#E4E7EC] bg-[#F9FAFB] p-3 md:flex-row md:items-start"
+        >
+          <div className="flex flex-1 flex-col gap-2 md:flex-row">
+            {columns.map((col) => (
+              <div key={col.key} className={`flex-1 ${col.width || ""}`}>
+                <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-[#4B5563]">
+                  {col.label}
+                </span>
+                {col.textarea ? (
+                  <textarea
+                    value={row[col.key] || ""}
+                    onChange={(e) => updateRow(i, { [col.key]: e.target.value })}
+                    placeholder={col.placeholder}
+                    className={`${inputClass} min-h-[52px]`}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    value={row[col.key] || ""}
+                    onChange={(e) => updateRow(i, { [col.key]: e.target.value })}
+                    placeholder={col.placeholder}
+                    className={inputClass}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="flex items-start gap-1 md:flex-col">
+            <IconButton title="Move up" onClick={() => moveRow(i, -1)} disabled={i === 0}>
+              ↑
+            </IconButton>
+            <IconButton
+              title="Move down"
+              onClick={() => moveRow(i, 1)}
+              disabled={i === rows.length - 1}
+            >
+              ↓
+            </IconButton>
+            <IconButton title="Remove" onClick={() => removeRow(i)} variant="danger">
+              ✕
+            </IconButton>
+          </div>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={addRow}
+        className="rounded border border-dashed border-[#049B9F] bg-white px-3 py-1.5 text-xs font-semibold text-[#049B9F] transition-colors hover:bg-[#049B9F]/5"
+      >
+        {addLabel}
+      </button>
+    </div>
+  );
+}
+
+function StringListEditor({ items, onChange, placeholder, addLabel }) {
+  function updateItem(i, value) {
+    onChange(items.map((v, idx) => (idx === i ? value : v)));
+  }
+  function removeItem(i) {
+    onChange(items.filter((_, idx) => idx !== i));
+  }
+  function moveItem(i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= items.length) return;
+    const next = [...items];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  }
+
+  return (
+    <div className="md:col-span-2 space-y-2">
+      {items.length === 0 && (
+        <p className="rounded border border-dashed border-[#E4E7EC] bg-[#F9FAFB] px-3 py-3 text-center text-xs text-[#4B5563]">
+          No entries yet.
+        </p>
+      )}
+      {items.map((value, i) => (
+        <div key={i} className="flex items-center gap-1">
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => updateItem(i, e.target.value)}
+            placeholder={placeholder}
+            className={inputClass}
+          />
+          <IconButton title="Move up" onClick={() => moveItem(i, -1)} disabled={i === 0}>
+            ↑
+          </IconButton>
+          <IconButton
+            title="Move down"
+            onClick={() => moveItem(i, 1)}
+            disabled={i === items.length - 1}
+          >
+            ↓
+          </IconButton>
+          <IconButton title="Remove" onClick={() => removeItem(i)} variant="danger">
+            ✕
+          </IconButton>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => onChange([...items, ""])}
+        className="rounded border border-dashed border-[#049B9F] bg-white px-3 py-1.5 text-xs font-semibold text-[#049B9F] transition-colors hover:bg-[#049B9F]/5"
+      >
+        {addLabel}
+      </button>
+    </div>
+  );
+}
+
+function IconButton({ children, onClick, disabled, title, variant }) {
+  const danger = variant === "danger";
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      title={title}
+      aria-label={title}
+      className={`flex h-7 w-7 items-center justify-center rounded border text-xs transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+        danger
+          ? "border-[#E4E7EC] text-[#4B5563] hover:border-red-400 hover:text-red-600"
+          : "border-[#E4E7EC] text-[#4B5563] hover:border-[#049B9F] hover:text-[#049B9F]"
+      }`}
+    >
+      {children}
+    </button>
   );
 }
