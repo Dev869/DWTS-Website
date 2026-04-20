@@ -103,7 +103,8 @@ export default function About() {
                   style={{ ...MONO, color: PALETTE.teal }}
                   className="mt-8 text-[11px] uppercase tracking-[0.28em]"
                 >
-                  · Forward Deployed Engineer
+                  · Systems Architect &nbsp;|&nbsp; Bespoke software for
+                  research labs &amp; business operations
                 </motion.p>
 
                 <motion.p
