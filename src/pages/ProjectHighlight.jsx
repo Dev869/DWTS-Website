@@ -17,9 +17,8 @@ const layouts = {
 export default function ProjectHighlight() {
   const { slug } = useParams();
   const { projects, loading } = useProjects();
-  const project = projects.find((p) => p.slug === slug);
 
-  if (!project && loading) {
+  if (loading) {
     return (
       <>
         <Navbar />
@@ -28,6 +27,8 @@ export default function ProjectHighlight() {
       </>
     );
   }
+
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     return (
