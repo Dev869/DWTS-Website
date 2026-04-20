@@ -18,6 +18,8 @@ export default function ProductLayout({ project }) {
     problem,
     approach,
     image,
+    problemImage,
+    approachImage,
     gallery = [],
     quote,
     quoteAttribution,
@@ -25,6 +27,13 @@ export default function ProductLayout({ project }) {
     demoUrl,
     beta,
   } = project;
+
+  const problemIllustration = problemImage || gallery[0]?.src;
+  const problemIllustrationCaption = problemImage ? null : gallery[0]?.caption;
+  const approachIllustration = approachImage || gallery[1]?.src || gallery[0]?.src;
+  const approachIllustrationCaption = approachImage
+    ? null
+    : gallery[1]?.caption || gallery[0]?.caption;
 
   const siteUrl = link || demoUrl;
 
@@ -141,8 +150,8 @@ export default function ProductLayout({ project }) {
           eyebrow="The problem"
           title="Why this project existed"
           body={problem}
-          image={gallery[0]?.src}
-          imageCaption={gallery[0]?.caption}
+          image={problemIllustration}
+          imageCaption={problemIllustrationCaption}
         />
       )}
 
@@ -153,8 +162,8 @@ export default function ProductLayout({ project }) {
           eyebrow="The approach"
           title="How it was built"
           body={approach}
-          image={gallery[1]?.src || gallery[0]?.src}
-          imageCaption={gallery[1]?.caption || gallery[0]?.caption}
+          image={approachIllustration}
+          imageCaption={approachIllustrationCaption}
         />
       )}
 
