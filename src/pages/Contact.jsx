@@ -13,7 +13,7 @@ import {
   useCalCom,
   CAL_LINK,
   CAL_NAMESPACE,
-} from "./shared.jsx";
+} from "./_shared.jsx";
 
 function useRise() {
   const reduced = useReducedMotion();

@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { useProjects } from "../../hooks/useProjects";
+import { useProjects } from "../hooks/useProjects";
 import {
   PALETTE,
   STRIPE_COLORS,
@@ -11,7 +11,7 @@ import {
   StripeBar,
   FooterBlock,
   BookCallButton,
-} from "./shared.jsx";
+} from "./_shared.jsx";
 
 function useRise() {
   const reduced = useReducedMotion();
