@@ -247,6 +247,9 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     approach: project.approach || "",
     quote: project.quote || "",
     quoteAttribution: project.quoteAttribution || "",
+    cardText: project.cardText || "",
+    cardTextStyle: project.cardTextStyle || "quote",
+    cardKicker: project.cardKicker || "",
     gradient: project.gradient || "",
     results: project.results || [],
     features: project.features || [],
@@ -309,6 +312,9 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       approach: draft.approach,
       quote: draft.quote,
       quoteAttribution: draft.quoteAttribution,
+      cardText: draft.cardText,
+      cardTextStyle: draft.cardTextStyle,
+      cardKicker: draft.cardKicker,
       gradient: draft.gradient,
       results: pruneObjects(draft.results, ["metric", "label"]),
       features: pruneObjects(draft.features, ["icon", "title", "desc"]),
@@ -678,6 +684,36 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               onChange={(e) => update({ quoteAttribution: e.target.value })}
               className={inputClass}
               placeholder="Built for Acme Corp"
+            />
+          </Field>
+        </Section>
+
+        <Section title="Home card — dark panel text">
+          <Field label="Card body (overrides quote / headline / description)" className="md:col-span-2">
+            <textarea
+              value={draft.cardText}
+              onChange={(e) => update({ cardText: e.target.value })}
+              placeholder="Leave blank to use the project quote."
+              className={`${inputClass} min-h-[80px]`}
+            />
+          </Field>
+          <Field label="Render as">
+            <select
+              value={draft.cardTextStyle}
+              onChange={(e) => update({ cardTextStyle: e.target.value })}
+              className={inputClass}
+            >
+              <option value="quote">Quote (with decorative marks)</option>
+              <option value="plain">Plain prose (no quote marks)</option>
+            </select>
+          </Field>
+          <Field label="Kicker (overrides auto label)">
+            <input
+              type="text"
+              value={draft.cardKicker}
+              onChange={(e) => update({ cardKicker: e.target.value })}
+              placeholder={draft.cardTextStyle === "plain" ? "About the project" : "From the case study"}
+              className={inputClass}
             />
           </Field>
         </Section>

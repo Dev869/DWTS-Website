@@ -214,7 +214,13 @@ function SectionRule({ left, right, accent = PALETTE.teal }) {
 function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
   const previewSrc = project.previewImage || project.image;
   const hasImage = Boolean(previewSrc);
-  const quote = project.quote || project.headline || project.description?.slice(0, 160);
+  const cardBody =
+    project.cardText ||
+    project.quote ||
+    project.headline ||
+    project.description?.slice(0, 160);
+  const asQuote = (project.cardTextStyle || "quote") === "quote";
+  const kicker = project.cardKicker || (asQuote ? "From the case study" : "About the project");
   const tags = (project.techStack || project.tags || []).slice(0, 4);
 
   return (
@@ -262,22 +268,32 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
               style={MONO}
               className="mt-6 text-[11px] uppercase tracking-[0.28em]"
             >
-              <span style={{ color: `${PALETTE.paper}85` }}>From the case study</span>
+              <span style={{ color: `${PALETTE.paper}85` }}>{kicker}</span>
             </p>
 
-            {/* Quote — larger, brighter, more line-height for readability */}
-            <blockquote
-              style={SERIF}
-              className="mt-5 max-w-md text-[19px] leading-[1.55] text-[#F5F1E6] md:text-[22px]"
-            >
-              <span aria-hidden className="select-none" style={{ color: `${accent}`, fontSize: "1.1em", marginRight: "0.08em" }}>
-                &ldquo;
-              </span>
-              {quote}
-              <span aria-hidden className="select-none" style={{ color: `${accent}`, fontSize: "1.1em", marginLeft: "0.04em" }}>
-                &rdquo;
-              </span>
-            </blockquote>
+            {/* Card body — renders with decorative quote marks, or as plain
+                serif prose depending on cardTextStyle. */}
+            {asQuote ? (
+              <blockquote
+                style={SERIF}
+                className="mt-5 max-w-md text-[19px] leading-[1.55] text-[#F5F1E6] md:text-[22px]"
+              >
+                <span aria-hidden className="select-none" style={{ color: accent, fontSize: "1.1em", marginRight: "0.08em" }}>
+                  &ldquo;
+                </span>
+                {cardBody}
+                <span aria-hidden className="select-none" style={{ color: accent, fontSize: "1.1em", marginLeft: "0.04em" }}>
+                  &rdquo;
+                </span>
+              </blockquote>
+            ) : (
+              <p
+                style={SERIF}
+                className="mt-5 max-w-md text-[19px] leading-[1.55] text-[#F5F1E6] md:text-[22px]"
+              >
+                {cardBody}
+              </p>
+            )}
           </div>
 
           <div className="relative mt-12">
