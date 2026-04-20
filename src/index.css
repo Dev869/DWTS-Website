@@ -96,6 +96,13 @@ html { scroll-behavior: smooth; }
   color: white;
 }
 
+/* Horizontal work swiper — hide scrollbar, keep scroll */
+.work-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.work-track::-webkit-scrollbar { display: none; }
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
