@@ -20,6 +20,13 @@ export default function AdminDashboard({ onLogout }) {
   const [editing, setEditing] = useState(null);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState("");
+  const [toast, setToast] = useState("");
+
+  useEffect(() => {
+    if (!toast) return;
+    const id = setTimeout(() => setToast(""), 4000);
+    return () => clearTimeout(id);
+  }, [toast]);
 
   async function loadProjects() {
     setLoading(true);
@@ -70,10 +77,15 @@ export default function AdminDashboard({ onLogout }) {
           setEditing(null);
           setCreating(false);
         }}
-        onSaved={async () => {
+        onSaved={async (saved) => {
           setEditing(null);
           setCreating(false);
           await loadProjects();
+          setToast(
+            saved
+              ? `Saved "${saved.title}" — image: ${saved.image || "(none)"}`
+              : "Saved",
+          );
         }}
       />
     );
@@ -81,6 +93,12 @@ export default function AdminDashboard({ onLogout }) {
 
   return (
     <div className="min-h-screen bg-[#F5F6F8]">
+      {toast && (
+        <div className="fixed top-4 left-1/2 z-50 max-w-lg -translate-x-1/2 rounded-lg border border-[#049B9F]/40 bg-white px-4 py-3 text-sm text-[#1F2328] shadow-lg">
+          <span className="mr-2 text-[#049B9F]">✓</span>
+          <span className="break-all">{toast}</span>
+        </div>
+      )}
       <header className="border-b border-[#E4E7EC] bg-white px-6 py-4 md:px-10">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
           <div>
@@ -266,6 +284,8 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     const url = isNew ? "/api/admin/projects" : `/api/admin/projects/${project.id}`;
     const method = isNew ? "POST" : "PUT";
 
+    console.log("[admin] save →", method, url, payload);
+
     try {
       const res = await fetch(url, {
         method,
@@ -273,12 +293,28 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Save failed");
+      const text = await res.text();
+      let data = {};
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        /* non-JSON response */
       }
-      onSaved?.();
+      console.log("[admin] save response", res.status, data || text);
+      if (!res.ok) {
+        throw new Error(data.error || `Save failed (${res.status})`);
+      }
+      const savedImage = data.project?.image;
+      const sentImage = payload.image;
+      if (sentImage && savedImage !== sentImage) {
+        console.warn(
+          "[admin] saved project.image differs from what was sent",
+          { sent: sentImage, saved: savedImage },
+        );
+      }
+      onSaved?.(data.project);
     } catch (err) {
+      console.error("[admin] save error", err);
       setError(err.message);
     } finally {
       setSaving(false);
@@ -542,8 +578,21 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
         </div>
 
         {error && (
-          <div className="mt-4 rounded border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
-            {error}
+          <div className="sticky bottom-4 z-10 mt-4 rounded border-2 border-red-400 bg-red-50 p-4 text-sm font-semibold text-red-700 shadow-lg">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="mb-1 text-xs uppercase tracking-wide">Save failed</div>
+                <div className="font-normal">{error}</div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setError("")}
+                className="text-red-700 hover:text-red-900"
+                aria-label="Dismiss"
+              >
+                ✕
+              </button>
+            </div>
           </div>
         )}
 
