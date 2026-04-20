@@ -336,7 +336,7 @@ export function FooterBlock() {
           <motion.div {...rise(0.15)} className="mt-6 flex flex-wrap items-center gap-4">
             <BookCallButton label="Book a call" />
             <a
-              href="mailto:devin27wilson@gmail.com"
+              href="mailto:devin@dwtailored.com"
               style={MONO}
               className="group inline-flex items-center gap-2 border-b pb-1 text-[11px] uppercase tracking-[0.25em]"
             >
