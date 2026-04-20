@@ -52,8 +52,9 @@ const PRINCIPLES = [
 
 const TIMELINE = [
   { year: "2026", label: "DW Tailored Systems", detail: "Independent practice — product engineering + AI integration" },
-  { year: "2025", label: "Fluorescence Pipeline", detail: "Research toolkit, Loma Linda University" },
-  { year: "2024", label: "Pulse Wave Analysis", detail: "Cardiovascular research toolkit" },
+  { year: "2025", label: "B.S. Biological Sciences", detail: "UC Davis — started in Computer Science, graduated in Bio Sci" },
+  { year: "2025", label: "Fluorescence Pipeline", detail: "Summer research toolkit, Loma Linda University" },
+  { year: "2024", label: "Pulse Wave Analysis", detail: "Undergraduate research, M&M Lab, UC Davis" },
   { year: "2023", label: "DocuHub Reporting", detail: "Enterprise reporting platform" },
 ];
 
@@ -178,12 +179,15 @@ export default function About() {
                 style={SERIF}
                 className="text-[22px] leading-[1.55] text-[#2A2D28] md:text-[26px]"
               >
-                My first real programming job was stitching together analysis
-                scripts for a research lab that was drowning in fluorescence
-                microscopy images. The &ldquo;tool&rdquo; they were using was a
-                spreadsheet and a pile of Python snippets nobody wanted to
-                touch. A few weeks later, runs that used to take a day finished
-                in fifteen minutes. That was the hook.
+                I came to software through a side door. I started at UC
+                Davis in Computer Science and switched into Biological
+                Sciences, which is how I ended up with a foot in both worlds
+                — and how I landed my first real programming job stitching
+                together analysis scripts for a research lab drowning in
+                fluorescence microscopy images. The &ldquo;tool&rdquo; they
+                were using was a spreadsheet and a pile of Python snippets
+                nobody wanted to touch. A few weeks later, runs that used to
+                take a day finished in fifteen minutes. That was the hook.
               </motion.p>
               <motion.p
                 {...rise(0.15)}
