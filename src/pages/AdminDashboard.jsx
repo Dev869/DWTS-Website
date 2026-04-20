@@ -7,12 +7,39 @@ const EMPTY_PROJECT = {
   slug: "",
   description: "",
   category: "",
-  layout: "showcase",
+  layout: "product",
   tags: [],
   techStack: [],
 };
 
-const LAYOUTS = ["product", "showcase", "casestudy", "interactive"];
+const LAYOUT_OPTIONS = [
+  {
+    id: "product",
+    label: "Product",
+    tagline: "Airy hero, feature grid, alternating problem/approach blocks, dark results band. Best default.",
+    emphasis: ["Hero + CTAs", "Features grid", "Results band", "Before/After"],
+  },
+  {
+    id: "showcase",
+    label: "Showcase",
+    tagline: "Bold intro with device mockup; leans on visuals + feature cards.",
+    emphasis: ["Device mockup", "Feature grid", "Gallery"],
+  },
+  {
+    id: "casestudy",
+    label: "Case study",
+    tagline: "Narrative-heavy: Challenge → Approach → Key decisions with callouts.",
+    emphasis: ["Problem / Approach", "Key decisions", "Quote"],
+  },
+  {
+    id: "interactive",
+    label: "Interactive",
+    tagline: "Process-first layout with how-it-works steps and metrics up front.",
+    emphasis: ["Process flow", "Numbered steps", "Metrics"],
+  },
+];
+
+const LAYOUTS = LAYOUT_OPTIONS.map((l) => l.id);
 
 export default function AdminDashboard({ onLogout }) {
   const [projects, setProjects] = useState([]);
@@ -333,12 +360,24 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               All fields are editable below. Use the Raw JSON view for bulk paste/backup.
             </p>
           </div>
-          <button
-            onClick={onCancel}
-            className="rounded border border-[#E4E7EC] bg-white px-3 py-1.5 text-xs font-medium text-[#4B5563] transition-colors hover:border-[#049B9F] hover:text-[#049B9F]"
-          >
-            Cancel
-          </button>
+          <div className="flex gap-2">
+            {!isNew && project.slug && (
+              <a
+                href={`/project/${project.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded border border-[#E4E7EC] bg-white px-3 py-1.5 text-xs font-medium text-[#4B5563] transition-colors hover:border-[#049B9F] hover:text-[#049B9F]"
+              >
+                Preview ↗
+              </a>
+            )}
+            <button
+              onClick={onCancel}
+              className="rounded border border-[#E4E7EC] bg-white px-3 py-1.5 text-xs font-medium text-[#4B5563] transition-colors hover:border-[#049B9F] hover:text-[#049B9F]"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </header>
 
@@ -371,18 +410,16 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               className={inputClass}
             />
           </Field>
-          <Field label="Layout">
-            <select
+          <div />
+          <Field
+            label="Layout template"
+            hint="Choose the page structure. Switching swaps the rendered template — fields stay the same."
+            className="md:col-span-2"
+          >
+            <LayoutPicker
               value={draft.layout}
-              onChange={(e) => update({ layout: e.target.value })}
-              className={inputClass}
-            >
-              {LAYOUTS.map((l) => (
-                <option key={l} value={l}>
-                  {l}
-                </option>
-              ))}
-            </select>
+              onChange={(id) => update({ layout: id })}
+            />
           </Field>
           <Field label="Description" className="md:col-span-2">
             <textarea
@@ -630,6 +667,111 @@ function Field({ label, hint, children, required, className = "" }) {
       {children}
       {hint && <span className="mt-1 block text-xs text-[#4B5563]">{hint}</span>}
     </label>
+  );
+}
+
+function LayoutPicker({ value, onChange }) {
+  return (
+    <div className="grid gap-3 md:grid-cols-2">
+      {LAYOUT_OPTIONS.map((opt) => {
+        const selected = value === opt.id;
+        return (
+          <button
+            key={opt.id}
+            type="button"
+            onClick={() => onChange(opt.id)}
+            className={`group relative flex flex-col gap-3 rounded-lg border p-4 text-left transition-all ${
+              selected
+                ? "border-[#049B9F] bg-[#049B9F]/5 ring-2 ring-[#049B9F]/20"
+                : "border-[#E4E7EC] bg-white hover:border-[#049B9F]/40"
+            }`}
+            aria-pressed={selected}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-sm font-semibold text-[#1F2328]">{opt.label}</span>
+              <span
+                className={`flex h-5 w-5 items-center justify-center rounded-full border text-[10px] ${
+                  selected
+                    ? "border-[#049B9F] bg-[#049B9F] text-white"
+                    : "border-[#E4E7EC] bg-white text-transparent"
+                }`}
+                aria-hidden
+              >
+                ✓
+              </span>
+            </div>
+            <LayoutThumbnail id={opt.id} />
+            <p className="text-xs leading-relaxed text-[#4B5563]">{opt.tagline}</p>
+            <div className="flex flex-wrap gap-1">
+              {opt.emphasis.map((e) => (
+                <span
+                  key={e}
+                  className="rounded border border-[#E4E7EC] bg-[#F9FAFB] px-1.5 py-0.5 text-[10px] font-medium text-[#4B5563]"
+                >
+                  {e}
+                </span>
+              ))}
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function LayoutThumbnail({ id }) {
+  const base = "h-16 w-full rounded border border-[#E4E7EC] bg-white p-1.5 flex flex-col gap-1";
+  const bar = "rounded bg-[#E4E7EC]";
+  const accent = "rounded bg-[#049B9F]/40";
+  if (id === "product") {
+    return (
+      <div className={base}>
+        <div className="flex gap-1">
+          <div className={`${accent} h-2 w-1/3`} />
+          <div className={`${bar} h-2 flex-1`} />
+        </div>
+        <div className="grid flex-1 grid-cols-4 gap-1">
+          <div className={`${bar}`} />
+          <div className={`${bar}`} />
+          <div className={`${bar}`} />
+          <div className={`${bar}`} />
+        </div>
+      </div>
+    );
+  }
+  if (id === "showcase") {
+    return (
+      <div className={base}>
+        <div className={`${accent} h-3 w-full`} />
+        <div className="grid flex-1 grid-cols-3 gap-1">
+          <div className={`${bar}`} />
+          <div className={`${bar}`} />
+          <div className={`${bar}`} />
+        </div>
+      </div>
+    );
+  }
+  if (id === "casestudy") {
+    return (
+      <div className={base}>
+        <div className={`${accent} h-2 w-2/3`} />
+        <div className={`${bar} h-2 w-full`} />
+        <div className={`${bar} h-2 w-5/6`} />
+        <div className={`${bar} h-2 w-3/4`} />
+      </div>
+    );
+  }
+  // interactive
+  return (
+    <div className={base}>
+      <div className="flex flex-1 items-center gap-1">
+        <div className={`${accent} h-6 w-6 rounded-full`} />
+        <div className={`${bar} h-1 flex-1`} />
+        <div className={`${accent} h-6 w-6 rounded-full`} />
+        <div className={`${bar} h-1 flex-1`} />
+        <div className={`${accent} h-6 w-6 rounded-full`} />
+      </div>
+    </div>
   );
 }
 
