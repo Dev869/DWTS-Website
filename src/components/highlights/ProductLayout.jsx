@@ -41,7 +41,7 @@ export default function ProductLayout({ project }) {
     <article className="bg-[#F5F6F8] text-[#1F2328]">
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-[#E4E7EC] bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-28 lg:grid lg:grid-cols-2 lg:gap-14 lg:py-32">
+        <div className="mx-auto max-w-6xl px-6 py-14 md:px-10 md:py-28 lg:grid lg:grid-cols-2 lg:gap-14 lg:py-32">
           <div>
             <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#049B9F]">
               {category && <span>{category}</span>}
@@ -51,7 +51,7 @@ export default function ProductLayout({ project }) {
                 </span>
               )}
             </div>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-[#1F2328] md:text-6xl">
+            <h1 className="mt-4 text-3xl font-semibold leading-[1.05] tracking-tight text-[#1F2328] sm:text-4xl md:text-6xl">
               {title}
             </h1>
             {headline && (
@@ -105,7 +105,7 @@ export default function ProductLayout({ project }) {
           </div>
 
           {image && (
-            <div className="mt-12 lg:mt-0">
+            <div className="mt-10 lg:mt-0">
               <BrowserFrame url={siteUrl}>
                 <img src={image} alt={`${title} preview`} className="w-full" />
               </BrowserFrame>
