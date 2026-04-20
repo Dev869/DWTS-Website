@@ -8,6 +8,7 @@ import {
   StripeBar,
   FooterBlock,
   BookCallButton,
+  Portrait,
 } from "./_shared.jsx";
 
 function useRise() {
@@ -52,9 +53,9 @@ const PRINCIPLES = [
 
 const TIMELINE = [
   { year: "2026", label: "DW Tailored Systems", detail: "Independent practice — product engineering + AI integration" },
-  { year: "2025", label: "Fluorescence Pipeline", detail: "Research toolkit, Loma Linda University" },
-  { year: "2024", label: "Pulse Wave Analysis", detail: "Cardiovascular research toolkit" },
-  { year: "2023", label: "DocuHub Reporting", detail: "Enterprise reporting platform" },
+  { year: "2025", label: "B.S. Biological Sciences", detail: "UC Davis — started in Computer Science, graduated in Bio Sci" },
+  { year: "2025", label: "Fluorescence Pipeline", detail: "Summer research toolkit, Loma Linda University" },
+  { year: "2024", label: "Pulse Wave Analysis", detail: "Undergraduate research, M&M Lab, UC Davis" },
 ];
 
 const STACK = [
@@ -103,7 +104,8 @@ export default function About() {
                   style={{ ...MONO, color: PALETTE.teal }}
                   className="mt-8 text-[11px] uppercase tracking-[0.28em]"
                 >
-                  · Forward Deployed Engineer
+                  · Systems Architect &nbsp;|&nbsp; Bespoke software for
+                  research labs &amp; business operations
                 </motion.p>
 
                 <motion.p
@@ -111,10 +113,10 @@ export default function About() {
                   style={SERIF}
                   className="mt-6 max-w-xl text-[20px] leading-[1.5] text-[#2A2D28]/85 md:text-[24px]"
                 >
-                  I embed with operations teams and build the specific internal
-                  tools they need. Same engineer, same problem, different
-                  industries — research labs, logistics desks, founder-led
-                  teams scaling past what spreadsheets can hold.
+                  I embed with teams and build the specific internal tools
+                  they actually need. Research labs, restaurants, logistics
+                  companies — if there&rsquo;s a workflow a sharper piece of
+                  software could untangle, I want to build it.
                 </motion.p>
 
                 <motion.div {...rise(0.35)} className="mt-8 flex flex-wrap items-center gap-4">
@@ -135,9 +137,11 @@ export default function About() {
                   className="relative overflow-hidden rounded-[22px] border bg-white"
                   style={{ borderColor: `${PALETTE.ink}15` }}
                 >
-                  <img
-                    src="/devin.jpg"
+                  <Portrait
+                    id={2}
                     alt="Devin Wilson"
+                    eager
+                    sizes="(min-width: 768px) 340px, 280px"
                     className="block h-[340px] w-[280px] object-cover md:h-[440px] md:w-[340px]"
                   />
                 </div>
@@ -178,12 +182,15 @@ export default function About() {
                 style={SERIF}
                 className="text-[22px] leading-[1.55] text-[#2A2D28] md:text-[26px]"
               >
-                My first real programming job was stitching together analysis
-                scripts for a research lab that was drowning in fluorescence
-                microscopy images. The &ldquo;tool&rdquo; they were using was a
-                spreadsheet and a pile of Python snippets nobody wanted to
-                touch. A few weeks later, runs that used to take a day finished
-                in fifteen minutes. That was the hook.
+                I came to software through a side door. I started at UC
+                Davis in Computer Science and switched into Biological
+                Sciences, which is how I ended up with a foot in both worlds
+                — and how I landed my first real programming job stitching
+                together analysis scripts for a research lab drowning in
+                fluorescence microscopy images. The &ldquo;tool&rdquo; they
+                were using was a spreadsheet and a pile of Python snippets
+                nobody wanted to touch. A few weeks later, runs that used to
+                take a day finished in fifteen minutes. That was the hook.
               </motion.p>
               <motion.p
                 {...rise(0.15)}
@@ -208,6 +215,29 @@ export default function About() {
                 architecture. I&rsquo;m comfortable owning a project from the
                 blank-page conversation to the thing running in production.
               </motion.p>
+
+              <motion.figure
+                {...rise(0.35)}
+                className="mt-12 max-w-2xl"
+              >
+                <div
+                  className="relative overflow-hidden rounded-[20px] border bg-white shadow-[0_30px_70px_-40px_rgba(26,26,24,0.35)]"
+                  style={{ borderColor: `${PALETTE.ink}15` }}
+                >
+                  <Portrait
+                    id={3}
+                    alt="Devin Wilson"
+                    sizes="(min-width: 768px) 640px, 100vw"
+                    className="block h-auto w-full object-cover"
+                  />
+                </div>
+                <figcaption
+                  style={MONO}
+                  className="mt-3 text-[10px] uppercase tracking-[0.22em] text-[#1a1a18]/50"
+                >
+                  · Off the clock, Redlands CA
+                </figcaption>
+              </motion.figure>
             </div>
           </div>
         </section>

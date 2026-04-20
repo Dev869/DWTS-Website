@@ -19,6 +19,7 @@ import {
   StripeBar,
   FooterBlock,
   BookCallButton,
+  Portrait,
 } from "./_shared.jsx";
 
 function useMotion() {
@@ -52,7 +53,8 @@ function Hero() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="mb-5 text-[11px] uppercase tracking-[0.28em]"
             >
-              · Forward Deployed Engineer
+              · Systems Architect &nbsp;|&nbsp; Bespoke software for research
+              labs &amp; business operations
             </motion.p>
 
             <motion.h1
@@ -129,9 +131,11 @@ function Hero() {
               className="relative overflow-hidden rounded-[22px] border bg-white shadow-[0_30px_70px_-30px_rgba(26,26,24,0.35)]"
               style={{ borderColor: `${PALETTE.ink}15` }}
             >
-              <img
-                src="/devin.jpg"
+              <Portrait
+                id={1}
                 alt="Devin Wilson"
+                eager
+                sizes="(min-width: 768px) 360px, 280px"
                 className="block h-[340px] w-[280px] object-cover md:h-[440px] md:w-[360px]"
               />
             </div>
@@ -772,8 +776,8 @@ function About() {
             I work with teams that have a real problem and a rough idea —
             and turn it into something that actually{" "}
             <span style={{ color: PALETTE.teal }} className="italic">runs</span>.
-            Research labs, operations teams, founders who hit the ceiling of
-            what spreadsheets and generic SaaS can do.
+            Research labs, restaurants, logistics companies, founders who
+            hit the ceiling of what spreadsheets and generic SaaS can do.
           </motion.p>
           <motion.p {...m.rise(0.2)} className="mt-8 max-w-2xl text-[15px] leading-relaxed text-[#1a1a18]/65">
             Most of what I do lives under{" "}

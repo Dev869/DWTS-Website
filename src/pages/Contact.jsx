@@ -101,7 +101,7 @@ function ChannelIcon({ name }) {
 const FAQ = [
   {
     q: "What kinds of projects fit best?",
-    a: "Operations-heavy teams outgrowing spreadsheets, research groups automating repetitive analysis, or founders who need a purpose-built internal tool in weeks rather than quarters.",
+    a: "Research labs automating repetitive analysis, restaurants and logistics teams outgrowing spreadsheets, or founders who need a purpose-built internal tool in weeks rather than quarters.",
   },
   {
     q: "How do engagements usually work?",
@@ -220,7 +220,7 @@ export default function Contact() {
                   </div>
                   <p className="mt-3 text-[14px] leading-relaxed text-[#1a1a18]/65">
                     Based in Redlands, CA (Pacific). Currently taking on new
-                    engagemnents, I am available for short discovery calls any
+                    engagements — available for short discovery calls any
                     weekday.
                   </p>
                 </motion.div>
