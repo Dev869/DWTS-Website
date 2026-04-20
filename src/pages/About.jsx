@@ -55,7 +55,6 @@ const TIMELINE = [
   { year: "2025", label: "B.S. Biological Sciences", detail: "UC Davis — started in Computer Science, graduated in Bio Sci" },
   { year: "2025", label: "Fluorescence Pipeline", detail: "Summer research toolkit, Loma Linda University" },
   { year: "2024", label: "Pulse Wave Analysis", detail: "Undergraduate research, M&M Lab, UC Davis" },
-  { year: "2023", label: "DocuHub Reporting", detail: "Enterprise reporting platform" },
 ];
 
 const STACK = [
