@@ -204,6 +204,68 @@ function FeatureBlock({ features }) {
   );
 }
 
+/**
+ * Compact, dense feature list. Use when a project has many features
+ * that would look bloated as full cards. Accepts:
+ *   - array of strings: ["Invoicing", "Auto-categorization", …]
+ *   - array of { title, desc }: [{ title: "Invoicing", desc: "…" }, …]
+ */
+function FeatureListBlock({ title = "Everything it does", items }) {
+  const rise = useRise();
+  if (!items?.length) return null;
+  const normalized = items.map((it) =>
+    typeof it === "string" ? { title: it, desc: "" } : it
+  );
+  return (
+    <section
+      className="border-t px-6 py-20 md:px-12 md:py-28 lg:px-20"
+      style={{ borderColor: `${PALETTE.ink}10` }}
+    >
+      <div className="mx-auto max-w-6xl">
+        <motion.h2
+          {...rise(0)}
+          style={SERIF}
+          className="mb-12 text-[40px] leading-none tracking-tight text-[#2A2D28] md:text-[64px]"
+        >
+          {title}
+        </motion.h2>
+        <ul className="grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
+          {normalized.map((f, i) => {
+            const accent = STRIPE_COLORS[i % STRIPE_COLORS.length];
+            return (
+              <motion.li
+                key={f.title + i}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.6, ease: EASE, delay: (i % 6) * 0.05 }}
+                className="group relative border-t pt-5"
+                style={{ borderColor: `${PALETTE.ink}15` }}
+              >
+                <span
+                  className="absolute left-0 top-0 h-[2px] w-8 transition-all duration-500 group-hover:w-16"
+                  style={{ background: accent }}
+                />
+                <h3
+                  style={SERIF}
+                  className="text-[18px] leading-tight text-[#2A2D28] md:text-[20px]"
+                >
+                  {f.title}
+                </h3>
+                {f.desc && (
+                  <p className="mt-2 text-[14px] leading-relaxed text-[#1a1a18]/60">
+                    {f.desc}
+                  </p>
+                )}
+              </motion.li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function ResultsBlock({ results }) {
   const rise = useRise();
   if (!results?.length) return null;
@@ -522,6 +584,7 @@ export default function ProjectDetail() {
         <BeforeAfterBlock before={project.before} after={project.after} />
         <ProcessBlock steps={project.processSteps} />
         <FeatureBlock features={project.features} />
+        <FeatureListBlock title={project.featureListTitle} items={project.featureList} />
         <QuoteBlock quote={project.quote} attribution={project.quoteAttribution} />
         <ResultsBlock results={project.results} />
         <GalleryBlock gallery={project.gallery} />
