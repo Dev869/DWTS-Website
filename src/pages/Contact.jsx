@@ -13,7 +13,7 @@ import {
   useCalCom,
   CAL_LINK,
   CAL_NAMESPACE,
-} from "./shared.jsx";
+} from "./_shared.jsx";
 
 function useRise() {
   const reduced = useReducedMotion();
@@ -61,8 +61,8 @@ function CalInline() {
 const CONTACT_CHANNELS = [
   {
     label: "Email",
-    value: "devin27wilson@gmail.com",
-    href: "mailto:devin27wilson@gmail.com",
+    value: "devin@dwtailored.com",
+    href: "mailto:devin@dwtailored.com",
     color: PALETTE.teal,
     icon: "mail",
     detail: "Best for longer briefs or anything with attachments.",
@@ -74,14 +74,6 @@ const CONTACT_CHANNELS = [
     color: PALETTE.orange,
     icon: "github",
     detail: "Code, forks, and the usual.",
-  },
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/devinwilson",
-    href: "https://www.linkedin.com/in/devin-wilson-6b9b91269/",
-    color: PALETTE.gold,
-    icon: "linkedin",
-    detail: "Professional history and introductions.",
   },
 ];
 
