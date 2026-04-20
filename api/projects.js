@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
   try {
     const projects = await listProjects();
-    res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=300");
+    res.setHeader("Cache-Control", "no-store");
     res.status(200).json({ projects });
   } catch (err) {
     console.error("GET /api/projects", err);

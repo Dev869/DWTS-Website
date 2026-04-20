@@ -3,8 +3,6 @@ import seedProjects from "../../src/data/projects.js";
 
 const BLOB_KEY = "projects.json";
 
-let memoryCache = null;
-
 function sanitizeProject(p) {
   if (!p || typeof p !== "object") return null;
   const required = ["title", "slug"];
@@ -21,30 +19,20 @@ async function fetchBlobJson(url) {
 }
 
 export async function readProjects() {
-  if (memoryCache) return memoryCache;
-
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    memoryCache = seedProjects;
-    return memoryCache;
+    return seedProjects;
   }
 
   try {
     const { blobs } = await list({ prefix: BLOB_KEY, limit: 1 });
     const match = blobs.find((b) => b.pathname === BLOB_KEY);
-    if (!match) {
-      memoryCache = seedProjects;
-      return memoryCache;
-    }
+    if (!match) return seedProjects;
     const data = await fetchBlobJson(match.url);
-    if (Array.isArray(data)) {
-      memoryCache = data;
-      return memoryCache;
-    }
+    if (Array.isArray(data)) return data;
   } catch (err) {
     console.error("readProjects: falling back to seed —", err);
   }
-  memoryCache = seedProjects;
-  return memoryCache;
+  return seedProjects;
 }
 
 export async function writeProjects(projects) {
@@ -60,13 +48,9 @@ export async function writeProjects(projects) {
     addRandomSuffix: false,
     contentType: "application/json",
     allowOverwrite: true,
+    cacheControlMaxAge: 0,
   });
-  memoryCache = cleaned;
   return cleaned;
-}
-
-export function invalidateCache() {
-  memoryCache = null;
 }
 
 function nextId(projects) {
