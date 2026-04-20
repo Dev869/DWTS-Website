@@ -19,6 +19,7 @@ import {
   StripeBar,
   FooterBlock,
   BookCallButton,
+  Portrait,
 } from "./_shared.jsx";
 
 function useMotion() {
@@ -130,9 +131,11 @@ function Hero() {
               className="relative overflow-hidden rounded-[22px] border bg-white shadow-[0_30px_70px_-30px_rgba(26,26,24,0.35)]"
               style={{ borderColor: `${PALETTE.ink}15` }}
             >
-              <img
-                src="/devin.jpg"
+              <Portrait
+                id={1}
                 alt="Devin Wilson"
+                eager
+                sizes="(min-width: 768px) 360px, 280px"
                 className="block h-[340px] w-[280px] object-cover md:h-[440px] md:w-[360px]"
               />
             </div>

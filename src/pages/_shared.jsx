@@ -302,6 +302,32 @@ export function StripeBar({ className = "" }) {
   );
 }
 
+/**
+ * Responsive portrait image with WebP + JPG fallback.
+ * @param {{ id: 1 | 2 | 3, alt: string, className?: string, sizes?: string, eager?: boolean, style?: object }} props
+ */
+export function Portrait({ id, alt, className = "", sizes = "(min-width: 768px) 360px, 280px", eager = false, style }) {
+  const base = `/portraits/devin-${id}`;
+  return (
+    <picture>
+      <source
+        type="image/webp"
+        srcSet={`${base}-480.webp 480w, ${base}-960.webp 960w, ${base}-1280.webp 1280w`}
+        sizes={sizes}
+      />
+      <img
+        src={`${base}-960.jpg`}
+        alt={alt}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        fetchpriority={eager ? "high" : "auto"}
+        className={className}
+        style={style}
+      />
+    </picture>
+  );
+}
+
 export function FooterBlock() {
   const reduced = useReducedMotion();
   const rise = (delay = 0) =>

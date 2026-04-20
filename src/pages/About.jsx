@@ -8,6 +8,7 @@ import {
   StripeBar,
   FooterBlock,
   BookCallButton,
+  Portrait,
 } from "./_shared.jsx";
 
 function useRise() {
@@ -136,9 +137,11 @@ export default function About() {
                   className="relative overflow-hidden rounded-[22px] border bg-white"
                   style={{ borderColor: `${PALETTE.ink}15` }}
                 >
-                  <img
-                    src="/devin.jpg"
+                  <Portrait
+                    id={2}
                     alt="Devin Wilson"
+                    eager
+                    sizes="(min-width: 768px) 340px, 280px"
                     className="block h-[340px] w-[280px] object-cover md:h-[440px] md:w-[340px]"
                   />
                 </div>
@@ -212,6 +215,29 @@ export default function About() {
                 architecture. I&rsquo;m comfortable owning a project from the
                 blank-page conversation to the thing running in production.
               </motion.p>
+
+              <motion.figure
+                {...rise(0.35)}
+                className="mt-12 max-w-2xl"
+              >
+                <div
+                  className="relative overflow-hidden rounded-[20px] border bg-white shadow-[0_30px_70px_-40px_rgba(26,26,24,0.35)]"
+                  style={{ borderColor: `${PALETTE.ink}15` }}
+                >
+                  <Portrait
+                    id={3}
+                    alt="Devin Wilson"
+                    sizes="(min-width: 768px) 640px, 100vw"
+                    className="block h-auto w-full object-cover"
+                  />
+                </div>
+                <figcaption
+                  style={MONO}
+                  className="mt-3 text-[10px] uppercase tracking-[0.22em] text-[#1a1a18]/50"
+                >
+                  · Off the clock, Redlands CA
+                </figcaption>
+              </motion.figure>
             </div>
           </div>
         </section>
