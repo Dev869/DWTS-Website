@@ -250,6 +250,8 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     gradient: project.gradient || "",
     results: project.results || [],
     features: project.features || [],
+    featureListTitle: project.featureListTitle || "",
+    featureList: project.featureList || [],
     processSteps: project.processSteps || [],
     before: project.before || [],
     after: project.after || [],
@@ -310,6 +312,8 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       gradient: draft.gradient,
       results: pruneObjects(draft.results, ["metric", "label"]),
       features: pruneObjects(draft.features, ["icon", "title", "desc"]),
+      featureListTitle: draft.featureListTitle,
+      featureList: pruneObjects(draft.featureList, ["title", "desc"]),
       processSteps: pruneObjects(draft.processSteps, ["label", "desc"]),
       gallery: pruneObjects(draft.gallery, ["src", "caption", "frame", "url"]),
       before: draft.before.map((s) => s.trim()).filter(Boolean),
@@ -594,6 +598,37 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
             addLabel="+ Add feature"
             empty={{ icon: "", title: "", desc: "" }}
           />
+        </Section>
+
+        <Section title="Feature list (dense)">
+          <div className="md:col-span-2">
+            <p className="mb-4 text-[12px] text-[#1a1a18]/60">
+              Compact multi-column list for projects with many features.
+              Renders between Features and Quote on the detail page.
+            </p>
+            <label className="mb-4 block">
+              <span className="mb-1 block text-[11px] uppercase tracking-[0.22em] text-[#1a1a18]/55">
+                List heading (optional)
+              </span>
+              <input
+                type="text"
+                value={draft.featureListTitle}
+                onChange={(e) => update({ featureListTitle: e.target.value })}
+                placeholder="Everything it does"
+                className="w-full rounded-md border border-[#1a1a18]/15 bg-white px-3 py-2 text-[14px]"
+              />
+            </label>
+            <RowsEditor
+              rows={draft.featureList}
+              onChange={(rows) => update({ featureList: rows })}
+              columns={[
+                { key: "title", label: "Title", placeholder: "Work order intake", width: "w-64" },
+                { key: "desc", label: "Description (optional)", placeholder: "Short one-liner…", textarea: true },
+              ]}
+              addLabel="+ Add list item"
+              empty={{ title: "", desc: "" }}
+            />
+          </div>
         </Section>
 
         <Section title="Process steps">
