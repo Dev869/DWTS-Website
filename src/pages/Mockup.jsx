@@ -209,91 +209,127 @@ function SectionRule({ left, right, accent = PALETTE.teal }) {
 
 function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
   const hasImage = Boolean(project.image);
+  const quote = project.quote || project.headline || project.description?.slice(0, 160);
+  const tags = (project.techStack || project.tags || []).slice(0, 4);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 1, ease: EASE }}
+      transition={{ duration: 0.8, ease: EASE }}
       className="mx-auto mt-10 max-w-6xl px-6 md:px-12 lg:px-20"
     >
       <div
-        className={`grid grid-cols-1 overflow-hidden rounded-2xl border shadow-[0_30px_80px_-40px_rgba(26,26,24,0.35)] md:grid-cols-2 ${
+        className={`grid grid-cols-1 overflow-hidden rounded-3xl border shadow-[0_30px_80px_-40px_rgba(26,26,24,0.35)] md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] ${
           flip ? "md:[&>*:first-child]:order-2" : ""
         }`}
         style={{ borderColor: `${PALETTE.ink}15` }}
       >
-        {/* Dark side */}
-        <div className="group relative overflow-hidden px-8 py-12 md:px-12 md:py-16" style={{ background: PALETTE.tealDeep }}>
-          {/* Animated accent bar */}
-          <motion.div
-            initial={{ height: 0 }}
-            whileInView={{ height: "60%" }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
-            className="absolute left-0 top-10 w-[3px]"
-            style={{ background: accent }}
-          />
-          {/* Soft radial glow */}
+        {/* Dark side — higher contrast, larger body text, clearer hierarchy */}
+        <div
+          className="group relative flex flex-col justify-between overflow-hidden px-10 py-14 md:px-14 md:py-16"
+          style={{ background: PALETTE.tealDeep }}
+        >
+          {/* Subtle radial glow behind title */}
           <div
-            className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-40 blur-3xl transition-opacity duration-700 group-hover:opacity-70"
-            style={{ background: `${accent}45` }}
+            className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full opacity-35 blur-3xl transition-opacity duration-700 group-hover:opacity-55"
+            style={{ background: `${accent}60` }}
           />
 
-          <h3 style={SERIF} className="relative text-[44px] leading-[1] text-[#F1EEE6] md:text-[64px]">
-            {project.title.split(" ")[0]}
-          </h3>
-          <p style={{ ...MONO, color: `${accent}` }} className="relative mt-10 text-[10px] uppercase tracking-[0.25em] opacity-85">
-            From the case study
-          </p>
-          <p style={SERIF} className="relative mt-4 max-w-sm text-[18px] leading-[1.45] text-[#F1EEE6]/85 md:text-[20px]">
-            &ldquo;{project.quote || project.headline || project.description?.slice(0, 140)}&rdquo;
-          </p>
+          <div className="relative">
+            {/* Project name — serif, tight leading, brighter paper color for contrast */}
+            <h3
+              style={SERIF}
+              className="text-[40px] leading-[1.02] tracking-tight text-[#F5F1E6] md:text-[56px]"
+            >
+              {project.title.split(" ")[0]}
+            </h3>
 
-          {/* Tech chips */}
-          <div className="relative mt-8 flex flex-wrap gap-2">
-            {(project.techStack || project.tags || []).slice(0, 4).map((t) => (
-              <span
-                key={t}
-                style={MONO}
-                className="rounded-full border px-2.5 py-1 text-[9px] uppercase tracking-[0.15em]"
-                // eslint-disable-next-line react/forbid-dom-props
-                onTransitionEnd={undefined}
-              >
-                <span style={{ color: `${accent}`, borderColor: `${accent}40` }}>{t}</span>
+            {/* Divider line for visual separation */}
+            <div
+              className="mt-8 h-px w-12"
+              style={{ background: `${PALETTE.paper}40` }}
+            />
+
+            {/* Kicker — lighter paper tone, not the accent teal (which disappeared against the tealDeep bg) */}
+            <p
+              style={MONO}
+              className="mt-6 text-[11px] uppercase tracking-[0.28em]"
+            >
+              <span style={{ color: `${PALETTE.paper}85` }}>From the case study</span>
+            </p>
+
+            {/* Quote — larger, brighter, more line-height for readability */}
+            <blockquote
+              style={SERIF}
+              className="mt-5 max-w-md text-[19px] leading-[1.55] text-[#F5F1E6] md:text-[22px]"
+            >
+              <span aria-hidden className="select-none" style={{ color: `${accent}`, fontSize: "1.1em", marginRight: "0.08em" }}>
+                &ldquo;
               </span>
-            ))}
+              {quote}
+              <span aria-hidden className="select-none" style={{ color: `${accent}`, fontSize: "1.1em", marginLeft: "0.04em" }}>
+                &rdquo;
+              </span>
+            </blockquote>
           </div>
 
-          <Link
-            to={`/project/${project.slug}`}
-            style={MONO}
-            className="relative mt-12 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-[#F1EEE6]/80 transition-all duration-500 hover:gap-5"
-          >
-            Read case study
-            <motion.span aria-hidden className="inline-block" whileHover={{ x: 4 }}>
-              &rarr;
-            </motion.span>
-          </Link>
+          <div className="relative mt-12">
+            {/* Tags — high-contrast pills on a subtle paper tint */}
+            <div className="flex flex-wrap gap-2">
+              {tags.map((t) => (
+                <span
+                  key={t}
+                  style={{
+                    ...MONO,
+                    color: PALETTE.paper,
+                    background: "rgba(245, 241, 230, 0.08)",
+                    borderColor: "rgba(245, 241, 230, 0.22)",
+                  }}
+                  className="rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.18em]"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            {/* Link CTA — brighter paper color + consistent arrow */}
+            <Link
+              to={`/project/${project.slug}`}
+              style={MONO}
+              className="group/link mt-10 inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.25em] text-[#F5F1E6] transition-colors duration-500 hover:text-[#ffffff]"
+            >
+              Read case study
+              <span
+                aria-hidden
+                className="flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-500 group-hover/link:translate-x-1"
+                style={{ borderColor: `${PALETTE.paper}40` }}
+              >
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                  <path d="M0 8h14M14 8l-5-5M14 8l-5 5" stroke="currentColor" strokeWidth="1.6" />
+                </svg>
+              </span>
+            </Link>
+          </div>
         </div>
 
         {/* Light/image side */}
         <div
-          className={`relative flex items-center justify-center overflow-hidden bg-gradient-to-br ${project.gradient || "from-[#EFEDE7] to-[#E4E0D5]"} p-8 md:p-12`}
+          className={`relative flex items-center justify-center overflow-hidden bg-gradient-to-br ${project.gradient || "from-[#EFEDE7] to-[#E4E0D5]"} p-10 md:p-14`}
         >
-          {/* Corner accents */}
-          <span className="absolute top-5 left-5 h-4 w-4 border-t-2 border-l-2" style={{ borderColor: `${accent}50` }} />
-          <span className="absolute bottom-5 right-5 h-4 w-4 border-b-2 border-r-2" style={{ borderColor: `${accent}50` }} />
+          <span className="absolute top-6 left-6 h-4 w-4 border-t-2 border-l-2" style={{ borderColor: `${accent}55` }} />
+          <span className="absolute bottom-6 right-6 h-4 w-4 border-b-2 border-r-2" style={{ borderColor: `${accent}55` }} />
           {hasImage ? (
             <motion.img
               src={project.image}
               alt={project.title}
-              initial={{ scale: 0.94, opacity: 0 }}
+              initial={{ scale: 0.96, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: EASE, delay: 0.3 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
               whileHover={{ scale: 1.025, y: -6, transition: { type: "spring", stiffness: 180, damping: 22 } }}
-              className="max-h-[360px] w-auto rounded-md object-contain shadow-[0_25px_60px_-25px_rgba(26,26,24,0.35)] will-change-transform"
+              className="max-h-[400px] w-auto rounded-md object-contain shadow-[0_25px_60px_-25px_rgba(26,26,24,0.35)] will-change-transform"
             />
           ) : (
             <div className="h-[280px] w-full rounded-md bg-white/40" />
