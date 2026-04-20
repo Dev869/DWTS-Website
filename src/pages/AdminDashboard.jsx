@@ -234,6 +234,8 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     layout: project.layout || "showcase",
     headline: project.headline || "",
     image: project.image || "",
+    problemImage: project.problemImage || "",
+    approachImage: project.approachImage || "",
     link: project.link || "",
     demoUrl: project.demoUrl || "",
     beta: !!project.beta,
@@ -290,6 +292,8 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       layout: draft.layout,
       headline: draft.headline,
       image: draft.image,
+      problemImage: draft.problemImage,
+      approachImage: draft.approachImage,
       link: draft.link,
       demoUrl: draft.demoUrl,
       beta: draft.beta,
@@ -504,12 +508,34 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               placeholder="What problem did this project solve?"
             />
           </Field>
+          <Field
+            label="Problem illustration"
+            hint="Shown next to the Problem section on Product layout. Falls back to gallery[0] if empty."
+            className="md:col-span-2"
+          >
+            <ImageField
+              value={draft.problemImage}
+              onChange={(v) => update({ problemImage: v })}
+              placeholder="/path or upload"
+            />
+          </Field>
           <Field label="Approach" className="md:col-span-2">
             <textarea
               value={draft.approach}
               onChange={(e) => update({ approach: e.target.value })}
               className={`${inputClass} min-h-[100px]`}
               placeholder="How did you solve it?"
+            />
+          </Field>
+          <Field
+            label="Approach illustration"
+            hint="Shown next to the Approach section on Product layout. Falls back to gallery[1] if empty."
+            className="md:col-span-2"
+          >
+            <ImageField
+              value={draft.approachImage}
+              onChange={(v) => update({ approachImage: v })}
+              placeholder="/path or upload"
             />
           </Field>
         </Section>
