@@ -239,6 +239,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     link: project.link || "",
     demoUrl: project.demoUrl || "",
     beta: !!project.beta,
+    openSource: !!project.openSource,
     tags: (project.tags || []).join(", "),
     techStack: (project.techStack || []).join(", "),
     problem: project.problem || "",
@@ -297,6 +298,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       link: draft.link,
       demoUrl: draft.demoUrl,
       beta: draft.beta,
+      openSource: draft.openSource,
       tags: toArray(draft.tags),
       techStack: toArray(draft.techStack),
       problem: draft.problem,
@@ -495,6 +497,16 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
                 onChange={(e) => update({ beta: e.target.checked })}
               />
               Mark this project as beta
+            </label>
+          </Field>
+          <Field label="Open source?">
+            <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-[#1F2328]">
+              <input
+                type="checkbox"
+                checked={draft.openSource}
+                onChange={(e) => update({ openSource: e.target.checked })}
+              />
+              Show an Open source badge
             </label>
           </Field>
         </div>

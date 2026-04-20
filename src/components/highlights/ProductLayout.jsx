@@ -26,6 +26,7 @@ export default function ProductLayout({ project }) {
     link,
     demoUrl,
     beta,
+    openSource,
   } = project;
 
   const problemIllustration = problemImage || gallery[0]?.src;
@@ -48,6 +49,11 @@ export default function ProductLayout({ project }) {
               {beta && (
                 <span className="rounded-full border border-[#049B9F]/30 px-2 py-0.5 text-[10px] tracking-normal">
                   Beta
+                </span>
+              )}
+              {openSource && (
+                <span className="rounded-full border border-[#037B7E]/40 bg-[#037B7E]/10 px-2 py-0.5 text-[10px] tracking-normal text-[#037B7E]">
+                  Open source
                 </span>
               )}
             </div>
