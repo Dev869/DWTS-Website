@@ -12,7 +12,7 @@ const EMPTY_PROJECT = {
   techStack: [],
 };
 
-const LAYOUTS = ["showcase", "casestudy", "interactive"];
+const LAYOUTS = ["product", "showcase", "casestudy", "interactive"];
 
 export default function AdminDashboard({ onLogout }) {
   const [projects, setProjects] = useState([]);

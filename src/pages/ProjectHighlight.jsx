@@ -3,10 +3,12 @@ import { useProjects } from "../hooks/useProjects";
 import ShowcaseLayout from "../components/highlights/ShowcaseLayout";
 import CaseStudyLayout from "../components/highlights/CaseStudyLayout";
 import InteractiveLayout from "../components/highlights/InteractiveLayout";
+import ProductLayout from "../components/highlights/ProductLayout";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const layouts = {
+  product: ProductLayout,
   showcase: ShowcaseLayout,
   casestudy: CaseStudyLayout,
   interactive: InteractiveLayout,
@@ -45,7 +47,7 @@ export default function ProjectHighlight() {
     );
   }
 
-  const LayoutComponent = layouts[project.layout] || ShowcaseLayout;
+  const LayoutComponent = layouts[project.layout] || ProductLayout;
 
   return (
     <div>
