@@ -111,10 +111,10 @@ export default function About() {
                   style={SERIF}
                   className="mt-6 max-w-xl text-[20px] leading-[1.5] text-[#2A2D28]/85 md:text-[24px]"
                 >
-                  I embed with operations teams and build the specific internal
-                  tools they need. Same engineer, same problem, different
-                  industries — research labs, logistics desks, founder-led
-                  teams scaling past what spreadsheets can hold.
+                  I embed with teams and build the specific internal tools
+                  they actually need. Research labs, restaurants, logistics
+                  companies — if there&rsquo;s a workflow a sharper piece of
+                  software could untangle, I want to build it.
                 </motion.p>
 
                 <motion.div {...rise(0.35)} className="mt-8 flex flex-wrap items-center gap-4">

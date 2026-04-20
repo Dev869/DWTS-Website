@@ -772,8 +772,8 @@ function About() {
             I work with teams that have a real problem and a rough idea —
             and turn it into something that actually{" "}
             <span style={{ color: PALETTE.teal }} className="italic">runs</span>.
-            Research labs, operations teams, founders who hit the ceiling of
-            what spreadsheets and generic SaaS can do.
+            Research labs, restaurants, logistics companies, founders who
+            hit the ceiling of what spreadsheets and generic SaaS can do.
           </motion.p>
           <motion.p {...m.rise(0.2)} className="mt-8 max-w-2xl text-[15px] leading-relaxed text-[#1a1a18]/65">
             Most of what I do lives under{" "}
