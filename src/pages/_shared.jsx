@@ -284,6 +284,94 @@ export function PillNav() {
   );
 }
 
+function GithubGlyph({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.12 3.06.74.81 1.18 1.83 1.18 3.09 0 4.43-2.7 5.4-5.26 5.69.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z" />
+    </svg>
+  );
+}
+
+function ExternalGlyph({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  );
+}
+
+export function isGithubUrl(url) {
+  return typeof url === "string" && /github\.com/i.test(url);
+}
+
+export function ProjectBadges({ project, className = "", compact = false }) {
+  if (!project) return null;
+  const items = [];
+  if (project.beta) {
+    items.push({ key: "beta", label: "Beta", bg: "rgba(245, 158, 11, 0.12)", fg: "#B45309", border: "rgba(245, 158, 11, 0.45)" });
+  }
+  if (project.openSource || isGithubUrl(project.link)) {
+    items.push({ key: "oss", label: "Open Source", bg: "rgba(4, 155, 159, 0.12)", fg: "#049B9F", border: "rgba(4, 155, 159, 0.45)" });
+  }
+  if (!items.length) return null;
+  const px = compact ? "px-2 py-0.5" : "px-3 py-1";
+  const fs = compact ? "text-[9px]" : "text-[10px]";
+  return (
+    <div className={`flex flex-wrap items-center gap-1.5 ${className}`}>
+      {items.map((b) => (
+        <span
+          key={b.key}
+          style={{ ...MONO, color: b.fg, background: b.bg, borderColor: b.border }}
+          className={`inline-flex items-center gap-1 rounded-full border ${px} ${fs} uppercase tracking-[0.2em]`}
+        >
+          <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: b.fg }} />
+          {b.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+export function ProjectLinks({ project, className = "", variant = "light" }) {
+  if (!project) return null;
+  const links = [];
+  if (project.link) {
+    links.push({
+      href: project.link,
+      label: isGithubUrl(project.link) ? "View code" : "View project",
+      Icon: isGithubUrl(project.link) ? GithubGlyph : ExternalGlyph,
+    });
+  }
+  if (project.demoUrl && project.demoUrl !== project.link) {
+    links.push({ href: project.demoUrl, label: "Live demo", Icon: ExternalGlyph });
+  }
+  if (!links.length) return null;
+  const base =
+    variant === "dark"
+      ? "text-[#F5F1E6]/80 hover:text-white border-white/25 hover:border-white/60"
+      : "text-[#1a1a18]/70 hover:text-[#049B9F] border-[#1a1a18]/15 hover:border-[#049B9F]";
+  return (
+    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
+      {links.map((l) => (
+        <a
+          key={l.href}
+          href={l.href}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          style={MONO}
+          className={`inline-flex items-center gap-2 rounded-full border bg-white/40 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] transition-all duration-300 ${base}`}
+        >
+          <l.Icon size={13} />
+          {l.label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
 export function StripeBar({ className = "" }) {
   return (
     <div className={`flex h-1 overflow-hidden ${className}`}>

@@ -11,6 +11,8 @@ import {
   StripeBar,
   FooterBlock,
   BookCallButton,
+  ProjectBadges,
+  ProjectLinks,
 } from "./_shared.jsx";
 
 function useRise() {
@@ -438,6 +440,7 @@ function ProjectHeader({ project }) {
           <span style={MONO} className="text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/45">
             Case study
           </span>
+          <ProjectBadges project={project} />
         </div>
 
         <motion.h1
@@ -460,6 +463,17 @@ function ProjectHeader({ project }) {
           >
             {project.headline}
           </motion.p>
+        )}
+
+        {(project.link || project.demoUrl) && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.42 }}
+            className="mt-8"
+          >
+            <ProjectLinks project={project} />
+          </motion.div>
         )}
 
         <motion.div
@@ -516,20 +530,7 @@ function ProjectCTA({ project }) {
         </motion.h2>
         <motion.div {...rise(0.2)} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <BookCallButton label="Book a call" />
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noreferrer"
-              style={MONO}
-              className="group inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#1a1a18]/70 transition-colors duration-500 hover:text-[#049B9F]"
-            >
-              View repository
-              <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1">
-                &rarr;
-              </span>
-            </a>
-          )}
+          <ProjectLinks project={project} />
         </motion.div>
       </div>
     </section>
