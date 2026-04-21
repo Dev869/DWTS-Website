@@ -55,8 +55,7 @@ function Hero() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="mb-5 text-[11px] uppercase tracking-[0.28em]"
             >
-              · Systems Architect &nbsp;|&nbsp; Bespoke software for research
-              labs &amp; business operations
+              · Systems Architect
             </motion.p>
 
             <motion.h1
@@ -109,6 +108,14 @@ function Hero() {
             <motion.div {...m.rise(0.6)} className="mt-10 max-w-xs">
               <StripeBar />
             </motion.div>
+
+            <motion.p
+              {...m.rise(0.7)}
+              style={MONO}
+              className="mt-6 text-[11px] uppercase tracking-[0.22em] text-[#1a1a18]/55"
+            >
+              Bespoke software for research labs &amp; business operations
+            </motion.p>
           </div>
 
           {/* RIGHT: prominent portrait — sits up top so it's visible above the fold */}
