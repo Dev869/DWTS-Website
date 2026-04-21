@@ -235,6 +235,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     headline: project.headline || "",
     image: project.image || "",
     previewImage: project.previewImage || "",
+    workImage: project.workImage || "",
     problemImage: project.problemImage || "",
     approachImage: project.approachImage || "",
     link: project.link || "",
@@ -300,6 +301,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       headline: draft.headline,
       image: draft.image,
       previewImage: draft.previewImage,
+      workImage: draft.workImage,
       problemImage: draft.problemImage,
       approachImage: draft.approachImage,
       link: draft.link,
@@ -455,14 +457,25 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
             />
           </Field>
           <Field
-            label="Card preview image"
+            label="Home card preview image"
             className="md:col-span-2"
-            hint="Small thumbnail shown on the home carousel and the Work list. Leave blank to fall back to the hero image."
+            hint="Shown on the home carousel and featured case. Fills the card (object-cover). Leave blank to fall back to the hero image."
           >
             <ImageField
               value={draft.previewImage}
               onChange={(v) => update({ previewImage: v })}
-              placeholder="/previews/project-card.png or upload"
+              placeholder="/media/project-home.png or upload"
+            />
+          </Field>
+          <Field
+            label="Work grid preview image"
+            className="md:col-span-2"
+            hint="Shown on the /work grid (4:3 card). Use a different aspect if the home preview doesn't crop well here. Leave blank to fall back to the home preview, then the hero."
+          >
+            <ImageField
+              value={draft.workImage}
+              onChange={(v) => update({ workImage: v })}
+              placeholder="/media/project-work.png or upload"
             />
           </Field>
           <Field
@@ -473,7 +486,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
             <ImageField
               value={draft.image}
               onChange={(v) => update({ image: v })}
-              placeholder="/previews/project.png or upload"
+              placeholder="/media/project-hero.png or upload"
             />
           </Field>
           <Field label="Gradient classes" hint="e.g. from-amber-200 via-orange-100 to-yellow-50">

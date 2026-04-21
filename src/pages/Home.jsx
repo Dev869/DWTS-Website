@@ -337,23 +337,23 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
 
         {/* Light/image side */}
         <div
-          className={`relative flex items-center justify-center overflow-hidden bg-gradient-to-br ${project.gradient || "from-[#EFEDE7] to-[#E4E0D5]"} p-10 md:p-14`}
+          className={`relative overflow-hidden bg-gradient-to-br ${project.gradient || "from-[#EFEDE7] to-[#E4E0D5]"}`}
         >
-          <span className="absolute top-6 left-6 h-4 w-4 border-t-2 border-l-2" style={{ borderColor: `${accent}55` }} />
-          <span className="absolute bottom-6 right-6 h-4 w-4 border-b-2 border-r-2" style={{ borderColor: `${accent}55` }} />
+          <span className="absolute top-6 left-6 z-10 h-4 w-4 border-t-2 border-l-2" style={{ borderColor: `${accent}55` }} />
+          <span className="absolute bottom-6 right-6 z-10 h-4 w-4 border-b-2 border-r-2" style={{ borderColor: `${accent}55` }} />
           {hasImage ? (
             <motion.img
               src={previewSrc}
               alt={project.title}
-              initial={{ scale: 0.96, opacity: 0 }}
+              initial={{ scale: 1, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
-              whileHover={{ scale: 1.025, y: -6, transition: { type: "spring", stiffness: 180, damping: 22 } }}
-              className="max-h-[400px] w-auto rounded-md object-contain shadow-[0_25px_60px_-25px_rgba(26,26,24,0.35)] will-change-transform"
+              whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 180, damping: 22 } }}
+              className="absolute inset-0 h-full w-full object-cover will-change-transform"
             />
           ) : (
-            <div className="h-[280px] w-full rounded-md bg-white/40" />
+            <div className="h-full w-full bg-white/40" />
           )}
         </div>
       </div>
