@@ -10,7 +10,6 @@ import {
   PillNav,
   StripeBar,
   FooterBlock,
-  BookCallButton,
   ProjectBadges,
   ProjectLinks,
 } from "./_shared.jsx";
@@ -255,7 +254,6 @@ function ProjectRow({ project, index }) {
 
 export default function Work() {
   const { projects, loading } = useProjects();
-  const rise = useRise();
 
   return (
     <div className="text-[#1a1a18]">
@@ -339,28 +337,6 @@ export default function Work() {
             ) : (
               projects.map((p, i) => <ProjectRow key={p.id} project={p} index={i} />)
             )}
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="border-t px-6 py-24 md:px-12 md:py-32 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
-          <div className="mx-auto max-w-4xl text-center">
-            <motion.p {...rise(0)} style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.28em]">
-              · What&rsquo;s next
-            </motion.p>
-            <motion.h2
-              {...rise(0.1)}
-              style={SERIF}
-              className="mt-6 text-[40px] leading-[1.05] tracking-tight text-[#2A2D28] md:text-[64px]"
-            >
-              Your project could be{" "}
-              <span className="italic" style={{ color: PALETTE.teal }}>
-                next in line.
-              </span>
-            </motion.h2>
-            <motion.div {...rise(0.2)} className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <BookCallButton label="Book a call" />
-            </motion.div>
           </div>
         </section>
 
