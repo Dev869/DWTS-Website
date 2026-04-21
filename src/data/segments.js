@@ -16,6 +16,7 @@
  * @property {string} engagement        Timeline + shape of engagement
  * @property {string[]} projectSlugs    Related case studies (slugs from projects.js)
  * @property {string} ctaLabel          Primary CTA button label
+ * @property {boolean} [comingSoon]     If true, page shows a coming-soon notice instead of CTA
  */
 
 /** @type {Segment[]} */
@@ -47,6 +48,7 @@ export const SEGMENTS = [
     engagement: "2–6 week fixed-scope projects.",
     projectSlugs: [],
     ctaLabel: "Book a website call",
+    comingSoon: true,
   },
   {
     slug: "business-tools",

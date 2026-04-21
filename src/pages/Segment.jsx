@@ -77,7 +77,25 @@ export default function Segment() {
               transition={{ duration: 0.7, ease: EASE, delay: 0.35 }}
               className="mt-10"
             >
-              <BookCallButton label={segment.ctaLabel} />
+              {segment.comingSoon ? (
+                <div
+                  className="inline-flex items-center gap-3 rounded-full border border-[#1a1a18]/15 bg-white/60 px-5 py-3 backdrop-blur"
+                >
+                  <span
+                    aria-hidden
+                    className="h-2 w-2 rounded-full"
+                    style={{ background: PALETTE.teal }}
+                  />
+                  <span
+                    style={MONO}
+                    className="text-[11px] uppercase tracking-[0.22em] text-[#1a1a18]/70"
+                  >
+                    Coming soon
+                  </span>
+                </div>
+              ) : (
+                <BookCallButton label={segment.ctaLabel} />
+              )}
             </motion.div>
           </div>
         </section>
