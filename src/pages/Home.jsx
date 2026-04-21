@@ -20,6 +20,8 @@ import {
   FooterBlock,
   BookCallButton,
   Portrait,
+  ProjectBadges,
+  ProjectLinks,
 } from "./_shared.jsx";
 
 function useMotion() {
@@ -264,12 +266,12 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
             />
 
             {/* Kicker — lighter paper tone, not the accent teal (which disappeared against the tealDeep bg) */}
-            <p
-              style={MONO}
-              className="mt-6 text-[11px] uppercase tracking-[0.28em]"
-            >
-              <span style={{ color: `${PALETTE.paper}85` }}>{kicker}</span>
-            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <p style={MONO} className="text-[11px] uppercase tracking-[0.28em]">
+                <span style={{ color: `${PALETTE.paper}85` }}>{kicker}</span>
+              </p>
+              <ProjectBadges project={project} compact />
+            </div>
 
             {/* Card body — renders with decorative quote marks, or as plain
                 serif prose depending on cardTextStyle. */}
@@ -314,6 +316,12 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
                 </span>
               ))}
             </div>
+
+            {(project.link || project.demoUrl) && (
+              <div className="mt-6">
+                <ProjectLinks project={project} variant="dark" />
+              </div>
+            )}
 
             {/* Link CTA — brighter paper color + consistent arrow */}
             <Link

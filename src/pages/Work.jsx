@@ -11,6 +11,8 @@ import {
   StripeBar,
   FooterBlock,
   BookCallButton,
+  ProjectBadges,
+  ProjectLinks,
 } from "./_shared.jsx";
 
 function useRise() {
@@ -104,6 +106,13 @@ function ProjectRow({ project, index }) {
                 }}
               />
 
+              {/* Status badges — always visible on card */}
+              {(project.beta || project.openSource || /github\.com/i.test(project.link || "")) && (
+                <div className="pointer-events-none absolute top-4 left-4 z-10">
+                  <ProjectBadges project={project} />
+                </div>
+              )}
+
               {/* Arrow badge */}
               <motion.div
                 aria-hidden
@@ -189,6 +198,18 @@ function ProjectRow({ project, index }) {
                 </motion.span>
               ))}
             </motion.div>
+
+            {(project.link || project.demoUrl) && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.4 }}
+                className="mt-8"
+              >
+                <ProjectLinks project={project} />
+              </motion.div>
+            )}
 
             {/* Read more */}
             <motion.div
