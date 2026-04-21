@@ -7,6 +7,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
+import { SEGMENTS } from "../data/segments";
 
 // Cal.com embed loader. Uses their official popup snippet — no npm package needed.
 // Configure CAL_LINK to your actual handle (e.g. "devinwilson/intro-call").
@@ -147,6 +148,90 @@ export function useScrollHideNav() {
   return hidden;
 }
 
+function WorkDropdown({ open, onEnter }) {
+  const location = useLocation();
+  const items = [
+    { label: "All work", to: "/work", hint: "Every project" },
+    ...SEGMENTS.map((s) => ({
+      label: s.name,
+      to: `/for/${s.slug}`,
+      hint: s.comingSoon ? "Coming soon" : s.audience,
+      comingSoon: s.comingSoon,
+    })),
+  ];
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          key="work-dropdown"
+          onMouseEnter={onEnter}
+          initial={{ opacity: 0, y: -6, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -4, scale: 0.97, transition: { duration: 0.22, ease: EASE } }}
+          transition={{ duration: 0.35, ease: EASE }}
+          className="absolute left-1/2 top-full z-50 mt-3 w-[280px] -translate-x-1/2"
+          style={{ transformOrigin: "top center" }}
+        >
+          {/* Invisible bridge so the cursor can cross the gap without triggering leave */}
+          <div aria-hidden className="absolute inset-x-0 -top-3 h-3" />
+          <div
+            className="overflow-hidden rounded-2xl border border-[#1a1a18]/10 bg-[#F1EEE6]/95 p-1.5 shadow-[0_18px_50px_-20px_rgba(26,26,24,0.35)] backdrop-blur-xl"
+          >
+            {items.map((item, i) => {
+              const isActive = location.pathname === item.to;
+              return (
+                <motion.div
+                  key={item.to}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.35, ease: EASE, delay: 0.05 + i * 0.04 }}
+                >
+                  <Link
+                    to={item.to}
+                    className="group relative flex items-center justify-between gap-3 rounded-xl px-3.5 py-2.5 transition-colors duration-300 hover:bg-white/80"
+                  >
+                    <div className="flex flex-col">
+                      <span
+                        style={MONO}
+                        className={`text-[11px] uppercase tracking-[0.22em] ${
+                          isActive ? "text-[#049B9F]" : "text-[#1a1a18]/85"
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                      <span className="mt-0.5 text-[11px] leading-tight text-[#1a1a18]/50">
+                        {item.hint}
+                      </span>
+                    </div>
+                    <motion.span
+                      aria-hidden
+                      initial={false}
+                      animate={{ x: 0, opacity: 0.5 }}
+                      whileHover={{ x: 3, opacity: 1 }}
+                      transition={{ duration: 0.3, ease: EASE }}
+                      className="text-[13px] text-[#049B9F] group-hover:translate-x-1"
+                    >
+                      &rarr;
+                    </motion.span>
+                    {item.comingSoon && (
+                      <span
+                        aria-hidden
+                        className="absolute right-3 top-2 h-1.5 w-1.5 rounded-full"
+                        style={{ background: PALETTE.teal }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export function PillNav() {
   const [hovered, setHovered] = useState(null);
   const leaveTimer = useRef(null);
@@ -156,7 +241,11 @@ export function PillNav() {
   const currentKey = (() => {
     if (location.pathname === "/about") return "About";
     if (location.pathname === "/contact") return "Contact";
-    if (location.pathname.startsWith("/work") || location.pathname.startsWith("/project"))
+    if (
+      location.pathname.startsWith("/work") ||
+      location.pathname.startsWith("/project") ||
+      location.pathname.startsWith("/for")
+    )
       return "Work";
     return null;
   })();
@@ -233,6 +322,7 @@ export function PillNav() {
         <div className="flex flex-1 items-center justify-around">
           {NAV_LINKS.map((l) => {
             const active = activeKey === l.label;
+            const isWork = l.label === "Work";
             const common = {
               onMouseEnter: () => handleEnter(l.label),
               style: MONO,
@@ -259,12 +349,38 @@ export function PillNav() {
                     letterSpacing: active ? "0.24em" : "0.22em",
                   }}
                   transition={{ duration: 0.55, ease: EASE }}
-                  className="relative inline-block"
+                  className="relative inline-flex items-center gap-1.5"
                 >
                   {l.label}
+                  {isWork && (
+                    <motion.svg
+                      viewBox="0 0 10 6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      animate={{ rotate: hovered === "Work" ? 180 : 0 }}
+                      transition={{ duration: 0.4, ease: EASE }}
+                      className="h-[5px] w-[9px] opacity-70"
+                      aria-hidden
+                    >
+                      <path d="M1 1l4 4 4-4" />
+                    </motion.svg>
+                  )}
                 </motion.span>
               </>
             );
+            if (isWork) {
+              return (
+                <div key={l.label} className="relative">
+                  <Link to={l.to} {...common}>
+                    {content}
+                  </Link>
+                  <WorkDropdown open={hovered === "Work"} onEnter={() => handleEnter("Work")} />
+                </div>
+              );
+            }
             if (l.external) {
               return (
                 <a key={l.label} href={l.to} {...common}>
