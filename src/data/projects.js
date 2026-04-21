@@ -185,7 +185,9 @@ const projects = [
     category: "Reporting",
     gradient: "from-stone-300 via-stone-200 to-stone-100",
     link: "https://open-ten99.web.app",
-    image: "/screenshots/ten99-login.png",
+    image: "/screenshots/ten99-dashboard.png",
+    previewImage: "/previews/ten99-preview.png",
+    workImage: "/previews/ten99-work.png",
     features: [
       { icon: "invoice", title: "Invoicing", desc: "Create, send, and track professional invoices with payment status" },
       { icon: "parse", title: "Auto-Categorization", desc: "Transactions are parsed and categorized automatically using smart rules" },
