@@ -264,9 +264,92 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
   const [showRawJson, setShowRawJson] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [aiFilling, setAiFilling] = useState(false);
+  const [aiNote, setAiNote] = useState("");
 
   function update(patch) {
     setDraft((d) => ({ ...d, ...patch }));
+  }
+
+  function mergeAiFields(fields) {
+    if (!fields || typeof fields !== "object") return;
+    setDraft((d) => {
+      const next = { ...d };
+      const isEmpty = (v) =>
+        v == null ||
+        (typeof v === "string" && v.trim() === "") ||
+        (Array.isArray(v) && v.length === 0);
+      const scalarKeys = [
+        "headline",
+        "description",
+        "category",
+        "problem",
+        "approach",
+        "quote",
+        "quoteAttribution",
+        "cardText",
+        "cardKicker",
+        "featureListTitle",
+        "gradient",
+      ];
+      for (const k of scalarKeys) {
+        if (typeof fields[k] === "string" && fields[k].trim() && isEmpty(next[k])) {
+          next[k] = fields[k].trim();
+        }
+      }
+      if (Array.isArray(fields.tags) && isEmpty(next.tags)) {
+        next.tags = fields.tags.filter((t) => typeof t === "string" && t.trim()).join(", ");
+      }
+      if (Array.isArray(fields.techStack) && isEmpty(next.techStack)) {
+        next.techStack = fields.techStack.filter((t) => typeof t === "string" && t.trim()).join(", ");
+      }
+      const listKeys = ["results", "features", "featureList", "processSteps"];
+      for (const k of listKeys) {
+        if (Array.isArray(fields[k]) && isEmpty(next[k])) next[k] = fields[k];
+      }
+      if (Array.isArray(fields.before) && isEmpty(next.before)) next.before = fields.before;
+      if (Array.isArray(fields.after) && isEmpty(next.after)) next.after = fields.after;
+      return next;
+    });
+  }
+
+  async function handleAiFill() {
+    if (!draft.title.trim()) {
+      setAiNote("Add a title first so the AI has something to work from.");
+      return;
+    }
+    setAiFilling(true);
+    setAiNote("");
+    try {
+      const res = await fetch("/api/admin/ai-fill", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: draft.title,
+          slug: draft.slug,
+          category: draft.category,
+          description: draft.description,
+          headline: draft.headline,
+          link: draft.link,
+          demoUrl: draft.demoUrl,
+          techStack: draft.techStack ? draft.techStack.split(",").map((s) => s.trim()).filter(Boolean) : [],
+          tags: draft.tags ? draft.tags.split(",").map((s) => s.trim()).filter(Boolean) : [],
+          problem: draft.problem,
+          approach: draft.approach,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.error || `AI request failed (${res.status})`);
+      }
+      mergeAiFields(data.fields);
+      setAiNote("Filled empty fields. Review before saving.");
+    } catch (err) {
+      setAiNote(err.message);
+    } finally {
+      setAiFilling(false);
+    }
   }
 
   function toArray(value) {
@@ -380,7 +463,17 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               All fields are editable below. Use the Raw JSON view for bulk paste/backup.
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleAiFill}
+              disabled={aiFilling}
+              title="Fill empty fields using Gemini (requires a title)"
+              className="flex items-center gap-1.5 rounded border border-[#049B9F]/30 bg-gradient-to-r from-[#049B9F]/10 to-[#049B9F]/5 px-3 py-1.5 text-xs font-medium text-[#049B9F] transition-colors hover:border-[#049B9F] hover:bg-[#049B9F]/15 disabled:opacity-60"
+            >
+              <span aria-hidden>{aiFilling ? "⏳" : "✨"}</span>
+              {aiFilling ? "Filling…" : "Auto-fill with AI"}
+            </button>
             {!isNew && project.slug && (
               <a
                 href={`/project/${project.slug}`}
@@ -399,6 +492,11 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
             </button>
           </div>
         </div>
+        {aiNote && (
+          <div className="mx-auto mt-3 max-w-5xl text-xs text-[#4B5563]">
+            {aiNote}
+          </div>
+        )}
       </header>
 
       <form onSubmit={handleSubmit} className="mx-auto max-w-5xl px-6 py-8 md:px-10">
