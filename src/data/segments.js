@@ -30,8 +30,8 @@ export const SEGMENTS = [
     solution: "",
     whoItsFor: [],
     whoItsNotFor: [],
-    engagement: "4–8 week custom builds, project-based pricing.",
-    projectSlugs: [],
+    engagement: "4–8 week custom builds, project-based.",
+    projectSlugs: ["fluorescence-pipeline", "pulse-wave-toolkit"],
     ctaLabel: "Book a lab call",
   },
   {
@@ -59,7 +59,7 @@ export const SEGMENTS = [
     whoItsFor: [],
     whoItsNotFor: [],
     engagement: "Discovery → 4–8 week build → optional retainer.",
-    projectSlugs: [],
+    projectSlugs: ["docuhub-reporting", "ten99"],
     ctaLabel: "Book an ops call",
   },
 ];

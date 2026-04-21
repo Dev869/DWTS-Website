@@ -1,6 +1,7 @@
 import { useParams, Navigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getSegmentBySlug, SEGMENTS } from "../data/segments";
+import { useProjects } from "../hooks/useProjects";
 import {
   PALETTE,
   SERIF,
@@ -16,8 +17,13 @@ import {
 export default function Segment() {
   const { slug } = useParams();
   const segment = getSegmentBySlug(slug);
+  const { projects } = useProjects();
 
   if (!segment) return <Navigate to="/" replace />;
+
+  const relatedProjects = segment.projectSlugs
+    .map((s) => projects.find((p) => p.slug === s))
+    .filter(Boolean);
 
   return (
     <div className="text-[#1a1a18]">
@@ -75,6 +81,40 @@ export default function Segment() {
             </motion.div>
           </div>
         </section>
+
+        {relatedProjects.length > 0 && (
+          <section className="px-6 pb-20 md:px-12 lg:px-20">
+            <div className="mx-auto max-w-4xl">
+              <p style={MONO} className="text-[11px] uppercase tracking-[0.25em] text-[#1a1a18]/45">
+                · Related work
+              </p>
+              <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+                {relatedProjects.map((p) => (
+                  <Link
+                    key={p.slug}
+                    to={`/project/${p.slug}`}
+                    className="group rounded-2xl border border-[#1a1a18]/12 bg-white/60 p-6 backdrop-blur transition-all duration-500 hover:-translate-y-0.5 hover:border-[#049B9F]/40"
+                  >
+                    <h3 style={SERIF} className="text-[22px] leading-tight tracking-tight text-[#2A2D28]">
+                      {p.title}
+                    </h3>
+                    {p.headline && (
+                      <p className="mt-2 text-[14px] leading-[1.5] text-[#1a1a18]/65">
+                        {p.headline}
+                      </p>
+                    )}
+                    <span
+                      style={MONO}
+                      className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-[#049B9F]"
+                    >
+                      Read case study <span aria-hidden>&rarr;</span>
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <section className="px-6 pb-24 md:px-12 lg:px-20">
           <div className="mx-auto max-w-4xl">
