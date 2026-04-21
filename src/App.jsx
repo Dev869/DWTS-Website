@@ -6,6 +6,7 @@ import About from "./pages/About";
 import Work from "./pages/Work";
 import Contact from "./pages/Contact";
 import ProjectDetail from "./pages/ProjectDetail";
+import Segment from "./pages/Segment";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/project/:slug" element={<ProjectDetail />} />
+            <Route path="/for/:slug" element={<Segment />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
         </AnimatePresence>
