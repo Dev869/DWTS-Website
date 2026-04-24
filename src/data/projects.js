@@ -8,9 +8,9 @@ const projects = [
       "A toolkit built using an amalgamation of multiple applications to streamline an otherwise manual and labor-intensive task. A fantastic toolkit for calcium spark image analysis, built for a specfic lab at Loma Linda University.",
     headline: "Automating hours of microscopy analysis into minutes.",
     problem:
-      "Researchers at Loma Linda University spent hours manually analyzing fluorescence microscopy images — tracing calcium sparks, measuring intensity over time, and exporting data by hand. The process was tedious, error-prone, and didn't scale with growing datasets.",
+      "Researchers at Loma Linda University spent hours manually analyzing fluorescence microscopy images: tracing calcium sparks, measuring intensity over time, and exporting data by hand. The process was tedious, error-prone, and didn't scale with growing datasets.",
     approach:
-      "Built an automated pipeline using Python and Jupyter notebooks that detects calcium sparks, measures fluorescence intensity across time and space, and generates publication-ready visualizations — all in one reproducible workflow.",
+      "Built an automated pipeline using Python and Jupyter notebooks that detects calcium sparks, measures fluorescence intensity across time and space, and generates publication-ready visualizations, all in one reproducible workflow.",
     results: [
       { metric: "80%", label: "Time Saved" },
       { metric: "3x", label: "More Data Processed" },
@@ -46,10 +46,10 @@ const projects = [
       "Consistent, reproducible measurements every time",
       "Open formats with publication-ready exports",
     ],
-    quote: "This pipeline replaced a full day of manual work with a 15-minute automated run — and the results are more accurate.",
+    quote: "This pipeline replaced a full day of manual work with a 15-minute automated run, and the results are more accurate.",
     quoteAttribution: "Built for Loma Linda University",
     gallery: [
-      { src: "/previews/fluorescence-pipeline.png", caption: "Pipeline overview — automated calcium spark detection" },
+      { src: "/previews/fluorescence-pipeline.png", caption: "Pipeline overview: automated calcium spark detection" },
       { src: "/screenshots/fluorescence-github.png", caption: "Open-source repository with Jupyter notebooks and analysis tools" },
     ],
   },
@@ -64,7 +64,7 @@ const projects = [
     problem:
       "Medical researchers needed pulse wave velocity measurements but were locked into costly proprietary software. The existing tools lacked transparency, couldn't be customized, and created vendor dependency.",
     approach:
-      "Designed a Streamlit-based application that leverages OpenCV for image processing and edge tracing. The app provides an intuitive interface for uploading images, processing waveforms, and extracting velocity measurements — all open-source.",
+      "Designed a Streamlit-based application that leverages OpenCV for image processing and edge tracing. The app provides an intuitive interface for uploading images, processing waveforms, and extracting velocity measurements, all open-source.",
     results: [
       { metric: "$0", label: "License Cost" },
       { metric: "100%", label: "Open Source" },
@@ -96,16 +96,16 @@ const projects = [
       "Limited export options",
     ],
     after: [
-      "Zero license cost — fully open source",
+      "Zero license cost, fully open source",
       "Complete control to customize and extend",
       "Transparent algorithms using proven OpenCV methods",
       "Export to CSV, PDF, or any format needed",
     ],
-    quote: "What used to require a $10,000 software license now runs free in a browser — with better customization.",
+    quote: "What used to require a $10,000 software license now runs free in a browser, with better customization.",
     quoteAttribution: "Open-Source Medical Research Tool",
     gallery: [
       { src: "/previews/pulse-wave-toolkit.png", caption: "Streamlit interface for uploading and processing ultrasound images" },
-      { src: "/screenshots/pulse-wave-github.png", caption: "Open-source repository — Python, OpenCV, and Streamlit" },
+      { src: "/screenshots/pulse-wave-github.png", caption: "Open-source repository: Python, OpenCV, and Streamlit" },
     ],
   },
   {
@@ -155,10 +155,10 @@ const projects = [
       "Real-time dashboards and notifications",
       "Complete audit trail for legal protection",
     ],
-    quote: "Finally, a system where substitute teachers can document incidents properly — and administration knows about it in real time.",
+    quote: "Finally, a system where substitute teachers can document incidents properly, and administration knows about it in real time.",
     quoteAttribution: "Designed for School Districts",
     gallery: [
-      { src: "/previews/docuhub-reporting.png", caption: "Dashboard overview — reporting interface and navigation" },
+      { src: "/previews/docuhub-reporting.png", caption: "Dashboard overview: reporting interface and navigation" },
       { src: "/screenshots/docuhub-login.png", caption: "Login screen with Google SSO and access code entry" },
     ],
   },
@@ -169,10 +169,10 @@ const projects = [
     layout: "showcase",
     beta: true,
     description:
-      "A suite of tools for 1099 contractors — work orders, invoicing, finance reporting, and automated transaction parsing and categorization in one place.",
+      "A suite of tools for 1099 contractors. Work orders, invoicing, finance reporting, and automated transaction parsing and categorization, all in one place.",
     headline: "The all-in-one toolkit for independent contractors.",
     problem:
-      "1099 contractors juggle multiple tools for invoicing, expense tracking, and tax preparation. Existing solutions are either too complex, too expensive, or don't understand the unique needs of independent workers.",
+      "1099 contractors juggle multiple tools for invoicing, expense tracking, and tax prep. Existing solutions are either too complex, too expensive, or don't understand the specific needs of independent workers.",
     approach:
       "Created a comprehensive suite with work order management, invoicing, financial reporting, and automated transaction parsing. The system categorizes expenses intelligently and generates reports ready for tax season.",
     results: [
@@ -228,7 +228,7 @@ const projects = [
     quote: "I used to spend a week getting ready for tax season. Now I click one button and everything is organized.",
     quoteAttribution: "Built for 1099 Contractors",
     gallery: [
-      { src: "/screenshots/ten99-login.png", caption: "Landing page — contractor work order management portal" },
+      { src: "/screenshots/ten99-login.png", caption: "Landing page: contractor work order management portal" },
     ],
   },
 ];

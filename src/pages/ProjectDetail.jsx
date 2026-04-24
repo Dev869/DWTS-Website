@@ -333,7 +333,7 @@ function QuoteBlock({ quote, attribution }) {
             style={MONO}
             className="mt-8 text-[11px] uppercase tracking-[0.3em] text-[#F1EEE6]/55"
           >
-            — {attribution}
+            {attribution}
           </motion.p>
         )}
       </div>

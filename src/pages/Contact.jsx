@@ -28,7 +28,7 @@ function useRise() {
         };
 }
 
-// Inline Cal.com embed — uses the same loaded script as BookCallButton
+// Inline Cal.com embed, uses the same loaded script as BookCallButton
 function CalInline() {
   useCalCom();
   const mounted = useRef(false);
@@ -105,7 +105,7 @@ const FAQ = [
   },
   {
     q: "How do engagements usually work?",
-    a: "Most start with a 30-minute call to sketch the problem. If it's a good fit, we scope a small first milestone — usually 2–4 weeks — and go from there.",
+    a: "Most start with a 30-minute call to sketch the problem. If it's a good fit, we scope a small first milestone, usually 2 to 4 weeks, and go from there.",
   },
   {
     q: "Can you work with an existing team?",
@@ -220,7 +220,7 @@ export default function Contact() {
                   </div>
                   <p className="mt-3 text-[14px] leading-relaxed text-[#1a1a18]/65">
                     Based in Redlands, CA (Pacific). Currently taking on new
-                    engagements — available for short discovery calls any
+                    engagements, and open to short discovery calls any
                     weekday.
                   </p>
                 </motion.div>
@@ -238,7 +238,7 @@ export default function Contact() {
                 </div>
                 <CalInline />
                 <p className="mt-4 text-[12px] leading-relaxed text-[#1a1a18]/55">
-                  The form above is a live Cal.com embed — pick any open slot
+                  The form above is a live Cal.com embed. Pick any open slot
                   and you&rsquo;ll get a calendar invite automatically.{" "}
                   <BookCallButton label="Or open in a popup" variant="ghost" className="ml-1 !py-2 !px-4 !text-[10px]" />
                 </p>

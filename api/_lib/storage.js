@@ -30,7 +30,7 @@ export async function readProjects() {
     const data = await fetchBlobJson(match.url);
     if (Array.isArray(data)) return data;
   } catch (err) {
-    console.error("readProjects: falling back to seed —", err);
+    console.error("readProjects: falling back to seed:", err);
   }
   return seedProjects;
 }

@@ -12,7 +12,7 @@ import {
   BookCallButton,
 } from "./_shared.jsx";
 
-// Scaffolding page — copy lives in src/data/segments.js (currently stubs).
+// Scaffolding page. Copy lives in src/data/segments.js (currently stubs).
 // See docs/portfolio-strategy.md before filling in.
 export default function Segment() {
   const { slug } = useParams();

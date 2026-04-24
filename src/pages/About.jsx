@@ -52,8 +52,8 @@ const PRINCIPLES = [
 ];
 
 const TIMELINE = [
-  { year: "2026", label: "DW Tailored Systems", detail: "Independent practice — product engineering + AI integration" },
-  { year: "2025", label: "B.S. Biological Sciences", detail: "UC Davis — started in Computer Science, graduated in Bio Sci" },
+  { year: "2026", label: "DW Tailored Systems", detail: "Independent practice: product engineering + AI integration" },
+  { year: "2025", label: "B.S. Biological Sciences", detail: "UC Davis. Started in Computer Science, graduated in Bio Sci" },
   { year: "2025", label: "Fluorescence Pipeline", detail: "Summer research toolkit, Loma Linda University" },
   { year: "2024", label: "Pulse Wave Analysis", detail: "Undergraduate research, M&M Lab, UC Davis" },
 ];
@@ -115,7 +115,7 @@ export default function About() {
                 >
                   I embed with teams and build the specific internal tools
                   they actually need. Research labs, restaurants, logistics
-                  companies — if there&rsquo;s a workflow a sharper piece of
+                  companies. If there&rsquo;s a workflow a sharper piece of
                   software could untangle, I want to build it.
                 </motion.p>
 
@@ -124,7 +124,7 @@ export default function About() {
                 </motion.div>
               </div>
 
-              {/* Larger portrait — framed, warm border */}
+              {/* Larger portrait: framed, warm border */}
               <motion.div
                 {...rise(0.35)}
                 className="relative mx-auto md:ml-auto md:mr-0"
@@ -184,13 +184,13 @@ export default function About() {
               >
                 I came to software through a side door. I started at UC
                 Davis in Computer Science and switched into Biological
-                Sciences, which is how I ended up with a foot in both worlds
-                — and how I landed my first real programming job stitching
+                Sciences, which is how I ended up with a foot in both worlds,
+                and how I landed my first real programming job stitching
                 together analysis scripts for a research lab drowning in
                 fluorescence microscopy images. The &ldquo;tool&rdquo; they
                 were using was a spreadsheet and a pile of Python snippets
                 nobody wanted to touch. A few weeks later, runs that used to
-                take a day finished in fifteen minutes. That was the hook.
+                take a day were finishing in fifteen minutes. That was the hook.
               </motion.p>
               <motion.p
                 {...rise(0.15)}
@@ -204,7 +204,7 @@ export default function About() {
                 <span className="font-medium" style={{ color: PALETTE.tealDark }}>
                   DW Tailored Systems
                 </span>{" "}
-                is the same move — build the specific system that replaces the
+                is the same move: build the specific system that replaces the
                 duct tape.
               </motion.p>
               <motion.p
@@ -359,7 +359,7 @@ export default function About() {
                 style={SERIF}
                 className="max-w-2xl text-[22px] leading-[1.45] text-[#2A2D28] md:text-[26px]"
               >
-                The tools I reach for most often. I&rsquo;m tool-agnostic — if
+                The tools I reach for most often. I&rsquo;m tool-agnostic. If
                 something else fits the problem better, we use that.
               </motion.p>
               <motion.div {...rise(0.2)} className="mt-8 flex flex-wrap gap-2">
