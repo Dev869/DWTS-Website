@@ -20,7 +20,7 @@
   --border: #E4E7EC;
 }
 
-/* Retire the Bungee display font — remap any Tailwind `font-[Bungee]`
+/* Retire the Bungee display font; remap any Tailwind `font-[Bungee]`
    arbitrary-value class to the new clean display stack. */
 [class*="font-\[Bungee\]"],
 [class*="Bungee"] {
@@ -40,10 +40,10 @@ body {
 
 html { scroll-behavior: smooth; }
 
-/* Paper grain — retired for clean look; kept as no-op for class compatibility */
+/* Paper grain: retired for clean look; kept as no-op for class compatibility */
 .paper-grain::after { content: none; }
 
-/* Binary watermark — retired for clean look */
+/* Binary watermark: retired for clean look */
 .binary-watermark::before {
   content: none;
   display: none;
@@ -62,7 +62,7 @@ html { scroll-behavior: smooth; }
   background-size: 800px 320px;
 }
 
-/* Animations — minimal, entrance-only */
+/* Animations: minimal, entrance-only */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -70,7 +70,7 @@ html { scroll-behavior: smooth; }
 
 .animate-fade-up { animation: fadeUp 0.5s ease-out both; }
 
-/* Card hover — soft modern elevation */
+/* Card hover: soft modern elevation */
 .retro-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
@@ -96,7 +96,7 @@ html { scroll-behavior: smooth; }
   color: white;
 }
 
-/* Horizontal work swiper — hide scrollbar, keep scroll */
+/* Horizontal work swiper: hide scrollbar, keep scroll */
 .work-track {
   scrollbar-width: none;
   -ms-overflow-style: none;

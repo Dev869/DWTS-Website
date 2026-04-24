@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 import { SEGMENTS } from "../data/segments";
 
-// Cal.com embed loader. Uses their official popup snippet — no npm package needed.
+// Cal.com embed loader. Uses their official popup snippet; no npm package needed.
 // Configure CAL_LINK to your actual handle (e.g. "devinwilson/intro-call").
 export const CAL_LINK = "devin-wilson";
 export const CAL_NAMESPACE = "intro-call";
@@ -251,7 +251,7 @@ export function PillNav() {
   })();
 
   // When hovering: show hovered pill. When not hovering: show current page's pill (if any).
-  // The leave handler is delayed so the pill doesn't instantly vanish — attack/release feels natural.
+  // The leave handler is delayed so the pill doesn't instantly vanish; attack/release feels natural.
   const activeKey = hovered ?? currentKey;
 
   const handleEnter = useCallback((key) => {

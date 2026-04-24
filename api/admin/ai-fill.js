@@ -5,31 +5,31 @@ export const config = { runtime: "nodejs", maxDuration: 60 };
 const GEMINI_MODEL = "gemini-2.5-flash";
 
 const FIELD_GUIDE = `
-Return ONLY a JSON object matching this schema (no prose, no markdown). Every field is optional — omit any you cannot reasonably infer:
+Return ONLY a JSON object matching this schema (no prose, no markdown). Every field is optional; omit any you cannot reasonably infer:
 
 {
   "headline": string,              // punchy one-liner positioning the project
-  "description": string,           // 1–2 sentence elevator pitch
+  "description": string,           // 1 to 2 sentence elevator pitch
   "category": string,              // e.g. "Analytics", "Reporting", "Operations"
-  "tags": string[],                // 3–6 concise tags (tech + domain)
-  "techStack": string[],           // 3–8 libraries/frameworks
-  "problem": string,               // 2–3 sentences on the before-state pain
-  "approach": string,              // 2–3 sentences on how the solution works
+  "tags": string[],                // 3 to 6 concise tags (tech + domain)
+  "techStack": string[],           // 3 to 8 libraries/frameworks
+  "problem": string,               // 2 to 3 sentences on the before-state pain
+  "approach": string,              // 2 to 3 sentences on how the solution works
   "results": [ { "metric": string, "label": string } ],   // 3 items, metric < 6 chars
   "features": [ { "icon": string, "title": string, "desc": string } ], // 4 items, icon is a short keyword like "chart","doc","shield"
   "featureListTitle": string,
-  "featureList": [ { "title": string, "desc": string } ], // 8–12 short bullets
-  "processSteps": [ { "label": string, "desc": string } ],// 3–5 steps
-  "before": string[],              // 3–4 bullets of the before-state
-  "after": string[],               // 3–4 bullets of the after-state
+  "featureList": [ { "title": string, "desc": string } ], // 8 to 12 short bullets
+  "processSteps": [ { "label": string, "desc": string } ],// 3 to 5 steps
+  "before": string[],              // 3 to 4 bullets of the before-state
+  "after": string[],               // 3 to 4 bullets of the after-state
   "quote": string,                 // 1-sentence testimonial-style quote
   "quoteAttribution": string,      // short role/org
   "cardText": string,              // 1-sentence hook used on the home card
-  "cardKicker": string,            // 2–4 word kicker label
+  "cardKicker": string,            // 2 to 4 word kicker label
   "gradient": string               // Tailwind bg gradient classes, e.g. "from-amber-200 via-orange-100 to-yellow-50"
 }
 
-Style: confident, minimalist, plainspoken. No emoji. No buzzwords. Keep tone consistent with a high-end bespoke-software studio.
+Style: confident, minimalist, plainspoken. No emoji. No buzzwords. Avoid em-dashes and en-dashes; use commas, periods, or colons instead. Keep tone consistent with a high-end bespoke-software studio.
 `.trim();
 
 function buildPrompt(input) {

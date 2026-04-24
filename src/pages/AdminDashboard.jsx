@@ -110,7 +110,7 @@ export default function AdminDashboard({ onLogout }) {
           await loadProjects();
           setToast(
             saved
-              ? `Saved "${saved.title}" — image: ${saved.image || "(none)"}`
+              ? `Saved "${saved.title}". Image: ${saved.image || "(none)"}`
               : "Saved",
           );
         }}
@@ -199,8 +199,8 @@ export default function AdminDashboard({ onLogout }) {
                   <tr key={p.id} className="border-t border-[#E4E7EC] hover:bg-[#F9FAFB]">
                     <td className="px-4 py-3 font-medium text-[#1F2328]">{p.title}</td>
                     <td className="px-4 py-3 font-mono text-xs text-[#4B5563]">{p.slug}</td>
-                    <td className="px-4 py-3 text-[#4B5563]">{p.category || "—"}</td>
-                    <td className="px-4 py-3 text-[#4B5563]">{p.layout || "—"}</td>
+                    <td className="px-4 py-3 text-[#4B5563]">{p.category || "-"}</td>
+                    <td className="px-4 py-3 text-[#4B5563]">{p.layout || "-"}</td>
                     <td className="px-4 py-3 text-right">
                       <button
                         onClick={() => setEditing(p)}
@@ -457,7 +457,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
           <div>
             <h1 className="text-lg font-semibold text-[#1F2328]">
-              {isNew ? "New project" : `Edit — ${project.title}`}
+              {isNew ? "New project" : `Edit: ${project.title}`}
             </h1>
             <p className="text-xs text-[#4B5563]">
               All fields are editable below. Use the Raw JSON view for bulk paste/backup.
@@ -531,7 +531,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
           <div />
           <Field
             label="Layout template"
-            hint="Choose the page structure. Switching swaps the rendered template — fields stay the same."
+            hint="Choose the page structure. Switching swaps the rendered template; fields stay the same."
             className="md:col-span-2"
           >
             <LayoutPicker
@@ -799,7 +799,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
           </Field>
         </Section>
 
-        <Section title="Home card — dark panel text">
+        <Section title="Home card: dark panel text">
           <Field label="Card body (overrides quote / headline / description)" className="md:col-span-2">
             <textarea
               value={draft.cardText}

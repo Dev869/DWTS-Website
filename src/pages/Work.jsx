@@ -38,7 +38,7 @@ function ProjectRow({ project, index }) {
 
   return (
     <article className="relative py-16 md:py-24">
-      {/* Index marker — big background number */}
+      {/* Index marker: big background number */}
       <motion.span
         aria-hidden
         initial={{ opacity: 0 }}
@@ -105,7 +105,7 @@ function ProjectRow({ project, index }) {
                 }}
               />
 
-              {/* Status badges — always visible on card */}
+              {/* Status badges: always visible on card */}
               {(project.beta || project.openSource || /github\.com/i.test(project.link || "")) && (
                 <div className="pointer-events-none absolute top-4 left-4 z-10">
                   <ProjectBadges project={project} />
@@ -311,7 +311,7 @@ export default function Work() {
               style={SERIF}
               className="mt-10 max-w-2xl text-[20px] leading-[1.5] text-[#2A2D28]/80 md:text-[24px]"
             >
-              A selection of systems I&rsquo;ve shipped — research toolkits,
+              A selection of systems I&rsquo;ve shipped: research toolkits,
               operations platforms, and internal tools built to fit the exact
               shape of the problem.
             </motion.p>

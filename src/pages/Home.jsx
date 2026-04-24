@@ -85,7 +85,7 @@ function Hero() {
               className="mt-8 max-w-xl text-[20px] leading-[1.45] text-[#2A2D28]/85 md:text-[24px]"
             >
               I embed with operations teams and build the specific internal
-              tools they need — the{" "}
+              tools they need. The{" "}
               <span className="italic" style={{ color: PALETTE.teal }}>
                 ones nobody&rsquo;s selling off the shelf.
               </span>
@@ -118,7 +118,7 @@ function Hero() {
             </motion.p>
           </div>
 
-          {/* RIGHT: prominent portrait — sits up top so it's visible above the fold */}
+          {/* RIGHT: prominent portrait, sits up top so it's visible above the fold */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -246,7 +246,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
         }`}
         style={{ borderColor: `${PALETTE.ink}15` }}
       >
-        {/* Dark side — higher contrast, larger body text, clearer hierarchy */}
+        {/* Dark side: higher contrast, larger body text, clearer hierarchy */}
         <div
           className="group relative flex flex-col justify-between overflow-hidden px-10 py-14 md:px-14 md:py-16"
           style={{ background: PALETTE.tealDeep }}
@@ -258,7 +258,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
           />
 
           <div className="relative">
-            {/* Project name — serif, tight leading, brighter paper color for contrast */}
+            {/* Project name: serif, tight leading, brighter paper color for contrast */}
             <h3
               style={SERIF}
               className="text-[40px] leading-[1.02] tracking-tight text-[#F5F1E6] md:text-[56px]"
@@ -272,7 +272,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
               style={{ background: `${PALETTE.paper}40` }}
             />
 
-            {/* Kicker — lighter paper tone, not the accent teal (which disappeared against the tealDeep bg) */}
+            {/* Kicker: lighter paper tone, not the accent teal (which disappeared against the tealDeep bg) */}
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <p style={MONO} className="text-[11px] uppercase tracking-[0.28em]">
                 <span style={{ color: `${PALETTE.paper}85` }}>{kicker}</span>
@@ -280,7 +280,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
               <ProjectBadges project={project} compact />
             </div>
 
-            {/* Card body — renders with decorative quote marks, or as plain
+            {/* Card body: renders with decorative quote marks, or as plain
                 serif prose depending on cardTextStyle. */}
             {asQuote ? (
               <blockquote
@@ -306,7 +306,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
           </div>
 
           <div className="relative mt-12">
-            {/* Tags — high-contrast pills on a subtle paper tint */}
+            {/* Tags: high-contrast pills on a subtle paper tint */}
             <div className="flex flex-wrap gap-2">
               {tags.map((t) => (
                 <span
@@ -330,7 +330,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
               </div>
             )}
 
-            {/* Link CTA — brighter paper color + consistent arrow */}
+            {/* Link CTA: brighter paper color + consistent arrow */}
             <Link
               to={`/project/${project.slug}`}
               style={MONO}
@@ -438,7 +438,7 @@ function CarouselCard({ project, distance, isActive, accent }) {
       }}
       className="pointer-events-none"
     >
-      {/* Tinted glow — only renders when active; AnimatePresence handles exit on handoff */}
+      {/* Tinted glow: only renders when active; AnimatePresence handles exit on handoff */}
       <AnimatePresence>
         {isActive && (
           <motion.div
@@ -461,7 +461,7 @@ function CarouselCard({ project, distance, isActive, accent }) {
         )}
       </AnimatePresence>
 
-      {/* Card — tilts in 3D when active+hovering */}
+      {/* Card: tilts in 3D when active+hovering */}
       <motion.div
         onMouseEnter={isActive ? () => setHovering(true) : undefined}
         onMouseMove={isActive ? handleMove : undefined}
@@ -483,7 +483,7 @@ function CarouselCard({ project, distance, isActive, accent }) {
           height: CARD_H,
           borderColor: `${PALETTE.ink}15`,
           background: "#fff",
-          // Always pass the MotionValue — when not active we've already reset
+          // Always pass the MotionValue; when not active we've already reset
           // mx/my to 0.5 in useEffect so the springs settle to 0. This avoids
           // the snap that occurred when switching between MotionValue and literal.
           rotateX,
@@ -509,7 +509,7 @@ function CarouselCard({ project, distance, isActive, accent }) {
           <div className={`h-full w-full bg-gradient-to-br ${project.gradient || "from-[#EFEDE7] to-[#E4E0D5]"}`} />
         )}
 
-        {/* Gradient wash — darkens bottom for arrow button contrast */}
+        {/* Gradient wash: darkens bottom for arrow button contrast */}
         <motion.div
           aria-hidden
           animate={{ opacity: isActive && hovering ? 1 : 0 }}
@@ -520,7 +520,7 @@ function CarouselCard({ project, distance, isActive, accent }) {
           }}
         />
 
-        {/* Specular shine — static centered (tracking cursor via .get() was non-reactive
+        {/* Specular shine: static centered (tracking cursor via .get() was non-reactive
             and caused gradient string re-creation on every render, which compounded hops) */}
         <AnimatePresence>
           {isActive && hovering && (
@@ -541,7 +541,7 @@ function CarouselCard({ project, distance, isActive, accent }) {
           )}
         </AnimatePresence>
 
-        {/* Arrow badge — springs in from bottom-right corner */}
+        {/* Arrow badge: springs in from bottom-right corner */}
         <motion.div
           aria-hidden
           initial={false}
@@ -569,7 +569,7 @@ function CarouselCard({ project, distance, isActive, accent }) {
         </motion.div>
       </motion.div>
 
-      {/* Title + tags — height is reserved to prevent layout shift on active handoff */}
+      {/* Title + tags: height is reserved to prevent layout shift on active handoff */}
       <div className="mt-6 min-h-[110px] text-center">
         <motion.h3
           animate={{
@@ -804,7 +804,7 @@ function About() {
         </motion.p>
         <div>
           <motion.p {...m.rise(0.1)} style={SERIF} className="text-[28px] leading-[1.35] text-[#2A2D28] md:text-[36px]">
-            I work with teams that have a real problem and a rough idea —
+            I work with teams that have a real problem and a rough idea,
             and turn it into something that actually{" "}
             <span style={{ color: PALETTE.teal }} className="italic">runs</span>.
             Research labs, restaurants, logistics companies, founders who
@@ -814,8 +814,8 @@ function About() {
             Most of what I do lives under{" "}
             <span className="font-medium" style={{ color: PALETTE.tealDark }}>
               DW Tailored Systems
-            </span>{" "}
-            — my independent practice for product engineering, AI integration,
+            </span>
+            , my independent practice for product engineering, AI integration,
             and systems architecture. Usually one engineer, sometimes a small
             crew, always close to the problem.
           </motion.p>
