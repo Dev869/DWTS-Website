@@ -1,7 +1,7 @@
 import { useId, useMemo } from "react";
 import { motion } from "framer-motion";
 import { PALETTE, SERIF, MONO, EASE } from "../pages/_shared.jsx";
-import { getSegmentForProject, getProjectTheme } from "../data/segments.js";
+import { getSegmentForProject, getProjectTheme, getProjectArtworkPool } from "../data/segments.js";
 
 const PAPER = "#F5F1E6";
 
@@ -313,7 +313,72 @@ function RibbonMotif({ w, h, rng }) {
   );
 }
 
-const MOTIFS = [OrbitMotif, TopographyMotif, ConstellationMotif, RibbonMotif];
+function GridMotif({ w, h, rng }) {
+  // Spreadsheet/dashboard feel: tight dot grid with a few "highlighted" cells
+  // and one accented row underline. Reads as structured / operational.
+  const cols = intRange(rng, 9, 14);
+  const rows = intRange(rng, 6, 10);
+  const padX = w * 0.08;
+  const padY = h * 0.12;
+  const cellW = (w - 2 * padX) / Math.max(1, cols - 1);
+  const cellH = (h - 2 * padY) / Math.max(1, rows - 1);
+  const dotR = Math.min(cellW, cellH) * 0.18;
+
+  const highlightCount = intRange(rng, 5, 10);
+  const highlights = new Set();
+  let guard = 0;
+  while (highlights.size < highlightCount && guard++ < 60) {
+    const r = intRange(rng, 0, rows - 1);
+    const c = intRange(rng, 0, cols - 1);
+    highlights.add(`${r}-${c}`);
+  }
+
+  const accentRow = intRange(rng, 1, rows - 2);
+  const accentY = padY + accentRow * cellH;
+
+  const dots = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const x = padX + c * cellW;
+      const y = padY + r * cellH;
+      const isHigh = highlights.has(`${r}-${c}`);
+      dots.push(
+        <circle
+          key={`${r}-${c}`}
+          cx={x.toFixed(2)}
+          cy={y.toFixed(2)}
+          r={(isHigh ? dotR * 1.7 : dotR).toFixed(2)}
+          fill={PAPER}
+          fillOpacity={isHigh ? 0.9 : 0.28}
+        />
+      );
+    }
+  }
+
+  return (
+    <g>
+      {dots}
+      <line
+        x1={padX - cellW * 0.4}
+        y1={accentY}
+        x2={w - padX + cellW * 0.4}
+        y2={accentY}
+        stroke={PAPER}
+        strokeOpacity={0.45}
+        strokeWidth={1.4}
+        strokeLinecap="round"
+      />
+    </g>
+  );
+}
+
+const MOTIF_BY_NAME = {
+  orbit: OrbitMotif,
+  topography: TopographyMotif,
+  constellation: ConstellationMotif,
+  ribbon: RibbonMotif,
+  grid: GridMotif,
+};
 
 /* ---------- Title typographic treatments ---------- */
 /* Each project is assigned one of these by slug hash, so adding a new project
@@ -423,7 +488,19 @@ function OutlineSerif({ title, sizes }) {
   );
 }
 
-const TITLE_STYLES = [EditorialStack, CapsGrotesk, MonoLower, OutlineSerif];
+const TITLE_BY_NAME = {
+  editorialStack: EditorialStack,
+  capsGrotesk: CapsGrotesk,
+  monoLower: MonoLower,
+  outlineSerif: OutlineSerif,
+};
+
+/** Resolve a list of names to components, dropping anything unknown. */
+function resolveNames(names, byName, fallbackKey) {
+  const resolved = (names || []).map((n) => byName[n]).filter(Boolean);
+  if (resolved.length) return resolved;
+  return [byName[fallbackKey]];
+}
 
 const WRAP_PADDING = {
   card: "p-5 sm:p-6",
@@ -449,8 +526,9 @@ export default function ProjectArtwork({
 }) {
   const cfg = VARIANT[variant] || VARIANT.card;
   const { w, h } = cfg;
-  const theme = getProjectTheme(project.slug);
-  const segment = getSegmentForProject(project.slug);
+  const theme = getProjectTheme(project);
+  const segment = getSegmentForProject(project);
+  const pool = getProjectArtworkPool(project);
 
   const uid = useId().replace(/:/g, "");
   const ids = {
@@ -460,15 +538,17 @@ export default function ProjectArtwork({
   };
 
   const { motif, TitleStyle } = useMemo(() => {
+    const motifs = resolveNames(pool.motifs, MOTIF_BY_NAME, "orbit");
+    const titles = resolveNames(pool.titleStyles, TITLE_BY_NAME, "editorialStack");
     const seed = hashSeed(project.slug || project.title || "x");
     const rng = mulberry32(seed);
-    const Motif = MOTIFS[Math.floor(rng() * MOTIFS.length)];
-    const Title = TITLE_STYLES[Math.floor(rng() * TITLE_STYLES.length)];
+    const Motif = motifs[Math.floor(rng() * motifs.length)];
+    const Title = titles[Math.floor(rng() * titles.length)];
     return {
       motif: <Motif w={w} h={h} rng={rng} />,
       TitleStyle: Title,
     };
-  }, [project.slug, project.title, w, h]);
+  }, [project.slug, project.title, project.segment, w, h, pool]);
 
   return (
     <div className="relative h-full w-full overflow-hidden">
