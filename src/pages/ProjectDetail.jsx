@@ -412,7 +412,7 @@ function TechBlock({ techStack }) {
   );
 }
 
-function ProjectHeader({ project }) {
+function ProjectHeader({ project, index }) {
   const accent = PALETTE.teal;
   return (
     <section className="relative overflow-hidden px-5 pt-24 pb-12 sm:px-6 sm:pt-28 sm:pb-16 md:px-12 md:pt-36 md:pb-24 lg:px-20">
@@ -485,7 +485,7 @@ function ProjectHeader({ project }) {
           <StripeBar />
         </motion.div>
 
-        {/* Hero image */}
+        {/* Hero image: detail pages use the project's own artwork. */}
         {project.image && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -554,7 +554,8 @@ export default function ProjectDetail() {
     );
   }
 
-  const project = projects.find((p) => p.slug === slug);
+  const projectIndex = projects.findIndex((p) => p.slug === slug);
+  const project = projectIndex >= 0 ? projects[projectIndex] : null;
 
   if (!project) {
     return (
@@ -580,7 +581,7 @@ export default function ProjectDetail() {
     <div className="text-[#1a1a18]">
       <PillNav />
       <div className="min-h-screen bg-gradient-to-b from-[#F1EEE6] via-[#ECE9E2] to-[#E4E0D5]">
-        <ProjectHeader project={project} />
+        <ProjectHeader project={project} index={projectIndex} />
         <ProblemApproach problem={project.problem} approach={project.approach} />
         <BeforeAfterBlock before={project.before} after={project.after} />
         <ProcessBlock steps={project.processSteps} />

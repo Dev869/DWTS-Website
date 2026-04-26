@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useProjects } from "../hooks/useProjects";
+import { getProjectHighlights } from "../data/projects.js";
+import ProjectArtwork from "../components/ProjectArtwork.jsx";
 import {
   PALETTE,
   STRIPE_COLORS,
@@ -30,7 +32,7 @@ function useRise() {
 function ProjectRow({ project, index }) {
   const reverse = index % 2 === 1;
   const accent = STRIPE_COLORS[index % STRIPE_COLORS.length];
-  const tags = (project.tags || project.techStack || []).slice(0, 4);
+  const highlights = getProjectHighlights(project, 4);
   const description =
     project.headline ||
     project.description?.slice(0, 140) ||
@@ -68,64 +70,44 @@ function ProjectRow({ project, index }) {
         >
           <Link
             to={`/project/${project.slug}`}
-            className="group relative block overflow-hidden rounded-[24px] border bg-white shadow-[0_30px_70px_-30px_rgba(26,26,24,0.35)]"
-            style={{ borderColor: `${PALETTE.ink}15` }}
+            className="group relative block aspect-[4/3] overflow-hidden rounded-[24px] shadow-[0_30px_70px_-30px_rgba(26,26,24,0.35)] transition-shadow duration-700 hover:shadow-[0_40px_90px_-30px_rgba(26,26,24,0.45)]"
           >
-            {/* Soft accent halo */}
+            {/* Soft accent halo behind card */}
             <div
               className="absolute -inset-6 -z-10 rounded-[36px] opacity-60"
               style={{ background: `${accent}14` }}
             />
 
-            <div className="relative aspect-[4/3] overflow-hidden">
-              {(project.workImage || project.previewImage || project.image) ? (
-                <motion.img
-                  src={project.workImage || project.previewImage || project.image}
-                  alt={project.title}
-                  className="h-full w-full object-cover"
-                  initial={{ scale: 1 }}
-                  whileHover={{ scale: 1.04 }}
-                  transition={{ duration: 0.9, ease: EASE }}
-                />
-              ) : (
-                <div
-                  className={`h-full w-full bg-gradient-to-br ${project.gradient || "from-[#EFEDE7] to-[#E4E0D5]"}`}
-                />
-              )}
+            {/* Vector artwork fills the card */}
+            <motion.div
+              className="absolute inset-0"
+              initial={{ scale: 1 }}
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.9, ease: EASE }}
+            >
+              <ProjectArtwork project={project} index={index} variant="card" />
+            </motion.div>
 
-              {/* Gradient wash on hover */}
-              <motion.div
-                aria-hidden
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.6, ease: EASE }}
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background: `linear-gradient(180deg, transparent 50%, ${accent}30 100%)`,
-                }}
-              />
+            {/* Status badges: always visible on card */}
+            {(project.beta || project.openSource || /github\.com/i.test(project.link || "")) && (
+              <div className="pointer-events-none absolute right-4 top-4 z-20">
+                <ProjectBadges project={project} />
+              </div>
+            )}
 
-              {/* Status badges: always visible on card */}
-              {(project.beta || project.openSource || /github\.com/i.test(project.link || "")) && (
-                <div className="pointer-events-none absolute top-4 left-4 z-10">
-                  <ProjectBadges project={project} />
-                </div>
-              )}
-
-              {/* Arrow badge */}
-              <motion.div
-                aria-hidden
-                initial={{ opacity: 0, scale: 0.6, x: 10, y: 10 }}
-                whileHover={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                transition={{ type: "spring", stiffness: 380, damping: 24 }}
-                className="absolute bottom-5 right-5 flex h-12 w-12 items-center justify-center rounded-full shadow-[0_12px_28px_-8px_rgba(26,26,24,0.4)]"
-                style={{ background: accent, color: "#F8F6F0" }}
-              >
-                <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-                  <path d="M0 8H14M14 8L9 3M14 8L9 13" stroke="currentColor" strokeWidth="1.6" />
-                </svg>
-              </motion.div>
-            </div>
+            {/* Arrow badge */}
+            <motion.div
+              aria-hidden
+              initial={{ opacity: 0, scale: 0.6, x: 10, y: 10 }}
+              whileHover={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+              transition={{ type: "spring", stiffness: 380, damping: 24 }}
+              className="absolute bottom-5 right-5 z-20 flex h-12 w-12 items-center justify-center rounded-full shadow-[0_12px_28px_-8px_rgba(26,26,24,0.4)]"
+              style={{ background: "#F5F1E6", color: PALETTE.ink }}
+            >
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+                <path d="M0 8H14M14 8L9 3M14 8L9 13" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+            </motion.div>
           </Link>
         </motion.div>
 
@@ -172,31 +154,46 @@ function ProjectRow({ project, index }) {
               {description}
             </motion.p>
 
-            {/* Tag pills */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.06, delayChildren: 0.3 } },
-              }}
-              className="mt-7 flex flex-wrap gap-2"
-            >
-              {tags.map((t) => (
-                <motion.span
-                  key={t}
-                  variants={{
-                    hidden: { opacity: 0, y: 8 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
-                  }}
-                  style={{ ...MONO, borderColor: `${PALETTE.ink}18` }}
-                  className="rounded-full border bg-white/50 px-3.5 py-1.5 text-[10px] uppercase tracking-[0.22em] text-[#1a1a18]/70 transition-all duration-500 hover:-translate-y-0.5 hover:border-[#049B9F]/45 hover:bg-white/80 hover:text-[#049B9F]"
-                >
-                  {t}
-                </motion.span>
-              ))}
-            </motion.div>
+            {/* Outcome highlights — what this delivers, not what it's built with. */}
+            {highlights.length > 0 && (
+              <motion.dl
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.3 } },
+                }}
+                className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 sm:gap-x-8"
+              >
+                {highlights.map((h, i) => (
+                  <motion.div
+                    key={`${h.value}-${h.label}-${i}`}
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+                    }}
+                    className="border-t pt-3"
+                    style={{ borderColor: `${PALETTE.ink}1A` }}
+                  >
+                    {h.value && (
+                      <dd
+                        style={{ ...SERIF, color: accent }}
+                        className="text-[26px] leading-[1] tracking-[-0.02em] sm:text-[30px]"
+                      >
+                        {h.value}
+                      </dd>
+                    )}
+                    <dt
+                      style={MONO}
+                      className="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#1a1a18]/65"
+                    >
+                      {h.label}
+                    </dt>
+                  </motion.div>
+                ))}
+              </motion.dl>
+            )}
 
             {(project.link || project.demoUrl) && (
               <motion.div

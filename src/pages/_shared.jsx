@@ -554,23 +554,52 @@ export function ProjectBadges({ project, className = "", compact = false }) {
   if (!project) return null;
   const items = [];
   if (project.beta) {
-    items.push({ key: "beta", label: "Beta", bg: "rgba(245, 158, 11, 0.12)", fg: "#B45309", border: "rgba(245, 158, 11, 0.45)" });
+    items.push({
+      key: "beta",
+      label: "Beta",
+      bg: "#D97706",
+      fg: "#FFF8EC",
+      border: "rgba(255, 248, 236, 0.5)",
+      pulse: true,
+    });
   }
   if (project.openSource || isGithubUrl(project.link)) {
-    items.push({ key: "oss", label: "Open Source", bg: "rgba(4, 155, 159, 0.12)", fg: "#049B9F", border: "rgba(4, 155, 159, 0.45)" });
+    items.push({
+      key: "oss",
+      label: "Open Source",
+      bg: "#037B7E",
+      fg: "#F5F1E6",
+      border: "rgba(245, 241, 230, 0.5)",
+      pulse: false,
+    });
   }
   if (!items.length) return null;
-  const px = compact ? "px-2 py-0.5" : "px-3 py-1";
-  const fs = compact ? "text-[9px]" : "text-[10px]";
+  const px = compact ? "px-2.5 py-1" : "px-3.5 py-1.5";
+  const fs = compact ? "text-[10px]" : "text-[11px]";
   return (
-    <div className={`flex flex-wrap items-center gap-1.5 ${className}`}>
+    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
       {items.map((b) => (
         <span
           key={b.key}
-          style={{ ...MONO, color: b.fg, background: b.bg, borderColor: b.border }}
-          className={`inline-flex items-center gap-1 rounded-full border ${px} ${fs} uppercase tracking-[0.2em]`}
+          style={{
+            ...MONO,
+            color: b.fg,
+            background: b.bg,
+            borderColor: b.border,
+            boxShadow: "0 6px 18px -6px rgba(26, 26, 24, 0.45)",
+            fontWeight: 600,
+          }}
+          className={`inline-flex items-center gap-1.5 rounded-full border ${px} ${fs} uppercase tracking-[0.18em]`}
         >
-          <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: b.fg }} />
+          <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
+            {b.pulse && (
+              <span
+                className="absolute inset-0 animate-ping rounded-full"
+                style={{ background: b.fg, opacity: 0.7 }}
+              />
+            )}
+            <span className="relative inline-block h-1.5 w-1.5 rounded-full" style={{ background: b.fg }} />
+          </span>
           {b.label}
         </span>
       ))}
