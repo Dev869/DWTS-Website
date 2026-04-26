@@ -9,6 +9,8 @@ import {
   useTransform,
 } from "framer-motion";
 import { useProjects } from "../hooks/useProjects";
+import { getProjectHighlights } from "../data/projects.js";
+import ProjectArtwork from "../components/ProjectArtwork.jsx";
 import {
   PALETTE,
   STRIPE_COLORS,
@@ -43,7 +45,7 @@ function useMotion() {
 function Hero() {
   const m = useMotion();
   return (
-    <section id="top" className="relative px-6 pt-28 pb-20 md:px-12 md:pt-32 md:pb-28 lg:px-20">
+    <section id="top" className="relative px-5 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 md:px-12 md:pt-32 md:pb-28 lg:px-20">
       <div className="relative mx-auto max-w-6xl">
         <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[1.15fr_0.85fr] md:gap-16">
           {/* LEFT: name + tagline + role + CTAs */}
@@ -63,7 +65,7 @@ function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
-              className="text-[64px] leading-[0.92] tracking-[-0.02em] text-[#2A2D28] md:text-[96px] lg:text-[128px]"
+              className="text-[52px] leading-[0.92] tracking-[-0.02em] text-[#2A2D28] sm:text-[64px] md:text-[96px] lg:text-[128px]"
             >
               Devin
               <br />
@@ -82,7 +84,7 @@ function Hero() {
             <motion.p
               {...m.rise(0.35)}
               style={SERIF}
-              className="mt-8 max-w-xl text-[20px] leading-[1.45] text-[#2A2D28]/85 md:text-[24px]"
+              className="mt-7 max-w-xl text-[18px] leading-[1.45] text-[#2A2D28]/85 sm:text-[20px] md:text-[24px]"
             >
               I embed with operations teams and build the specific internal
               tools they need. The{" "}
@@ -145,7 +147,7 @@ function Hero() {
                 alt="Devin Wilson"
                 eager
                 sizes="(min-width: 768px) 360px, 280px"
-                className="block h-[340px] w-[280px] object-cover md:h-[440px] md:w-[360px]"
+                className="block h-[300px] w-[240px] object-cover sm:h-[340px] sm:w-[280px] md:h-[440px] md:w-[360px]"
               />
             </div>
             <div
@@ -220,9 +222,7 @@ function SectionRule({ left, right, accent = PALETTE.teal }) {
   );
 }
 
-function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
-  const previewSrc = project.previewImage || project.image;
-  const hasImage = Boolean(previewSrc);
+function FeaturedCase({ project, index = 0, flip = false, accent = PALETTE.teal }) {
   const cardBody =
     project.cardText ||
     project.quote ||
@@ -230,7 +230,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
     project.description?.slice(0, 160);
   const asQuote = (project.cardTextStyle || "quote") === "quote";
   const kicker = project.cardKicker || (asQuote ? "From the case study" : "About the project");
-  const tags = (project.techStack || project.tags || []).slice(0, 4);
+  const highlights = getProjectHighlights(project, 3);
 
   return (
     <motion.div
@@ -238,7 +238,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8, ease: EASE }}
-      className="mx-auto mt-10 max-w-6xl px-6 md:px-12 lg:px-20"
+      className="mx-auto mt-10 max-w-6xl px-5 sm:px-6 md:px-12 lg:px-20"
     >
       <div
         className={`grid grid-cols-1 overflow-hidden rounded-3xl border shadow-[0_30px_80px_-40px_rgba(26,26,24,0.35)] md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] ${
@@ -248,7 +248,7 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
       >
         {/* Dark side: higher contrast, larger body text, clearer hierarchy */}
         <div
-          className="group relative flex flex-col justify-between overflow-hidden px-10 py-14 md:px-14 md:py-16"
+          className="group relative flex flex-col justify-between overflow-hidden px-6 py-10 sm:px-8 sm:py-12 md:px-14 md:py-16"
           style={{ background: PALETTE.tealDeep }}
         >
           {/* Subtle radial glow behind title */}
@@ -258,27 +258,18 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
           />
 
           <div className="relative">
-            {/* Project name: serif, tight leading, brighter paper color for contrast */}
-            <h3
-              style={SERIF}
-              className="text-[40px] leading-[1.02] tracking-tight text-[#F5F1E6] md:text-[56px]"
-            >
-              {project.title.split(" ")[0]}
-            </h3>
-
-            {/* Divider line for visual separation */}
-            <div
-              className="mt-8 h-px w-12"
-              style={{ background: `${PALETTE.paper}40` }}
-            />
-
-            {/* Kicker: lighter paper tone, not the accent teal (which disappeared against the tealDeep bg) */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            {/* Title is rendered on the artwork side now; lead with the kicker. */}
+            <div className="flex flex-wrap items-center gap-3">
               <p style={MONO} className="text-[11px] uppercase tracking-[0.28em]">
                 <span style={{ color: `${PALETTE.paper}85` }}>{kicker}</span>
               </p>
               <ProjectBadges project={project} compact />
             </div>
+
+            <div
+              className="mt-6 h-px w-12"
+              style={{ background: `${PALETTE.paper}40` }}
+            />
 
             {/* Card body: renders with decorative quote marks, or as plain
                 serif prose depending on cardTextStyle. */}
@@ -306,23 +297,29 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
           </div>
 
           <div className="relative mt-12">
-            {/* Tags: high-contrast pills on a subtle paper tint */}
-            <div className="flex flex-wrap gap-2">
-              {tags.map((t) => (
-                <span
-                  key={t}
-                  style={{
-                    ...MONO,
-                    color: PALETTE.paper,
-                    background: "rgba(245, 241, 230, 0.08)",
-                    borderColor: "rgba(245, 241, 230, 0.22)",
-                  }}
-                  className="rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.18em]"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
+            {/* Outcome highlights — what the project delivers, in customer language. */}
+            {highlights.length > 0 && (
+              <dl className="grid grid-cols-3 gap-x-5 gap-y-2 border-t pt-5" style={{ borderColor: "rgba(245, 241, 230, 0.18)" }}>
+                {highlights.map((h, i) => (
+                  <div key={`${h.value}-${h.label}-${i}`}>
+                    {h.value && (
+                      <dd
+                        style={{ ...SERIF, color: "#F5F1E6" }}
+                        className="text-[26px] leading-[1] tracking-[-0.02em] sm:text-[30px]"
+                      >
+                        {h.value}
+                      </dd>
+                    )}
+                    <dt
+                      style={{ ...MONO, color: "rgba(245, 241, 230, 0.65)" }}
+                      className="mt-1 text-[10px] uppercase tracking-[0.2em]"
+                    >
+                      {h.label}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
+            )}
 
             {(project.link || project.demoUrl) && (
               <div className="mt-6">
@@ -350,27 +347,26 @@ function FeaturedCase({ project, flip = false, accent = PALETTE.teal }) {
           </div>
         </div>
 
-        {/* Light/image side */}
-        <div
-          className={`relative overflow-hidden bg-gradient-to-br ${project.gradient || "from-[#EFEDE7] to-[#E4E0D5]"}`}
+        {/* Vector artwork side */}
+        <Link
+          to={`/project/${project.slug}`}
+          className="group relative block min-h-[260px] overflow-hidden sm:min-h-[320px] md:min-h-0"
         >
-          <span className="absolute top-6 left-6 z-10 h-4 w-4 border-t-2 border-l-2" style={{ borderColor: `${accent}55` }} />
-          <span className="absolute bottom-6 right-6 z-10 h-4 w-4 border-b-2 border-r-2" style={{ borderColor: `${accent}55` }} />
-          {hasImage ? (
-            <motion.img
-              src={previewSrc}
-              alt={project.title}
-              initial={{ scale: 1, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
-              whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 180, damping: 22 } }}
-              className="absolute inset-0 h-full w-full object-cover will-change-transform"
-            />
-          ) : (
-            <div className="h-full w-full bg-white/40" />
-          )}
-        </div>
+          <motion.div
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
+            whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 180, damping: 22 } }}
+          >
+            <ProjectArtwork project={project} index={index} variant="card" />
+          </motion.div>
+
+          {/* Corner ticks: subtle frame markers */}
+          <span className="pointer-events-none absolute top-6 left-6 z-10 h-4 w-4 border-t-2 border-l-2" style={{ borderColor: `${PALETTE.paper}55` }} />
+          <span className="pointer-events-none absolute bottom-6 right-6 z-10 h-4 w-4 border-b-2 border-r-2" style={{ borderColor: `${PALETTE.paper}55` }} />
+        </Link>
       </div>
     </motion.div>
   );
@@ -381,14 +377,14 @@ const CARD_H = 360;
 const GAP = 40;
 const SPRING = { type: "spring", stiffness: 200, damping: 30, mass: 1 };
 
-function CarouselCard({ project, distance, isActive, accent }) {
+function CarouselCard({ project, index = 0, distance, isActive, accent }) {
   const abs = Math.abs(distance);
   const x = distance * (CARD_W + GAP);
   const scale = abs === 0 ? 1 : abs === 1 ? 0.84 : abs === 2 ? 0.68 : 0.56;
   const opacity = abs === 0 ? 1 : abs === 1 ? 0.6 : abs === 2 ? 0.28 : 0.1;
   const grayscale = abs === 0 ? 0 : Math.min(0.4 + abs * 0.25, 1);
   const saturate = abs === 0 ? 1 : Math.max(1 - abs * 0.45, 0.15);
-  const tags = (project.tags || project.techStack || []).slice(0, 4);
+  const highlights = getProjectHighlights(project, 3);
 
   // 3D tilt: track pointer, feed springs for rotateX/Y
   const [hovering, setHovering] = useState(false);
@@ -494,29 +490,25 @@ function CarouselCard({ project, distance, isActive, accent }) {
           cursor: isActive ? "pointer" : "default",
           willChange: "transform",
         }}
-        className="relative overflow-hidden rounded-[22px] border"
+        className="relative overflow-hidden rounded-[22px]"
       >
-        {(project.previewImage || project.image) ? (
-          <motion.img
-            src={project.previewImage || project.image}
-            alt={project.title}
-            draggable={false}
-            animate={{ scale: isActive && hovering ? 1.06 : 1 }}
-            transition={{ duration: 0.9, ease: EASE }}
-            className="h-full w-full object-cover will-change-transform"
-          />
-        ) : (
-          <div className={`h-full w-full bg-gradient-to-br ${project.gradient || "from-[#EFEDE7] to-[#E4E0D5]"}`} />
-        )}
+        {/* Vector artwork fills the card */}
+        <motion.div
+          className="absolute inset-0"
+          animate={{ scale: isActive && hovering ? 1.04 : 1 }}
+          transition={{ duration: 0.9, ease: EASE }}
+        >
+          <ProjectArtwork project={project} index={index} variant="portrait" />
+        </motion.div>
 
-        {/* Gradient wash: darkens bottom for arrow button contrast */}
+        {/* Subtle wash on hover for arrow contrast */}
         <motion.div
           aria-hidden
           animate={{ opacity: isActive && hovering ? 1 : 0 }}
           transition={{ duration: 0.5, ease: EASE }}
           className="pointer-events-none absolute inset-0"
           style={{
-            background: `linear-gradient(180deg, transparent 45%, ${accent}18 75%, ${accent}40 100%)`,
+            background: `linear-gradient(180deg, transparent 55%, rgba(26,26,24,0.28) 100%)`,
           }}
         />
 
@@ -569,33 +561,8 @@ function CarouselCard({ project, distance, isActive, accent }) {
         </motion.div>
       </motion.div>
 
-      {/* Title + tags: height is reserved to prevent layout shift on active handoff */}
-      <div className="mt-6 min-h-[110px] text-center">
-        <motion.h3
-          animate={{
-            color: isActive ? "#1a1a18" : "#1a1a1850",
-            opacity: isActive ? 1 : 0.85,
-          }}
-          transition={{
-            color: { duration: 0.5, ease: EASE },
-            opacity: { duration: 0.4, ease: EASE },
-          }}
-          style={{ ...SERIF, fontWeight: 600 }}
-          className="text-[22px] leading-tight tracking-tight"
-        >
-          {project.title}
-          {/* Underline that draws in on hover */}
-          {isActive && (
-            <motion.span
-              aria-hidden
-              animate={{ scaleX: hovering ? 1 : 0 }}
-              transition={{ duration: 0.5, ease: EASE }}
-              className="mx-auto mt-1 block h-[2px] w-10 origin-center"
-              style={{ background: accent }}
-            />
-          )}
-        </motion.h3>
-
+      {/* Title is now on the artwork; reserve space for tags on the active card. */}
+      <div className="mt-6 min-h-[64px] text-center">
         <AnimatePresence mode="wait">
           {isActive && (
             <motion.div
@@ -604,19 +571,25 @@ function CarouselCard({ project, distance, isActive, accent }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.4, ease: EASE }}
-              className="mt-3 flex flex-wrap justify-center gap-1.5 px-4"
+              className="flex items-baseline justify-center gap-x-5 gap-y-2 px-4"
             >
-              {tags.map((t, i) => (
-                <motion.span
-                  key={t}
+              {highlights.map((h, i) => (
+                <motion.div
+                  key={`${h.value}-${h.label}-${i}`}
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, ease: EASE, delay: 0.1 + i * 0.05 }}
-                  style={{ ...MONO, borderColor: `${accent}40`, color: accent }}
-                  className="rounded-full border bg-white/70 px-2.5 py-1 text-[9px] uppercase tracking-[0.15em]"
+                  className="text-center"
                 >
-                  {t}
-                </motion.span>
+                  {h.value && (
+                    <div style={{ ...SERIF, color: accent }} className="text-[22px] leading-none tracking-[-0.02em]">
+                      {h.value}
+                    </div>
+                  )}
+                  <div style={{ ...MONO, color: "#1a1a1885" }} className="mt-1 text-[9px] uppercase tracking-[0.18em]">
+                    {h.label}
+                  </div>
+                </motion.div>
               ))}
             </motion.div>
           )}
@@ -661,6 +634,7 @@ function PillButton({ direction, onClick, disabled, label }) {
 function AllWorkRow({ projects }) {
   const [active, setActive] = useState(0);
   const total = projects.length;
+  const touchStartX = useRef(null);
 
   const next = () => setActive((i) => Math.min(i + 1, total - 1));
   const prev = () => setActive((i) => Math.max(i - 1, 0));
@@ -669,6 +643,19 @@ function AllWorkRow({ projects }) {
   const onKeyDown = (e) => {
     if (e.key === "ArrowRight") next();
     if (e.key === "ArrowLeft") prev();
+  };
+
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) next();
+      else prev();
+    }
+    touchStartX.current = null;
   };
 
   return (
@@ -690,10 +677,10 @@ function AllWorkRow({ projects }) {
           viewport={{ once: true }}
           transition={{ duration: 1, ease: EASE }}
           style={SERIF}
-          className="relative inline-block text-[56px] leading-none tracking-tight text-[#2A2D28] md:text-[96px]"
+          className="relative inline-block text-[44px] leading-none tracking-tight text-[#2A2D28] sm:text-[56px] md:text-[96px]"
         >
           All work
-          <sup style={MONO} className="absolute -right-10 top-2 text-[14px] font-normal tracking-[0.1em]">
+          <sup style={MONO} className="absolute -right-7 top-1 text-[12px] font-normal tracking-[0.1em] sm:-right-10 sm:top-2 sm:text-[14px]">
             <span style={{ color: PALETTE.teal }}>{total}</span>
           </sup>
         </motion.h2>
@@ -701,14 +688,17 @@ function AllWorkRow({ projects }) {
 
       {/* Carousel stage */}
       <div
-        className="relative mx-auto mt-16 md:mt-20"
+        className="relative mx-auto mt-16 touch-pan-y md:mt-20"
         style={{ height: CARD_H + 140, perspective: "1200px" }}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
       >
         {/* Clickable region for arrow nav via arrows */}
         {projects.map((p, i) => (
           <CarouselCard
             key={p.id}
             project={p}
+            index={i}
             distance={i - active}
             isActive={i === active}
             accent={STRIPE_COLORS[i % STRIPE_COLORS.length]}
@@ -797,7 +787,7 @@ function AllWorkRow({ projects }) {
 function About() {
   const m = useMotion();
   return (
-    <section id="about" className="relative px-6 py-24 md:px-12 md:py-32 lg:px-20">
+    <section id="about" className="relative px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 md:grid-cols-[220px_1fr]">
         <motion.p {...m.rise(0)} style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.25em]">
           · About
@@ -869,7 +859,7 @@ export default function Mockup() {
           {loading ? (
             <div className="mx-auto mt-10 h-[420px] max-w-6xl animate-pulse rounded-2xl bg-[#EFEDE7]" />
           ) : (
-            featured.map((p, i) => <FeaturedCase key={p.id} project={p} flip={i % 2 === 1} accent={accents[i % accents.length]} />)
+            featured.map((p, i) => <FeaturedCase key={p.id} project={p} index={i} flip={i % 2 === 1} accent={accents[i % accents.length]} />)
           )}
         </section>
 

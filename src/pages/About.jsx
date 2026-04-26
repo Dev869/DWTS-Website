@@ -75,7 +75,7 @@ export default function About() {
       <PillNav />
       <div className="min-h-screen bg-gradient-to-b from-[#F1EEE6] via-[#ECE9E2] to-[#E4E0D5]">
         {/* Hero / intro */}
-        <section className="relative px-6 pt-32 pb-20 md:px-12 md:pt-40 md:pb-28 lg:px-20">
+        <section className="relative px-5 pt-28 pb-16 sm:px-6 sm:pt-32 sm:pb-20 md:px-12 md:pt-40 md:pb-28 lg:px-20">
           <div className="mx-auto max-w-6xl">
             <motion.p
               {...rise(0)}
@@ -90,7 +90,7 @@ export default function About() {
                 <motion.h1
                   {...rise(0.1)}
                   style={SERIF}
-                  className="text-[56px] leading-[0.95] tracking-[-0.02em] text-[#2A2D28] md:text-[120px]"
+                  className="text-[44px] leading-[0.95] tracking-[-0.02em] text-[#2A2D28] sm:text-[56px] md:text-[120px]"
                 >
                   Hey, I&rsquo;m
                   <br />
@@ -166,7 +166,7 @@ export default function About() {
         </section>
 
         {/* Story / long-form */}
-        <section className="border-t px-6 py-24 md:px-12 md:py-32 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
+        <section className="border-t px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 md:grid-cols-[220px_1fr]">
             <motion.p
               {...rise(0)}
@@ -244,7 +244,7 @@ export default function About() {
 
         {/* Principles */}
         <section
-          className="relative overflow-hidden px-6 py-24 md:px-12 md:py-32 lg:px-20"
+          className="relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20"
           style={{ background: PALETTE.paperDeep }}
         >
           <div className="pointer-events-none absolute inset-x-0 top-0">
@@ -255,7 +255,7 @@ export default function About() {
             <motion.div {...rise(0)} className="mb-12 flex items-end justify-between gap-6">
               <h2
                 style={SERIF}
-                className="text-[40px] leading-none tracking-tight text-[#2A2D28] md:text-[64px]"
+                className="text-[32px] leading-none tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]"
               >
                 How I work
               </h2>
@@ -294,7 +294,7 @@ export default function About() {
         </section>
 
         {/* Timeline */}
-        <section className="px-6 py-24 md:px-12 md:py-32 lg:px-20">
+        <section className="px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20">
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 md:grid-cols-[220px_1fr]">
             <motion.p
               {...rise(0)}
@@ -341,7 +341,7 @@ export default function About() {
 
         {/* Stack */}
         <section
-          className="border-t px-6 py-20 md:px-12 md:py-24 lg:px-20"
+          className="border-t px-5 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-20"
           style={{ borderColor: `${PALETTE.ink}10` }}
         >
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 md:grid-cols-[220px_1fr]">

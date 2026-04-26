@@ -232,11 +232,106 @@ function WorkDropdown({ open, onEnter }) {
   );
 }
 
+function MobileMenu({ open, onClose }) {
+  const location = useLocation();
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [open]);
+
+  const items = [
+    { label: "Home", to: "/", hint: null },
+    { label: "All work", to: "/work", hint: "Every project" },
+    ...SEGMENTS.map((s) => ({
+      label: s.name,
+      to: `/for/${s.slug}`,
+      hint: s.comingSoon ? "Coming soon" : s.audience,
+      comingSoon: s.comingSoon,
+    })),
+    { label: "About", to: "/about", hint: null },
+    { label: "Contact", to: "/contact", hint: null },
+  ];
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div
+            key="mm-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: EASE }}
+            onClick={onClose}
+            className="fixed inset-0 z-40 bg-[#1a1a18]/35 backdrop-blur-sm md:hidden"
+          />
+          <motion.div
+            key="mm-sheet"
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.3, ease: EASE }}
+            className="fixed left-3 right-3 top-20 z-50 overflow-hidden rounded-2xl border border-[#1a1a18]/10 bg-[#F1EEE6]/97 p-2 shadow-[0_18px_50px_-20px_rgba(26,26,24,0.4)] backdrop-blur-xl md:hidden"
+          >
+            {items.map((item, i) => {
+              const isActive = location.pathname === item.to;
+              return (
+                <motion.div
+                  key={item.to}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, ease: EASE, delay: 0.04 + i * 0.03 }}
+                >
+                  <Link
+                    to={item.to}
+                    onClick={onClose}
+                    className="group relative flex items-center justify-between gap-3 rounded-xl px-4 py-3 transition-colors duration-200 hover:bg-white/80 active:bg-white"
+                  >
+                    <div className="flex flex-col">
+                      <span
+                        style={MONO}
+                        className={`text-[12px] uppercase tracking-[0.22em] ${
+                          isActive ? "text-[#049B9F]" : "text-[#1a1a18]/85"
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                      {item.hint && (
+                        <span className="mt-0.5 text-[11px] leading-tight text-[#1a1a18]/50">
+                          {item.hint}
+                        </span>
+                      )}
+                    </div>
+                    <span aria-hidden className="text-[14px] text-[#049B9F]">&rarr;</span>
+                    {item.comingSoon && (
+                      <span
+                        aria-hidden
+                        className="absolute right-3 top-2 h-1.5 w-1.5 rounded-full"
+                        style={{ background: PALETTE.teal }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export function PillNav() {
   const [hovered, setHovered] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const leaveTimer = useRef(null);
   const hidden = useScrollHideNav();
   const location = useLocation();
+
+  // Close mobile menu on route change
+  useEffect(() => { setMobileOpen(false); }, [location.pathname]);
 
   const currentKey = (() => {
     if (location.pathname === "/about") return "About";
@@ -275,11 +370,12 @@ export function PillNav() {
   };
 
   return (
+    <>
     <motion.div
       initial={false}
       animate={{ y: hidden ? -120 : 0, opacity: hidden ? 0 : 1 }}
       transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
-      className="fixed top-4 left-0 right-0 z-50 px-4 md:top-6"
+      className="fixed top-4 left-0 right-0 z-50 px-3 sm:px-4 md:top-6"
     >
       <nav
         onMouseLeave={handleLeave}
@@ -289,7 +385,7 @@ export function PillNav() {
           to="/"
           aria-label="Home"
           onMouseEnter={() => handleEnter("home")}
-          className="relative flex h-10 w-10 items-center justify-center"
+          className="relative flex h-10 w-10 shrink-0 items-center justify-center"
         >
           <AnimatePresence>
             {activeKey === "home" && (
@@ -319,7 +415,7 @@ export function PillNav() {
           </motion.svg>
         </Link>
 
-        <div className="flex flex-1 items-center justify-around">
+        <div className="hidden flex-1 items-center justify-around md:flex">
           {NAV_LINKS.map((l) => {
             const active = activeKey === l.label;
             const isWork = l.label === "Work";
@@ -395,8 +491,40 @@ export function PillNav() {
             );
           })}
         </div>
+
+        {/* Mobile hamburger */}
+        <button
+          type="button"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((v) => !v)}
+          className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#1a1a18]/80 transition-colors hover:bg-white/60 md:hidden"
+        >
+          <motion.svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            className="h-5 w-5"
+            animate={{ rotate: mobileOpen ? 90 : 0 }}
+            transition={{ duration: 0.3, ease: EASE }}
+          >
+            {mobileOpen ? (
+              <path d="M6 6l12 12M18 6L6 18" />
+            ) : (
+              <>
+                <path d="M4 7h16" />
+                <path d="M4 12h16" />
+                <path d="M4 17h16" />
+              </>
+            )}
+          </motion.svg>
+        </button>
       </nav>
     </motion.div>
+    <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+    </>
   );
 }
 
@@ -426,23 +554,52 @@ export function ProjectBadges({ project, className = "", compact = false }) {
   if (!project) return null;
   const items = [];
   if (project.beta) {
-    items.push({ key: "beta", label: "Beta", bg: "rgba(245, 158, 11, 0.12)", fg: "#B45309", border: "rgba(245, 158, 11, 0.45)" });
+    items.push({
+      key: "beta",
+      label: "Beta",
+      bg: "#D97706",
+      fg: "#FFF8EC",
+      border: "rgba(255, 248, 236, 0.5)",
+      pulse: true,
+    });
   }
   if (project.openSource || isGithubUrl(project.link)) {
-    items.push({ key: "oss", label: "Open Source", bg: "rgba(4, 155, 159, 0.12)", fg: "#049B9F", border: "rgba(4, 155, 159, 0.45)" });
+    items.push({
+      key: "oss",
+      label: "Open Source",
+      bg: "#037B7E",
+      fg: "#F5F1E6",
+      border: "rgba(245, 241, 230, 0.5)",
+      pulse: false,
+    });
   }
   if (!items.length) return null;
-  const px = compact ? "px-2 py-0.5" : "px-3 py-1";
-  const fs = compact ? "text-[9px]" : "text-[10px]";
+  const px = compact ? "px-2.5 py-1" : "px-3.5 py-1.5";
+  const fs = compact ? "text-[10px]" : "text-[11px]";
   return (
-    <div className={`flex flex-wrap items-center gap-1.5 ${className}`}>
+    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
       {items.map((b) => (
         <span
           key={b.key}
-          style={{ ...MONO, color: b.fg, background: b.bg, borderColor: b.border }}
-          className={`inline-flex items-center gap-1 rounded-full border ${px} ${fs} uppercase tracking-[0.2em]`}
+          style={{
+            ...MONO,
+            color: b.fg,
+            background: b.bg,
+            borderColor: b.border,
+            boxShadow: "0 6px 18px -6px rgba(26, 26, 24, 0.45)",
+            fontWeight: 600,
+          }}
+          className={`inline-flex items-center gap-1.5 rounded-full border ${px} ${fs} uppercase tracking-[0.18em]`}
         >
-          <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: b.fg }} />
+          <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
+            {b.pulse && (
+              <span
+                className="absolute inset-0 animate-ping rounded-full"
+                style={{ background: b.fg, opacity: 0.7 }}
+              />
+            )}
+            <span className="relative inline-block h-1.5 w-1.5 rounded-full" style={{ background: b.fg }} />
+          </span>
           {b.label}
         </span>
       ))}
@@ -546,7 +703,7 @@ export function FooterBlock() {
 
   return (
     <footer
-      className="relative border-t px-6 py-20 md:px-12 lg:px-20"
+      className="relative border-t px-5 py-16 sm:px-6 sm:py-20 md:px-12 lg:px-20"
       style={{ borderColor: `${PALETTE.ink}15` }}
     >
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:items-end">
@@ -554,7 +711,7 @@ export function FooterBlock() {
           <motion.p
             {...rise(0)}
             style={SERIF}
-            className="text-[44px] leading-[1.05] tracking-tight text-[#2A2D28] md:text-[72px]"
+            className="text-[34px] leading-[1.05] tracking-tight text-[#2A2D28] sm:text-[44px] md:text-[72px]"
           >
             Let&rsquo;s build
             <br />

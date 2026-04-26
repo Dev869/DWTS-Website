@@ -233,4 +233,34 @@ const projects = [
   },
 ];
 
+/**
+ * Returns marketing-friendly highlight strings for a project preview.
+ * Prefers explicit `outcomes`, then derives from `results` (metric + label),
+ * and only falls back to `tags`/`techStack` if nothing else is set.
+ *
+ * Use this on Home/Work previews where the audience is potential clients,
+ * not engineering recruiters.
+ *
+ * @param {object} project
+ * @param {number} [max=4]
+ * @returns {{ value: string, label: string }[]}
+ */
+export function getProjectHighlights(project, max = 4) {
+  if (!project) return [];
+  if (Array.isArray(project.outcomes) && project.outcomes.length) {
+    return project.outcomes.slice(0, max).map((o) =>
+      typeof o === "string" ? { value: "", label: o } : { value: o.value || "", label: o.label || "" }
+    );
+  }
+  if (Array.isArray(project.results) && project.results.length) {
+    return project.results.slice(0, max).map((r) => ({
+      value: r.metric || "",
+      label: r.label || "",
+    }));
+  }
+  return (project.tags || project.techStack || [])
+    .slice(0, max)
+    .map((t) => ({ value: "", label: t }));
+}
+
 export default projects;

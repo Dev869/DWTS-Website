@@ -46,7 +46,7 @@ function ProblemApproach({ problem, approach }) {
   const rise = useRise();
   if (!problem && !approach) return null;
   return (
-    <section className="border-t px-6 py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
+    <section className="border-t px-5 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-24">
           {problem && (
@@ -75,9 +75,9 @@ function BeforeAfterBlock({ before, after }) {
   const rise = useRise();
   if (!before?.length && !after?.length) return null;
   return (
-    <section className="border-t px-6 py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
+    <section className="border-t px-5 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
       <div className="mx-auto max-w-6xl">
-        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[40px] leading-none tracking-tight text-[#2A2D28] md:text-[64px]">
+        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[30px] leading-none tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]">
           Before &amp; after
         </motion.h2>
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border md:grid-cols-2" style={{ borderColor: `${PALETTE.ink}15`, background: `${PALETTE.ink}15` }}>
@@ -117,12 +117,12 @@ function ProcessBlock({ steps }) {
   const rise = useRise();
   if (!steps?.length) return null;
   return (
-    <section className="relative overflow-hidden px-6 py-20 md:px-12 md:py-28 lg:px-20" style={{ background: PALETTE.paperDeep }}>
+    <section className="relative overflow-hidden px-5 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28 lg:px-20" style={{ background: PALETTE.paperDeep }}>
       <div className="pointer-events-none absolute inset-x-0 top-0">
         <StripeBar />
       </div>
       <div className="mx-auto max-w-6xl">
-        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[40px] leading-none tracking-tight text-[#2A2D28] md:text-[64px]">
+        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[30px] leading-none tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]">
           How it flows
         </motion.h2>
         <div className="relative">
@@ -166,9 +166,9 @@ function FeatureBlock({ features }) {
   const rise = useRise();
   if (!features?.length) return null;
   return (
-    <section className="border-t px-6 py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
+    <section className="border-t px-5 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
       <div className="mx-auto max-w-6xl">
-        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[40px] leading-none tracking-tight text-[#2A2D28] md:text-[64px]">
+        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[30px] leading-none tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]">
           What it does
         </motion.h2>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -220,14 +220,14 @@ function FeatureListBlock({ title = "Everything it does", items }) {
   );
   return (
     <section
-      className="border-t px-6 py-20 md:px-12 md:py-28 lg:px-20"
+      className="border-t px-5 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28 lg:px-20"
       style={{ borderColor: `${PALETTE.ink}10` }}
     >
       <div className="mx-auto max-w-6xl">
         <motion.h2
           {...rise(0)}
           style={SERIF}
-          className="mb-12 text-[40px] leading-none tracking-tight text-[#2A2D28] md:text-[64px]"
+          className="mb-12 text-[30px] leading-none tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]"
         >
           {title}
         </motion.h2>
@@ -272,9 +272,9 @@ function ResultsBlock({ results }) {
   const rise = useRise();
   if (!results?.length) return null;
   return (
-    <section className="border-t px-6 py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
+    <section className="border-t px-5 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
       <div className="mx-auto max-w-6xl">
-        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[40px] leading-none tracking-tight text-[#2A2D28] md:text-[64px]">
+        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[30px] leading-none tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]">
           Results
         </motion.h2>
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border md:grid-cols-3" style={{ borderColor: `${PALETTE.ink}15`, background: `${PALETTE.ink}15` }}>
@@ -287,9 +287,9 @@ function ResultsBlock({ results }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.9, ease: EASE, delay: i * 0.1 }}
-                className="relative bg-[#F1EEE6] p-10 text-center md:p-12"
+                className="relative bg-[#F1EEE6] p-8 text-center sm:p-10 md:p-12"
               >
-                <div style={{ ...SERIF, color: accent }} className="text-[64px] leading-[0.9] tracking-tight md:text-[88px]">
+                <div style={{ ...SERIF, color: accent }} className="text-[48px] leading-[0.9] tracking-tight sm:text-[64px] md:text-[88px]">
                   {r.metric}
                 </div>
                 <div style={MONO} className="mt-4 text-[11px] uppercase tracking-[0.25em] text-[#1a1a18]/55">
@@ -308,7 +308,7 @@ function QuoteBlock({ quote, attribution }) {
   const rise = useRise();
   if (!quote) return null;
   return (
-    <section className="relative overflow-hidden px-6 py-24 md:px-12 md:py-32 lg:px-20" style={{ background: PALETTE.tealDeep }}>
+    <section className="relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20" style={{ background: PALETTE.tealDeep }}>
       <div className="pointer-events-none absolute inset-x-0 top-0">
         <StripeBar />
       </div>
@@ -316,14 +316,14 @@ function QuoteBlock({ quote, attribution }) {
         <motion.span
           {...rise(0)}
           style={{ ...SERIF, color: `${PALETTE.teal}` }}
-          className="block text-[120px] leading-[0.5] md:text-[180px]"
+          className="block text-[80px] leading-[0.5] sm:text-[120px] md:text-[180px]"
         >
           &ldquo;
         </motion.span>
         <motion.p
           {...rise(0.1)}
           style={SERIF}
-          className="-mt-6 text-[28px] italic leading-[1.4] text-[#F1EEE6] md:text-[40px]"
+          className="-mt-6 text-[22px] italic leading-[1.4] text-[#F1EEE6] sm:text-[28px] md:text-[40px]"
         >
           {quote}
         </motion.p>
@@ -345,9 +345,9 @@ function GalleryBlock({ gallery }) {
   const rise = useRise();
   if (!gallery?.length) return null;
   return (
-    <section className="border-t px-6 py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
+    <section className="border-t px-5 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
       <div className="mx-auto max-w-6xl">
-        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[40px] leading-none tracking-tight text-[#2A2D28] md:text-[64px]">
+        <motion.h2 {...rise(0)} style={SERIF} className="mb-12 text-[30px] leading-none tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]">
           Gallery
         </motion.h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -388,7 +388,7 @@ function TechBlock({ techStack }) {
   const rise = useRise();
   if (!techStack?.length) return null;
   return (
-    <section className="border-t px-6 py-16 md:px-12 md:py-20 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
+    <section className="border-t px-5 py-12 sm:px-6 sm:py-16 md:px-12 md:py-20 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-[220px_1fr]">
         <motion.p {...rise(0)} style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.25em]">
           · Built with
@@ -412,10 +412,10 @@ function TechBlock({ techStack }) {
   );
 }
 
-function ProjectHeader({ project }) {
+function ProjectHeader({ project, index }) {
   const accent = PALETTE.teal;
   return (
-    <section className="relative overflow-hidden px-6 pt-28 pb-16 md:px-12 md:pt-36 md:pb-24 lg:px-20">
+    <section className="relative overflow-hidden px-5 pt-24 pb-12 sm:px-6 sm:pt-28 sm:pb-16 md:px-12 md:pt-36 md:pb-24 lg:px-20">
       <div className="mx-auto max-w-6xl">
         <Link
           to="/work"
@@ -448,7 +448,7 @@ function ProjectHeader({ project }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
           style={SERIF}
-          className="mt-6 text-[56px] leading-[0.95] tracking-[-0.02em] text-[#2A2D28] md:text-[96px] lg:text-[120px]"
+          className="mt-6 text-[40px] leading-[0.95] tracking-[-0.02em] text-[#2A2D28] sm:text-[56px] md:text-[96px] lg:text-[120px]"
         >
           {project.title}
         </motion.h1>
@@ -459,7 +459,7 @@ function ProjectHeader({ project }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE, delay: 0.3 }}
             style={SERIF}
-            className="mt-8 max-w-3xl text-[22px] leading-[1.45] text-[#2A2D28]/80 md:text-[28px]"
+            className="mt-8 max-w-3xl text-[18px] leading-[1.45] text-[#2A2D28]/80 sm:text-[22px] md:text-[28px]"
           >
             {project.headline}
           </motion.p>
@@ -485,7 +485,7 @@ function ProjectHeader({ project }) {
           <StripeBar />
         </motion.div>
 
-        {/* Hero image */}
+        {/* Hero image: detail pages use the project's own artwork. */}
         {project.image && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -513,7 +513,7 @@ function ProjectHeader({ project }) {
 function ProjectCTA({ project }) {
   const rise = useRise();
   return (
-    <section className="relative overflow-hidden border-t px-6 py-24 md:px-12 md:py-32 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
+    <section className="relative overflow-hidden border-t px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
       <div className="mx-auto max-w-5xl text-center">
         <motion.p {...rise(0)} style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.28em]">
           · Have a similar problem?
@@ -521,7 +521,7 @@ function ProjectCTA({ project }) {
         <motion.h2
           {...rise(0.1)}
           style={SERIF}
-          className="mt-6 text-[40px] leading-[1.05] tracking-tight text-[#2A2D28] md:text-[64px]"
+          className="mt-6 text-[30px] leading-[1.05] tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]"
         >
           Let&rsquo;s build the system{" "}
           <span className="italic" style={{ color: PALETTE.teal }}>
@@ -554,14 +554,15 @@ export default function ProjectDetail() {
     );
   }
 
-  const project = projects.find((p) => p.slug === slug);
+  const projectIndex = projects.findIndex((p) => p.slug === slug);
+  const project = projectIndex >= 0 ? projects[projectIndex] : null;
 
   if (!project) {
     return (
       <div className="text-[#1a1a18]">
         <PillNav />
         <div className="flex min-h-[80vh] flex-col items-center justify-center gap-6 bg-gradient-to-b from-[#F1EEE6] to-[#E4E0D5] px-6">
-          <h1 style={SERIF} className="text-[48px] tracking-tight text-[#2A2D28] md:text-[72px]">
+          <h1 style={SERIF} className="text-[36px] tracking-tight text-[#2A2D28] sm:text-[48px] md:text-[72px]">
             Not found.
           </h1>
           <Link
@@ -580,7 +581,7 @@ export default function ProjectDetail() {
     <div className="text-[#1a1a18]">
       <PillNav />
       <div className="min-h-screen bg-gradient-to-b from-[#F1EEE6] via-[#ECE9E2] to-[#E4E0D5]">
-        <ProjectHeader project={project} />
+        <ProjectHeader project={project} index={projectIndex} />
         <ProblemApproach problem={project.problem} approach={project.approach} />
         <BeforeAfterBlock before={project.before} after={project.after} />
         <ProcessBlock steps={project.processSteps} />

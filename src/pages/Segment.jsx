@@ -29,7 +29,7 @@ export default function Segment() {
     <div className="text-[#1a1a18]">
       <PillNav />
       <div className="min-h-screen bg-gradient-to-b from-[#F1EEE6] via-[#ECE9E2] to-[#E4E0D5]">
-        <section className="px-6 pt-28 pb-20 md:px-12 md:pt-32 md:pb-28 lg:px-20">
+        <section className="px-5 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 md:px-12 md:pt-32 md:pb-28 lg:px-20">
           <div className="mx-auto max-w-4xl">
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -46,7 +46,7 @@ export default function Segment() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
               style={SERIF}
-              className="text-[48px] leading-[1.02] tracking-[-0.02em] text-[#2A2D28] md:text-[72px]"
+              className="text-[36px] leading-[1.02] tracking-[-0.02em] text-[#2A2D28] sm:text-[48px] md:text-[72px]"
             >
               {segment.headline}
             </motion.h1>
@@ -56,7 +56,7 @@ export default function Segment() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
               style={SERIF}
-              className="mt-6 max-w-2xl text-[20px] leading-[1.45] text-[#2A2D28]/80 md:text-[22px]"
+              className="mt-6 max-w-2xl text-[17px] leading-[1.45] text-[#2A2D28]/80 sm:text-[20px] md:text-[22px]"
             >
               {segment.subheadline}
             </motion.p>
@@ -101,7 +101,7 @@ export default function Segment() {
         </section>
 
         {relatedProjects.length > 0 && (
-          <section className="px-6 pb-20 md:px-12 lg:px-20">
+          <section className="px-5 pb-20 sm:px-6 md:px-12 lg:px-20">
             <div className="mx-auto max-w-4xl">
               <p style={MONO} className="text-[11px] uppercase tracking-[0.25em] text-[#1a1a18]/45">
                 · Related work
