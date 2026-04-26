@@ -46,8 +46,8 @@ function ProjectRow({ project, index }) {
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 1.2, ease: EASE }}
         style={SERIF}
-        className={`pointer-events-none absolute top-8 select-none text-[180px] font-light leading-none tracking-tight text-[#1a1a18] md:text-[280px] ${
-          reverse ? "right-4 md:right-12" : "left-4 md:left-12"
+        className={`pointer-events-none absolute top-8 select-none text-[110px] font-light leading-none tracking-tight text-[#1a1a18] sm:text-[160px] md:text-[280px] ${
+          reverse ? "right-2 md:right-12" : "left-2 md:left-12"
         }`}
       >
         {String(index + 1).padStart(2, "0")}
@@ -154,7 +154,7 @@ function ProjectRow({ project, index }) {
             <Link to={`/project/${project.slug}`} className="group inline-block">
               <motion.h2
                 style={SERIF}
-                className="text-[48px] leading-[0.95] tracking-[-0.01em] text-[#2A2D28] transition-colors duration-500 group-hover:text-[#049B9F] md:text-[72px]"
+                className="text-[38px] leading-[0.95] tracking-[-0.01em] text-[#2A2D28] transition-colors duration-500 group-hover:text-[#049B9F] sm:text-[48px] md:text-[72px]"
               >
                 {project.title}
               </motion.h2>
@@ -167,7 +167,7 @@ function ProjectRow({ project, index }) {
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
               style={SERIF}
-              className="mt-6 max-w-xl text-[19px] leading-[1.55] text-[#2A2D28]/80 md:text-[22px]"
+              className="mt-6 max-w-xl text-[17px] leading-[1.55] text-[#2A2D28]/80 sm:text-[19px] md:text-[22px]"
             >
               {description}
             </motion.p>
@@ -260,7 +260,7 @@ export default function Work() {
       <PillNav />
       <div className="min-h-screen bg-gradient-to-b from-[#F1EEE6] via-[#ECE9E2] to-[#E4E0D5]">
         {/* Title block */}
-        <section className="relative overflow-hidden px-6 pt-32 pb-10 md:px-12 md:pt-40 md:pb-12 lg:px-20">
+        <section className="relative overflow-hidden px-5 pt-28 pb-10 sm:px-6 sm:pt-32 md:px-12 md:pt-40 md:pb-12 lg:px-20">
           <div className="mx-auto max-w-6xl">
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -278,7 +278,7 @@ export default function Work() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.1, ease: EASE, delay: 0.15 }}
                 style={SERIF}
-                className="text-[80px] leading-[0.9] tracking-[-0.03em] text-[#2A2D28] md:text-[144px] lg:text-[176px]"
+                className="text-[56px] leading-[0.9] tracking-[-0.03em] text-[#2A2D28] sm:text-[80px] md:text-[144px] lg:text-[176px]"
               >
                 My work
                 <span style={{ color: PALETTE.teal }}>.</span>
@@ -309,7 +309,7 @@ export default function Work() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.35 }}
               style={SERIF}
-              className="mt-10 max-w-2xl text-[20px] leading-[1.5] text-[#2A2D28]/80 md:text-[24px]"
+              className="mt-8 max-w-2xl text-[17px] leading-[1.5] text-[#2A2D28]/80 sm:text-[20px] md:text-[24px]"
             >
               A selection of systems I&rsquo;ve shipped: research toolkits,
               operations platforms, and internal tools built to fit the exact
@@ -328,7 +328,7 @@ export default function Work() {
         </section>
 
         {/* Project rows */}
-        <section className="relative px-6 pb-16 md:px-12 md:pb-24 lg:px-20">
+        <section className="relative px-5 pb-16 sm:px-6 md:px-12 md:pb-24 lg:px-20">
           <div className="mx-auto max-w-6xl">
             {loading ? (
               <div className="py-20">

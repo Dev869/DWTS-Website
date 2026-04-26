@@ -125,7 +125,7 @@ export default function Contact() {
       <PillNav />
       <div className="min-h-screen bg-gradient-to-b from-[#F1EEE6] via-[#ECE9E2] to-[#E4E0D5]">
         {/* Booking + channels */}
-        <section className="px-6 pt-32 pb-16 md:px-12 md:pt-36 md:pb-20 lg:px-20">
+        <section className="px-5 pt-28 pb-12 sm:px-6 sm:pt-32 sm:pb-16 md:px-12 md:pt-36 md:pb-20 lg:px-20">
           <div className="mx-auto mb-10 flex max-w-6xl items-baseline justify-between gap-4">
             <div className="flex items-baseline gap-4">
               <span style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.28em]">
@@ -141,7 +141,7 @@ export default function Contact() {
           </div>
         </section>
 
-        <section className="px-6 pb-16 md:px-12 md:pb-20 lg:px-20">
+        <section className="px-5 pb-16 sm:px-6 md:px-12 md:pb-20 lg:px-20">
           <div className="mx-auto max-w-6xl">
             <div className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_1.2fr] md:gap-14">
               {/* Channels */}
@@ -248,7 +248,7 @@ export default function Contact() {
         </section>
 
         {/* FAQ */}
-        <section className="relative overflow-hidden px-6 py-24 md:px-12 md:py-32 lg:px-20" style={{ background: PALETTE.paperDeep }}>
+        <section className="relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20" style={{ background: PALETTE.paperDeep }}>
           <div className="pointer-events-none absolute inset-x-0 top-0">
             <StripeBar />
           </div>
@@ -266,7 +266,7 @@ export default function Contact() {
               <motion.h2
                 {...rise(0)}
                 style={SERIF}
-                className="text-[40px] leading-tight tracking-tight text-[#2A2D28] md:text-[56px]"
+                className="text-[32px] leading-tight tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[56px]"
               >
                 A few common questions.
               </motion.h2>
