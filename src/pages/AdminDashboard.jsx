@@ -1,16 +1,27 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ImageField from "../components/admin/ImageField";
+import { SEGMENTS } from "../data/segments.js";
 
 const EMPTY_PROJECT = {
   title: "",
   slug: "",
   description: "",
   category: "",
+  segment: "",
   layout: "product",
   tags: [],
   techStack: [],
 };
+
+const SEGMENT_OPTIONS = [
+  { value: "", label: "Unassigned", hint: "No segment — neutral artwork theme." },
+  ...SEGMENTS.map((s) => ({
+    value: s.slug,
+    label: s.name,
+    hint: s.audience,
+  })),
+];
 
 const LAYOUT_OPTIONS = [
   {
@@ -174,6 +185,7 @@ export default function AdminDashboard({ onLogout }) {
               <tr>
                 <th className="px-4 py-3 font-medium">Title</th>
                 <th className="px-4 py-3 font-medium">Slug</th>
+                <th className="px-4 py-3 font-medium">Segment</th>
                 <th className="px-4 py-3 font-medium">Category</th>
                 <th className="px-4 py-3 font-medium">Layout</th>
                 <th className="px-4 py-3 text-right font-medium">Actions</th>
@@ -182,14 +194,14 @@ export default function AdminDashboard({ onLogout }) {
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-6 text-center text-[#4B5563]">
+                  <td colSpan={6} className="px-4 py-6 text-center text-[#4B5563]">
                     Loading…
                   </td>
                 </tr>
               )}
               {!loading && projects.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-6 text-center text-[#4B5563]">
+                  <td colSpan={6} className="px-4 py-6 text-center text-[#4B5563]">
                     No projects yet.
                   </td>
                 </tr>
@@ -199,6 +211,9 @@ export default function AdminDashboard({ onLogout }) {
                   <tr key={p.id} className="border-t border-[#E4E7EC] hover:bg-[#F9FAFB]">
                     <td className="px-4 py-3 font-medium text-[#1F2328]">{p.title}</td>
                     <td className="px-4 py-3 font-mono text-xs text-[#4B5563]">{p.slug}</td>
+                    <td className="px-4 py-3 text-[#4B5563]">
+                      {SEGMENT_OPTIONS.find((o) => o.value === (p.segment || ""))?.label || "-"}
+                    </td>
                     <td className="px-4 py-3 text-[#4B5563]">{p.category || "-"}</td>
                     <td className="px-4 py-3 text-[#4B5563]">{p.layout || "-"}</td>
                     <td className="px-4 py-3 text-right">
@@ -231,6 +246,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     slug: project.slug || "",
     description: project.description || "",
     category: project.category || "",
+    segment: project.segment || "",
     layout: project.layout || "showcase",
     headline: project.headline || "",
     image: project.image || "",
@@ -380,6 +396,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       slug: draft.slug,
       description: draft.description,
       category: draft.category,
+      segment: draft.segment || "",
       layout: draft.layout,
       headline: draft.headline,
       image: draft.image,
@@ -528,7 +545,27 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
               className={inputClass}
             />
           </Field>
-          <div />
+          <Field
+            label="Segment"
+            hint="Drives the generated card artwork on Home and Work — colors, motif family, and typography stay on-theme for the chosen segment."
+          >
+            <select
+              value={draft.segment}
+              onChange={(e) => update({ segment: e.target.value })}
+              className={inputClass}
+            >
+              {SEGMENT_OPTIONS.map((opt) => (
+                <option key={opt.value || "none"} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            {draft.segment && (
+              <p className="mt-1.5 text-[12px] text-[#6B7280]">
+                {SEGMENT_OPTIONS.find((o) => o.value === draft.segment)?.hint}
+              </p>
+            )}
+          </Field>
           <Field
             label="Layout template"
             hint="Choose the page structure. Switching swaps the rendered template; fields stay the same."
