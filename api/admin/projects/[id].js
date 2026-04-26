@@ -24,11 +24,13 @@ export default async function handler(req, res) {
       return;
     }
     if (req.method === "PUT") {
+      console.log("[admin/projects PUT]", id, "incoming segment:", req.body?.segment);
       const project = await updateProject(id, req.body || {});
       if (!project) {
         res.status(404).json({ error: "Not found" });
         return;
       }
+      console.log("[admin/projects PUT]", id, "saved segment:", project.segment);
       res.status(200).json({ project });
       return;
     }

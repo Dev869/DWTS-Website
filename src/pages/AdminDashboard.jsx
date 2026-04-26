@@ -119,9 +119,12 @@ export default function AdminDashboard({ onLogout }) {
           setEditing(null);
           setCreating(false);
           await loadProjects();
+          const segLabel = saved?.segment
+            ? SEGMENT_OPTIONS.find((o) => o.value === saved.segment)?.label || saved.segment
+            : "Unassigned";
           setToast(
             saved
-              ? `Saved "${saved.title}". Image: ${saved.image || "(none)"}`
+              ? `Saved "${saved.title}" — Segment: ${segLabel} · Image: ${saved.image || "(none)"}`
               : "Saved",
           );
         }}
