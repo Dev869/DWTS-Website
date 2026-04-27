@@ -260,6 +260,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
     link: project.link || "",
     demoUrl: project.demoUrl || "",
     beta: !!project.beta,
+    featured: !!project.featured,
     openSource: !!project.openSource,
     tags: (project.tags || []).join(", "),
     techStack: (project.techStack || []).join(", "),
@@ -410,6 +411,7 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
       link: draft.link,
       demoUrl: draft.demoUrl,
       beta: draft.beta,
+      featured: draft.featured,
       openSource: draft.openSource,
       tags: toArray(draft.tags),
       techStack: toArray(draft.techStack),
@@ -675,6 +677,16 @@ function ProjectEditor({ project, isNew, onCancel, onSaved }) {
                 onChange={(e) => update({ beta: e.target.checked })}
               />
               Mark this project as beta
+            </label>
+          </Field>
+          <Field label="Featured?">
+            <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-[#1F2328]">
+              <input
+                type="checkbox"
+                checked={draft.featured}
+                onChange={(e) => update({ featured: e.target.checked })}
+              />
+              Promote to the home page Selected Work gallery
             </label>
           </Field>
           <Field label="Open source?">
