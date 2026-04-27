@@ -12,7 +12,7 @@ audiences, one practice.
 
 ## Segments
 
-### 1. Labs — Research & biotech automation
+### 1. Research Tools — Research & biotech automation
 - **Audience:** Lab directors, PIs, ops leads at small-to-mid research orgs
   (academic cores, biotech startups, genomics/diagnostics labs, 5–50 people)
 - **Pain:** Manual sample tracking, spreadsheet LIMS, instrument data wrangling,

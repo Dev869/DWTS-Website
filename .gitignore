@@ -34,3 +34,12 @@ CLAUDE.md
 
 # Firebase (legacy)
 .firebase/
+
+# Local tool/agent artifacts
+.firecrawl/
+.playwright-mcp/
+.quack/
+media/
+
+# Ad-hoc screenshots in repo root
+/*.png
