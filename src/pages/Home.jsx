@@ -784,6 +784,262 @@ function AllWorkRow({ projects }) {
   );
 }
 
+// Bento-style editorial gallery. Mixes screenshot tiles with outcome-metric
+// tiles so the section sells (numbers) and showcases (images) at the same time.
+// Tile composition is built once from the project list — image tiles become
+// project links, metric tiles are typographic.
+function buildSelectedTiles(projects) {
+  const accents = [PALETTE.teal, PALETTE.orange, PALETTE.gold, PALETTE.olive];
+  const tiles = [];
+  projects.forEach((p, pIdx) => {
+    const accent = accents[pIdx % accents.length];
+    const galleryImgs = (p.gallery || [])
+      .map((g) => g?.src)
+      .filter(Boolean);
+    const heroImg = p.previewImage || p.image || galleryImgs[0];
+
+    if (heroImg) {
+      tiles.push({
+        kind: "image",
+        key: `${p.slug}-hero`,
+        slug: p.slug,
+        src: heroImg,
+        title: p.title,
+        kicker: p.cardKicker || p.category,
+        accent,
+        weight: "feature",
+      });
+    }
+
+    const result = (p.results || [])[0];
+    if (result?.metric) {
+      tiles.push({
+        kind: "metric",
+        key: `${p.slug}-result-0`,
+        slug: p.slug,
+        title: p.title,
+        metric: result.metric,
+        label: result.label,
+        accent,
+        weight: "wide",
+      });
+    }
+
+    galleryImgs.slice(1, 3).forEach((src, i) => {
+      tiles.push({
+        kind: "image",
+        key: `${p.slug}-g${i}`,
+        slug: p.slug,
+        src,
+        title: p.title,
+        kicker: p.gallery[i + 1]?.caption,
+        accent,
+        weight: "regular",
+      });
+    });
+
+    if (!heroImg && !result?.metric) {
+      tiles.push({
+        kind: "text",
+        key: `${p.slug}-text`,
+        slug: p.slug,
+        title: p.title,
+        headline: p.headline,
+        accent,
+        weight: "regular",
+      });
+    }
+  });
+  return tiles;
+}
+
+function tileSpanClasses(weight, idx) {
+  // Asymmetric rhythm on md+: alternating feature/wide/regular spans.
+  // Mobile collapses to single column.
+  if (weight === "feature") return "md:col-span-4 md:row-span-2";
+  if (weight === "wide") return "md:col-span-2";
+  // regular tiles: every 3rd one slightly wider for variety
+  return idx % 5 === 0 ? "md:col-span-3" : "md:col-span-2";
+}
+
+function SelectedWork({ projects }) {
+  const tiles = buildSelectedTiles(projects);
+  if (tiles.length === 0) return null;
+
+  return (
+    <section
+      id="selected"
+      className="relative px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20"
+      style={{ background: PALETTE.paperDeep }}
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10 flex flex-col gap-3 md:mb-14 md:flex-row md:items-end md:justify-between">
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: EASE }}
+              style={{ ...MONO, color: PALETTE.teal }}
+              className="text-[11px] uppercase tracking-[0.28em]"
+            >
+              · Selected work
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
+              style={SERIF}
+              className="mt-3 text-[36px] leading-[1.02] tracking-[-0.02em] text-[#2A2D28] sm:text-[48px] md:text-[64px]"
+            >
+              Real systems.{" "}
+              <span className="italic" style={{ color: PALETTE.teal }}>
+                Real outcomes.
+              </span>
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
+            className="max-w-sm text-[14px] leading-[1.55] text-[#1a1a18]/65"
+          >
+            A working sample of the tools I&rsquo;ve shipped — screens from production, with the
+            numbers that matter.
+          </motion.p>
+        </div>
+
+        <div className="grid auto-rows-[180px] grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:auto-rows-[200px] md:grid-cols-6">
+          {tiles.map((t, i) => (
+            <SelectedTile key={t.key} tile={t} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SelectedTile({ tile, index }) {
+  const span = tileSpanClasses(tile.weight, index);
+  const baseMotion = {
+    initial: { opacity: 0, y: 18 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.15 },
+    transition: { duration: 0.7, ease: EASE, delay: Math.min(index * 0.04, 0.4) },
+  };
+
+  if (tile.kind === "image") {
+    return (
+      <motion.div {...baseMotion} className={`group relative overflow-hidden rounded-2xl ${span}`}>
+        <Link to={`/project/${tile.slug}`} className="block h-full w-full">
+          <div className="absolute inset-0 bg-[#1a1a18]/5" />
+          <img
+            src={tile.src}
+            alt={tile.title}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a18]/70 via-[#1a1a18]/10 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
+          <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+            {tile.kicker && (
+              <p
+                style={MONO}
+                className="text-[10px] uppercase tracking-[0.24em] text-white/70"
+              >
+                {tile.kicker}
+              </p>
+            )}
+            <h3
+              style={SERIF}
+              className="mt-1 text-[20px] leading-tight text-white md:text-[26px]"
+            >
+              {tile.title}
+            </h3>
+            <span
+              style={MONO}
+              className="mt-3 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-white/80 transition-all duration-500 group-hover:gap-3"
+              aria-hidden
+            >
+              View case <span>&rarr;</span>
+            </span>
+          </div>
+        </Link>
+      </motion.div>
+    );
+  }
+
+  if (tile.kind === "metric") {
+    return (
+      <motion.div
+        {...baseMotion}
+        className={`relative flex flex-col justify-between overflow-hidden rounded-2xl border bg-white/70 p-6 backdrop-blur ${span}`}
+        style={{ borderColor: `${PALETTE.ink}10` }}
+      >
+        <p
+          style={MONO}
+          className="text-[10px] uppercase tracking-[0.24em]"
+          aria-hidden
+        >
+          <span style={{ color: tile.accent }}>·</span>{" "}
+          <span className="text-[#1a1a18]/55">Outcome &middot; {tile.title}</span>
+        </p>
+        <div>
+          <div
+            style={{ ...SERIF, color: tile.accent }}
+            className="text-[44px] leading-none tracking-tight md:text-[64px]"
+          >
+            {tile.metric}
+          </div>
+          <p
+            style={SERIF}
+            className="mt-3 max-w-[20ch] text-[15px] leading-snug text-[#2A2D28]/85 md:text-[17px]"
+          >
+            {tile.label}
+          </p>
+        </div>
+        <Link
+          to={`/project/${tile.slug}`}
+          style={MONO}
+          className="text-[10px] uppercase tracking-[0.22em] text-[#1a1a18]/55 transition-colors duration-500 hover:text-[#049B9F]"
+        >
+          See how &rarr;
+        </Link>
+      </motion.div>
+    );
+  }
+
+  // text fallback
+  return (
+    <motion.div
+      {...baseMotion}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border bg-white/60 p-6 backdrop-blur ${span}`}
+      style={{ borderColor: `${PALETTE.ink}10` }}
+    >
+      <p style={MONO} className="text-[10px] uppercase tracking-[0.24em]" aria-hidden>
+        <span style={{ color: tile.accent }}>·</span>{" "}
+        <span className="text-[#1a1a18]/55">In progress</span>
+      </p>
+      <div>
+        <h3 style={SERIF} className="text-[24px] leading-tight text-[#2A2D28] md:text-[28px]">
+          {tile.title}
+        </h3>
+        {tile.headline && (
+          <p className="mt-2 text-[14px] leading-[1.5] text-[#1a1a18]/65">{tile.headline}</p>
+        )}
+      </div>
+      <Link
+        to={`/project/${tile.slug}`}
+        style={MONO}
+        className="text-[10px] uppercase tracking-[0.22em] text-[#049B9F]"
+      >
+        Read more &rarr;
+      </Link>
+    </motion.div>
+  );
+}
+
 function About() {
   const m = useMotion();
   return (
@@ -844,8 +1100,6 @@ function About() {
 
 export default function Mockup() {
   const { projects, loading } = useProjects();
-  const featured = projects.slice(0, 2);
-  const accents = [PALETTE.teal, PALETTE.orange, PALETTE.gold];
 
   return (
     <div className="text-[#1a1a18]">
@@ -856,15 +1110,7 @@ export default function Mockup() {
 
         {!loading && projects.length > 0 && <AllWorkRow projects={projects} />}
 
-        {/* TODO: Creative gallery showcasing best work goes here */}
-        <section id="work" className="py-16">
-          <SectionRule left="· Featured work" right="Curated projects" />
-          {loading ? (
-            <div className="mx-auto mt-10 h-[420px] max-w-6xl animate-pulse rounded-2xl bg-[#EFEDE7]" />
-          ) : (
-            featured.map((p, i) => <FeaturedCase key={p.id} project={p} index={i} flip={i % 2 === 1} accent={accents[i % accents.length]} />)
-          )}
-        </section>
+        {!loading && projects.length > 0 && <SelectedWork projects={projects} />}
 
         <About />
         <FooterBlock />
