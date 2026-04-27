@@ -863,7 +863,11 @@ function tileSpanClasses(weight, idx) {
 }
 
 function SelectedWork({ projects }) {
-  const tiles = buildSelectedTiles(projects);
+  // Featured projects lead so the hero tile is whatever the admin promotes.
+  const ordered = [...projects].sort(
+    (a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0),
+  );
+  const tiles = buildSelectedTiles(ordered);
   if (tiles.length === 0) return null;
 
   return (
