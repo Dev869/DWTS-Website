@@ -510,33 +510,6 @@ function ProjectHeader({ project, index }) {
   );
 }
 
-function ProjectCTA({ project }) {
-  const rise = useRise();
-  return (
-    <section className="relative overflow-hidden border-t px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20" style={{ borderColor: `${PALETTE.ink}10` }}>
-      <div className="mx-auto max-w-5xl text-center">
-        <motion.p {...rise(0)} style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.28em]">
-          · Have a similar problem?
-        </motion.p>
-        <motion.h2
-          {...rise(0.1)}
-          style={SERIF}
-          className="mt-6 text-[30px] leading-[1.05] tracking-tight text-[#2A2D28] sm:text-[40px] md:text-[64px]"
-        >
-          Let&rsquo;s build the system{" "}
-          <span className="italic" style={{ color: PALETTE.teal }}>
-            your team actually needs.
-          </span>
-        </motion.h2>
-        <motion.div {...rise(0.2)} className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <BookCallButton label="Book a call" />
-          <ProjectLinks project={project} />
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
 export default function ProjectDetail() {
   const { slug } = useParams();
   const { projects, loading } = useProjects();
@@ -591,7 +564,6 @@ export default function ProjectDetail() {
         <ResultsBlock results={project.results} />
         <GalleryBlock gallery={project.gallery} />
         <TechBlock techStack={project.techStack} />
-        <ProjectCTA project={project} />
         <FooterBlock />
       </div>
     </div>
