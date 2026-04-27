@@ -36,7 +36,7 @@ function ProjectRow({ project, index }) {
   const description =
     project.headline ||
     project.description?.slice(0, 140) ||
-    "A bespoke system built to fit the exact shape of the problem.";
+    "A working tool built to fit the exact shape of the problem.";
 
   return (
     <article className="relative py-16 md:py-24">
@@ -308,9 +308,8 @@ export default function Work() {
               style={SERIF}
               className="mt-8 max-w-2xl text-[17px] leading-[1.5] text-[#2A2D28]/80 sm:text-[20px] md:text-[24px]"
             >
-              A selection of systems I&rsquo;ve shipped: research toolkits,
-              operations platforms, and internal tools built to fit the exact
-              shape of the problem.
+              Lab tools and earlier work. The lab automations are where I
+              focus now &mdash; the rest is here for context on how I build.
             </motion.p>
 
             <motion.div
@@ -334,6 +333,50 @@ export default function Work() {
             ) : (
               projects.map((p, i) => <ProjectRow key={p.id} project={p} index={i} />)
             )}
+          </div>
+        </section>
+
+        {/* TODO: replace with the first paid pilot case study once shipped */}
+        <section className="px-5 pb-24 sm:px-6 md:px-12 md:pb-32 lg:px-20">
+          <div className="mx-auto max-w-4xl">
+            <div
+              className="relative overflow-hidden rounded-2xl p-8 md:p-12"
+              style={{ background: PALETTE.tealDeep }}
+            >
+              <p style={MONO} className="text-[10px] uppercase tracking-[0.28em] text-[#F5F1E6]/70">
+                · Pilot openings available
+              </p>
+              <h2
+                style={SERIF}
+                className="mt-3 text-[28px] leading-[1.05] tracking-tight text-[#F5F1E6] md:text-[40px]"
+              >
+                Your lab&rsquo;s first AI automation,{" "}
+                <span className="italic" style={{ color: "#7BE0E3" }}>
+                  shipped in 30 days.
+                </span>
+              </h2>
+              <p className="mt-4 max-w-xl text-[14px] leading-[1.6] text-[#F5F1E6]/80 md:text-[15px]">
+                Starts at $1,500. One specific automation, half upfront, working
+                tool at the end. Limited spots while I&rsquo;m building case
+                studies.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <Link
+                  to="/engagement"
+                  style={MONO}
+                  className="inline-flex items-center gap-3 rounded-full border border-[#F5F1E6]/30 bg-white/10 px-5 py-2.5 text-[10px] uppercase tracking-[0.24em] text-[#F5F1E6] backdrop-blur transition-all duration-500 hover:bg-white/20"
+                >
+                  See engagement details &rarr;
+                </Link>
+                <Link
+                  to="/contact"
+                  style={MONO}
+                  className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.24em] text-[#F5F1E6]/80 transition-colors hover:text-white"
+                >
+                  Tell me what to automate &rarr;
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
