@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ImageField from "../components/admin/ImageField";
 import { SEGMENTS } from "../data/segments.js";
+import seedCopy from "../data/siteCopy.js";
 
 const EMPTY_PROJECT = {
   title: "",
@@ -53,6 +54,7 @@ const LAYOUT_OPTIONS = [
 const LAYOUTS = LAYOUT_OPTIONS.map((l) => l.id);
 
 export default function AdminDashboard({ onLogout }) {
+  const [tab, setTab] = useState("projects");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(null);
@@ -143,8 +145,8 @@ export default function AdminDashboard({ onLogout }) {
       <header className="border-b border-[#E4E7EC] bg-white px-6 py-4 md:px-10">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
           <div>
-            <h1 className="text-lg font-semibold text-[#1F2328]">Project Admin</h1>
-            <p className="text-xs text-[#4B5563]">Manage portfolio projects.</p>
+            <h1 className="text-lg font-semibold text-[#1F2328]">Site Admin</h1>
+            <p className="text-xs text-[#4B5563]">Manage portfolio projects and public copy.</p>
           </div>
           <div className="flex items-center gap-2">
             <Link
@@ -161,8 +163,29 @@ export default function AdminDashboard({ onLogout }) {
             </button>
           </div>
         </div>
+        <div className="mx-auto mt-4 flex max-w-5xl gap-1">
+          {[
+            { id: "projects", label: "Projects" },
+            { id: "copy", label: "Site Copy" },
+          ].map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={`rounded-t-md border-b-2 px-3 py-1.5 text-xs font-semibold transition-colors ${
+                tab === t.id
+                  ? "border-[#049B9F] text-[#049B9F]"
+                  : "border-transparent text-[#4B5563] hover:text-[#1F2328]"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
       </header>
 
+      {tab === "copy" && <SiteCopyEditor onToast={setToast} />}
+
+      {tab === "projects" && (
       <main className="mx-auto max-w-5xl px-6 py-8 md:px-10">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-[#4B5563]">
@@ -239,7 +262,265 @@ export default function AdminDashboard({ onLogout }) {
           </table>
         </div>
       </main>
+      )}
     </div>
+  );
+}
+
+// ─── Site copy editor ────────────────────────────────────────────────────────
+// Renders one labeled field per key in seedCopy. Stored values override seed
+// on the public site; new keys added in code auto-render via the seed merge.
+
+const COPY_PAGE_LABELS = {
+  home: "Home",
+  engagement: "Engagement",
+  about: "About",
+  work: "Work",
+  footer: "Footer",
+};
+
+const COPY_FIELD_LABELS = {
+  // Home
+  heroEyebrow: "Hero — eyebrow",
+  heroHeadlineLead: "Hero — headline (lead)",
+  heroHeadlineAccent: "Hero — headline (italic teal accent)",
+  heroHeadlineTrail: "Hero — headline (trailing punctuation)",
+  heroSubhead: "Hero — subhead",
+  heroSubheadAccent: "Hero — subhead accent (substring shown italic teal)",
+  heroPrimaryCtaLabel: "Hero — primary CTA label",
+  heroPrimaryCtaHref: "Hero — primary CTA href (Loom URL or anchor)",
+  heroSecondaryCtaLabel: "Hero — secondary CTA label",
+  heroFootnote: "Hero — footnote",
+  whatIAutomateEyebrow: "What I Automate — eyebrow",
+  whatIAutomateHeadlineLead: "What I Automate — headline (lead)",
+  whatIAutomateHeadlineAccent: "What I Automate — headline (accent)",
+  whatIAutomateHeadlineTrail: "What I Automate — headline (trail)",
+  automation1Kicker: "Card 1 — kicker",
+  automation1Title: "Card 1 — title",
+  automation1Body: "Card 1 — body",
+  automation2Kicker: "Card 2 — kicker",
+  automation2Title: "Card 2 — title",
+  automation2Body: "Card 2 — body",
+  automation3Kicker: "Card 3 — kicker",
+  automation3Title: "Card 3 — title",
+  automation3Body: "Card 3 — body",
+  pilotTileEyebrow: "Pilot tile — eyebrow",
+  pilotTileHeadlineLead: "Pilot tile — headline (lead)",
+  pilotTileHeadlineAccent: "Pilot tile — headline (accent)",
+  pilotTileBody: "Pilot tile — body",
+  pilotTileCtaLabel: "Pilot tile — CTA label",
+  // Engagement
+  processEyebrow: "Process — eyebrow",
+  processHeadline: "Process — headline",
+  ctaHeadlineLead: "Closing CTA — headline (lead)",
+  ctaHeadlineAccent: "Closing CTA — headline (accent)",
+  ctaBody: "Closing CTA — body",
+  ctaButtonLabel: "Closing CTA — button label",
+};
+
+function fieldLabel(key) {
+  return COPY_FIELD_LABELS[key] || key;
+}
+
+function isLongField(key, value) {
+  if (typeof value !== "string") return false;
+  if (value.length > 100) return true;
+  return /Body|Bio|bio|Subhead|Intro|intro/.test(key);
+}
+
+function SiteCopyEditor({ onToast }) {
+  const [draft, setDraft] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [activePage, setActivePage] = useState("home");
+  const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/admin/site-copy", { credentials: "include", cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+      .then((data) => {
+        if (cancelled) return;
+        // Merge over seed so new keys appear even if blob is stale.
+        const merged = {};
+        for (const page of Object.keys(seedCopy)) {
+          merged[page] = { ...seedCopy[page], ...((data.copy || {})[page] || {}) };
+        }
+        setDraft(merged);
+      })
+      .catch((err) => !cancelled && setError(`Failed to load (${err.message})`))
+      .finally(() => !cancelled && setLoading(false));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function updateField(page, key, value) {
+    setDraft((d) => ({ ...d, [page]: { ...d[page], [key]: value } }));
+  }
+
+  function resetField(page, key) {
+    updateField(page, key, seedCopy[page][key] ?? "");
+  }
+
+  async function handleSave() {
+    setSaving(true);
+    setError("");
+    try {
+      const res = await fetch("/api/admin/site-copy", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ copy: draft }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || `Save failed (${res.status})`);
+      }
+      onToast?.("Site copy saved. Reload public pages to see changes.");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (loading || !draft) {
+    return (
+      <main className="mx-auto max-w-5xl px-6 py-8 md:px-10">
+        <p className="text-sm text-[#4B5563]">Loading site copy…</p>
+      </main>
+    );
+  }
+
+  const pageKeys = Object.keys(seedCopy);
+  const fields = Object.keys(seedCopy[activePage] || {});
+  const filtered = filter
+    ? fields.filter(
+        (k) =>
+          k.toLowerCase().includes(filter.toLowerCase()) ||
+          fieldLabel(k).toLowerCase().includes(filter.toLowerCase()) ||
+          (draft[activePage][k] || "").toLowerCase().includes(filter.toLowerCase()),
+      )
+    : fields;
+
+  return (
+    <main className="mx-auto max-w-5xl px-6 py-8 md:px-10">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-[#4B5563]">
+            Public copy
+          </h2>
+          <p className="mt-1 text-xs text-[#6B7280]">
+            Edits go live after Save. Changes are stored in Vercel Blob and merged on top of the in-code seed.
+          </p>
+        </div>
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="rounded bg-[#049B9F] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#06B5B9] disabled:opacity-60"
+        >
+          {saving ? "Saving…" : "Save changes"}
+        </button>
+      </div>
+
+      {error && (
+        <div className="mb-4 rounded border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          {error}
+        </div>
+      )}
+
+      <div className="mb-4 flex flex-wrap gap-1">
+        {pageKeys.map((p) => (
+          <button
+            key={p}
+            onClick={() => setActivePage(p)}
+            className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-colors ${
+              activePage === p
+                ? "bg-[#1F2328] text-white"
+                : "bg-white text-[#4B5563] hover:bg-[#F3F4F6]"
+            }`}
+          >
+            {COPY_PAGE_LABELS[p] || p}
+          </button>
+        ))}
+      </div>
+
+      <input
+        type="search"
+        placeholder="Filter fields…"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+        className="mb-4 w-full rounded border border-[#E4E7EC] bg-white px-3 py-2 text-sm focus:border-[#049B9F] focus:outline-none"
+      />
+
+      <div className="space-y-3">
+        {filtered.map((key) => {
+          const value = draft[activePage][key] ?? "";
+          const seedValue = seedCopy[activePage][key] ?? "";
+          const isOverride = value !== seedValue;
+          const long = isLongField(key, value);
+          return (
+            <div
+              key={key}
+              className="rounded-lg border border-[#E4E7EC] bg-white p-4"
+            >
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <label className="text-xs font-semibold text-[#1F2328]">
+                  {fieldLabel(key)}
+                  <span className="ml-2 font-mono text-[10px] font-normal text-[#9CA3AF]">
+                    {key}
+                  </span>
+                </label>
+                <div className="flex items-center gap-2">
+                  {isOverride && (
+                    <span className="rounded bg-[#049B9F]/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-[#049B9F]">
+                      Overridden
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => resetField(activePage, key)}
+                    className="text-[10px] uppercase tracking-wider text-[#6B7280] hover:text-[#1F2328]"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+              {long ? (
+                <textarea
+                  value={value}
+                  onChange={(e) => updateField(activePage, key, e.target.value)}
+                  rows={Math.max(2, Math.min(8, Math.ceil(value.length / 80)))}
+                  className="w-full rounded border border-[#E4E7EC] bg-[#F9FAFB] px-3 py-2 text-sm focus:border-[#049B9F] focus:bg-white focus:outline-none"
+                />
+              ) : (
+                <input
+                  type="text"
+                  value={value}
+                  onChange={(e) => updateField(activePage, key, e.target.value)}
+                  className="w-full rounded border border-[#E4E7EC] bg-[#F9FAFB] px-3 py-2 text-sm focus:border-[#049B9F] focus:bg-white focus:outline-none"
+                />
+              )}
+            </div>
+          );
+        })}
+        {filtered.length === 0 && (
+          <p className="text-sm text-[#6B7280]">No fields match that filter.</p>
+        )}
+      </div>
+
+      <div className="mt-6 flex items-center justify-end">
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="rounded bg-[#049B9F] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#06B5B9] disabled:opacity-60"
+        >
+          {saving ? "Saving…" : "Save changes"}
+        </button>
+      </div>
+    </main>
   );
 }
 
