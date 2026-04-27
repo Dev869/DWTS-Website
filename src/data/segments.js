@@ -46,7 +46,7 @@ export const SEGMENTS = [
     whoItsFor: [],
     whoItsNotFor: [],
     engagement: "4 to 8 week custom builds, project-based.",
-    projectSlugs: ["fluorescence-pipeline", "pulse-wave-toolkit"],
+    projectSlugs: ["pwv-analysis"],
     ctaLabel: "Book a lab call",
     // Cool clinical teal. Visuals lean scientific: orbits (instruments),
     // constellations (sample maps), topo lines (signal traces).
@@ -89,7 +89,7 @@ export const SEGMENTS = [
     whoItsFor: [],
     whoItsNotFor: [],
     engagement: "Discovery → 4 to 8 week build → optional retainer.",
-    projectSlugs: ["docuhub-reporting", "ten99"],
+    projectSlugs: ["subhub", "ten99"],
     ctaLabel: "Book an ops call",
     // Grounded operational palette. Visuals lean structural: grids
     // (dashboards/spreadsheets), orbits (workflow), tight typography.
