@@ -48,7 +48,7 @@ function Hero() {
     <section id="top" className="relative px-5 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 md:px-12 md:pt-32 md:pb-28 lg:px-20">
       <div className="relative mx-auto max-w-6xl">
         <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[1.15fr_0.85fr] md:gap-16">
-          {/* LEFT: name + tagline + role + CTAs */}
+          {/* LEFT: positioning + CTAs */}
           <div>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -57,7 +57,7 @@ function Hero() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="mb-5 text-[11px] uppercase tracking-[0.28em]"
             >
-              · Systems Architect
+              · AI Automation for Labs
             </motion.p>
 
             <motion.h1
@@ -65,20 +65,20 @@ function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
-              className="text-[52px] leading-[0.92] tracking-[-0.02em] text-[#2A2D28] sm:text-[64px] md:text-[96px] lg:text-[128px]"
+              className="text-[44px] leading-[0.98] tracking-[-0.02em] text-[#2A2D28] sm:text-[56px] md:text-[80px] lg:text-[96px]"
             >
-              Devin
-              <br />
-              <span className="relative inline-block">
-                Wilson
+              I build AI automations for{" "}
+              <span className="relative inline-block italic" style={{ color: PALETTE.teal }}>
+                research and clinical labs
                 <motion.span
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
-                  className="absolute -bottom-1 left-0 block h-[3px] w-[48%] origin-left md:-bottom-2 md:h-[4px]"
+                  className="absolute -bottom-1 left-0 block h-[3px] w-full origin-left md:-bottom-2 md:h-[4px]"
                   style={{ background: PALETTE.teal }}
                 />
               </span>
+              .
             </motion.h1>
 
             <motion.p
@@ -86,25 +86,27 @@ function Hero() {
               style={SERIF}
               className="mt-7 max-w-xl text-[18px] leading-[1.45] text-[#2A2D28]/85 sm:text-[20px] md:text-[24px]"
             >
-              I embed with operations teams and build the specific internal
-              tools they need. The{" "}
+              Biology degree, working code. Most pilots ship in{" "}
               <span className="italic" style={{ color: PALETTE.teal }}>
-                ones nobody&rsquo;s selling off the shelf.
+                two weeks.
               </span>
             </motion.p>
 
             <motion.div {...m.rise(0.5)} className="mt-10 flex flex-wrap items-center gap-4">
-              <BookCallButton label="Book a call" />
+              {/* TODO: replace href with Loom URL once 60-second demo is recorded.
+                  Falls back to scrolling to #what-i-automate so it never dead-ends. */}
               <a
-                href="#work"
+                href="#what-i-automate"
                 style={MONO}
-                className="group inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#1a1a18]/70 transition-colors duration-500 hover:text-[#049B9F]"
+                className="group inline-flex items-center gap-3 rounded-full bg-[#049B9F] px-6 py-3 text-[11px] uppercase tracking-[0.22em] text-[#F8F6F0] shadow-[0_10px_30px_-12px_rgba(4,155,159,0.5)] transition-all duration-500 hover:-translate-y-0.5 hover:bg-[#037B7E]"
               >
-                See the work
-                <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1">
-                  &rarr;
-                </span>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
+                  <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M6.5 5.5v5l4-2.5-4-2.5Z" fill="currentColor" />
+                </svg>
+                <span>Watch a 60-second demo</span>
               </a>
+              <BookCallButton label="Book a free 20-minute lab audit" variant="ghost" />
             </motion.div>
 
             <motion.div {...m.rise(0.6)} className="mt-10 max-w-xs">
@@ -116,7 +118,7 @@ function Hero() {
               style={MONO}
               className="mt-6 text-[11px] uppercase tracking-[0.22em] text-[#1a1a18]/55"
             >
-              Bespoke software for research labs &amp; business operations
+              Devin Wilson &nbsp;·&nbsp; B.S. Biological Sciences, UC Davis
             </motion.p>
           </div>
 
@@ -868,6 +870,13 @@ function SelectedWork({ projects }) {
     (a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0),
   );
   const tiles = buildSelectedTiles(ordered);
+  // TODO: replace with the first paid pilot case study once shipped.
+  tiles.push({
+    kind: "pilot-cta",
+    key: "pilot-openings",
+    accent: PALETTE.teal,
+    weight: "wide",
+  });
   if (tiles.length === 0) return null;
 
   return (
@@ -1014,6 +1023,41 @@ function SelectedTile({ tile, index }) {
     );
   }
 
+  if (tile.kind === "pilot-cta") {
+    return (
+      <motion.div
+        {...baseMotion}
+        className={`relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 ${span}`}
+        style={{ background: PALETTE.tealDeep }}
+      >
+        <p style={MONO} className="text-[10px] uppercase tracking-[0.24em] text-[#F5F1E6]/70">
+          · Pilot openings available
+        </p>
+        <div>
+          <h3
+            style={SERIF}
+            className="text-[24px] leading-[1.1] tracking-tight text-[#F5F1E6] md:text-[30px]"
+          >
+            $1,500. 30 days.{" "}
+            <span className="italic" style={{ color: "#7BE0E3" }}>
+              One specific automation.
+            </span>
+          </h3>
+          <p className="mt-2 max-w-md text-[13px] leading-[1.5] text-[#F5F1E6]/75">
+            Half upfront. Limited spots while I&rsquo;m building case studies.
+          </p>
+        </div>
+        <Link
+          to="/engagement"
+          style={MONO}
+          className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-[#F5F1E6] transition-all duration-500 hover:gap-3"
+        >
+          See engagement details &rarr;
+        </Link>
+      </motion.div>
+    );
+  }
+
   // text fallback
   return (
     <motion.div
@@ -1044,66 +1088,118 @@ function SelectedTile({ tile, index }) {
   );
 }
 
-function About() {
+const AUTOMATIONS = [
+  {
+    kicker: "01",
+    title: "Instrument & assay output",
+    body:
+      "Parsing plate reader exports, qPCR runs, mass spec output, and pushing the cleaned data into your ELN or LIMS without copy-paste.",
+    accent: PALETTE.teal,
+  },
+  {
+    kicker: "02",
+    title: "Sample, reagent & inventory ops",
+    body:
+      "Reconciling reagent inventory, auditing sample logs, flagging chain-of-custody gaps, and generating recall reminders before reagents expire.",
+    accent: PALETTE.orange,
+  },
+  {
+    kicker: "03",
+    title: "Reports, intake & follow-up",
+    body:
+      "Turning intake forms and ELN entries into the weekly report, the insurance claim follow-up, the PI update — drafted and ready for review.",
+    accent: PALETTE.gold,
+  },
+];
+
+function WhatIAutomate() {
   const m = useMotion();
   return (
-    <section id="about" className="relative px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 md:grid-cols-[220px_1fr]">
-        <motion.p {...m.rise(0)} style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.25em]">
-          · About
+    <section
+      id="what-i-automate"
+      className="relative px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20"
+    >
+      <div className="mx-auto max-w-6xl">
+        <motion.p
+          {...m.rise(0)}
+          style={{ ...MONO, color: PALETTE.teal }}
+          className="text-[11px] uppercase tracking-[0.28em]"
+        >
+          · What I automate
         </motion.p>
-        <div>
-          <motion.p {...m.rise(0.1)} style={SERIF} className="text-[28px] leading-[1.35] text-[#2A2D28] md:text-[36px]">
-            I work with teams that have a real problem and a rough idea,
-            and turn it into something that actually{" "}
-            <span style={{ color: PALETTE.teal }} className="italic">runs</span>.
-            Research labs, restaurants, logistics companies, founders who
-            hit the ceiling of what spreadsheets and generic SaaS can do.
-          </motion.p>
-          <motion.p {...m.rise(0.2)} className="mt-8 max-w-2xl text-[15px] leading-relaxed text-[#1a1a18]/65">
-            Most of what I do lives under{" "}
-            <span className="font-medium" style={{ color: PALETTE.tealDark }}>
-              DW Tailored Systems
-            </span>
-            , my independent practice for product engineering, AI integration,
-            and systems architecture. Usually one engineer, sometimes a small
-            crew, always close to the problem.
-          </motion.p>
+        <motion.h2
+          {...m.rise(0.05)}
+          style={SERIF}
+          className="mt-3 max-w-3xl text-[36px] leading-[1.02] tracking-[-0.02em] text-[#2A2D28] sm:text-[48px] md:text-[64px]"
+        >
+          The hours your team{" "}
+          <span className="italic" style={{ color: PALETTE.teal }}>
+            already knows
+          </span>{" "}
+          should be running themselves.
+        </motion.h2>
 
-          <motion.div {...m.rise(0.25)} className="mt-6">
-            <Link
-              to="/about"
-              style={MONO}
-              className="inline-flex items-center gap-2 border-b border-[#049B9F] pb-1 text-[11px] uppercase tracking-[0.25em] text-[#049B9F] transition-colors hover:text-[#037B7E]"
+        <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border md:grid-cols-3"
+          style={{ borderColor: `${PALETTE.ink}15`, background: `${PALETTE.ink}12` }}
+        >
+          {AUTOMATIONS.map((a, i) => (
+            <motion.div
+              key={a.kicker}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
+              className="group relative bg-[#F1EEE6] p-8 md:p-10"
             >
-              More about me &rarr;
-            </Link>
-          </motion.div>
-
-          <motion.div {...m.rise(0.3)} className="mt-10 flex flex-wrap gap-2">
-            {[
-              { label: "Product Engineering", color: PALETTE.teal },
-              { label: "AI Integration", color: PALETTE.orange },
-              { label: "Systems Architecture", color: PALETTE.gold },
-              { label: "Data Platforms", color: PALETTE.olive },
-            ].map((s) => (
-              <span
-                key={s.label}
-                style={{ ...MONO, borderColor: `${s.color}45`, color: s.color }}
-                className="rounded-full border bg-white/50 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] transition-all duration-500 hover:-translate-y-0.5"
-              >
-                {s.label}
+              <div
+                className="absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-700 ease-out group-hover:w-full"
+                style={{ background: a.accent }}
+              />
+              <span style={{ ...MONO, color: a.accent }} className="text-[11px] uppercase tracking-[0.25em]">
+                {a.kicker}
               </span>
-            ))}
-          </motion.div>
+              <h3 style={SERIF} className="mt-3 text-[24px] leading-tight text-[#2A2D28] md:text-[28px]">
+                {a.title}
+              </h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-[#1a1a18]/70">
+                {a.body}
+              </p>
+            </motion.div>
+          ))}
         </div>
+
+        <motion.div {...m.rise(0.3)} className="mt-10 flex flex-wrap items-center gap-4">
+          <Link
+            to="/engagement"
+            style={MONO}
+            className="inline-flex items-center gap-2 border-b border-[#049B9F] pb-1 text-[11px] uppercase tracking-[0.25em] text-[#049B9F] transition-colors hover:text-[#037B7E]"
+          >
+            How I engage with labs &rarr;
+          </Link>
+          <Link
+            to="/about"
+            style={MONO}
+            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#1a1a18]/55 transition-colors hover:text-[#049B9F]"
+          >
+            More about me &rarr;
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
 }
 
+function isLabProject(p) {
+  const tags = (p.tags || []).map((t) => t.toLowerCase());
+  if (tags.some((t) => ["biotech", "lab", "clinical", "research"].includes(t))) return true;
+  if ((p.category || "").toLowerCase() === "analytics") return true;
+  if (p.segment === "labs") return true;
+  return false;
+}
+
 export default function Mockup() {
   const { projects, loading } = useProjects();
+  const labProjects = projects.filter(isLabProject);
 
   return (
     <div className="text-[#1a1a18]">
@@ -1112,11 +1208,12 @@ export default function Mockup() {
       <div className="min-h-screen bg-gradient-to-b from-[#F1EEE6] via-[#ECE9E2] to-[#E4E0D5]">
         <Hero />
 
-        {!loading && projects.length > 0 && <AllWorkRow projects={projects} />}
+        <WhatIAutomate />
 
-        {!loading && projects.length > 0 && <SelectedWork projects={projects} />}
+        {!loading && labProjects.length > 0 && <AllWorkRow projects={labProjects} />}
 
-        <About />
+        {!loading && labProjects.length > 0 && <SelectedWork projects={labProjects} />}
+
         <FooterBlock />
       </div>
     </div>
