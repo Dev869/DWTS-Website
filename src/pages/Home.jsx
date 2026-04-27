@@ -151,10 +151,10 @@ function Hero() {
               />
             </div>
             <div
-              className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full border bg-white px-4 py-1.5 shadow-sm"
+              className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border bg-white px-4 py-1.5 shadow-sm"
               style={{ borderColor: `${PALETTE.ink}15` }}
             >
-              <span style={MONO} className="text-[10px] uppercase tracking-[0.22em] text-[#1a1a18]/65">
+              <span style={MONO} className="whitespace-nowrap text-[10px] uppercase tracking-[0.22em] text-[#1a1a18]/65">
                 Redlands, CA &nbsp;·&nbsp; 2026
               </span>
             </div>
