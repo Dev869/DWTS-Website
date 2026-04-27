@@ -37,7 +37,7 @@
 export const SEGMENTS = [
   {
     slug: "labs",
-    name: "Labs",
+    name: "Research Tools",
     audience: "Research and biotech teams drowning in sample tracking and instrument data.",
     headline: "Hours back at the bench. Data that passes audit.",
     subheadline: "Custom lab automation for teams too small for a LIMS contract and too serious for spreadsheets.",
