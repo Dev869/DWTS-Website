@@ -8,6 +8,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import { SEGMENTS } from "../data/segments";
+import { usePageCopy } from "../hooks/useSiteCopy";
 
 // Cal.com embed loader. Uses their official popup snippet; no npm package needed.
 // Configure CAL_LINK to your actual handle (e.g. "devinwilson/intro-call").
@@ -694,6 +695,7 @@ export function Portrait({ id, alt, className = "", sizes = "(min-width: 768px) 
 
 export function FooterBlock() {
   const reduced = useReducedMotion();
+  const { c } = usePageCopy("footer");
   const rise = (delay = 0) =>
     reduced
       ? { initial: false }
@@ -716,22 +718,22 @@ export function FooterBlock() {
             style={SERIF}
             className="text-[34px] leading-[1.05] tracking-tight text-[#2A2D28] sm:text-[44px] md:text-[72px]"
           >
-            Have a task that
+            {c.headlineLead}
             <br />
-            should{" "}
+            {c.headlineMid}{" "}
             <span className="italic" style={{ color: PALETTE.teal }}>
-              run itself?
+              {c.headlineAccent}
             </span>
           </motion.p>
           <motion.div {...rise(0.15)} className="mt-6 flex flex-wrap items-center gap-4">
-            <BookCallButton label="Book a free 20-minute lab audit" />
+            <BookCallButton label={c.ctaLabel} />
             <a
-              href="mailto:devin@dwtailored.com"
+              href={`mailto:${c.contactEmail}`}
               style={MONO}
               className="group inline-flex items-center gap-2 border-b pb-1 text-[11px] uppercase tracking-[0.25em]"
             >
               <span style={{ color: PALETTE.teal, borderColor: PALETTE.teal }}>
-                or write to me
+                {c.contactLinkLabel}
               </span>
               <span
                 aria-hidden
@@ -749,8 +751,8 @@ export function FooterBlock() {
             style={MONO}
             className="flex flex-col items-start gap-1 text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/55 md:items-end"
           >
-            <span>DW Tailored Systems</span>
-            <span>AI automation for research &amp; clinical labs</span>
+            <span>{c.line1}</span>
+            <span>{c.line2}</span>
             <span>&copy; {new Date().getFullYear()}</span>
           </div>
         </div>

@@ -10,6 +10,7 @@ import {
   BookCallButton,
   Portrait,
 } from "./_shared.jsx";
+import { usePageCopy } from "../hooks/useSiteCopy";
 
 function useRise() {
   const reduced = useReducedMotion();
@@ -35,6 +36,7 @@ const TOOLS = [
 
 export default function About() {
   const rise = useRise();
+  const { c } = usePageCopy("about");
 
   return (
     <div className="text-[#1a1a18]">
@@ -47,7 +49,7 @@ export default function About() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="mb-6 text-[11px] uppercase tracking-[0.28em]"
             >
-              · About
+              {c.eyebrow}
             </motion.p>
 
             <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.1fr_1fr] md:items-start">
@@ -57,9 +59,9 @@ export default function About() {
                   style={SERIF}
                   className="text-[44px] leading-[0.95] tracking-[-0.02em] text-[#2A2D28] sm:text-[56px] md:text-[96px]"
                 >
-                  Hey, I&rsquo;m{" "}
+                  {c.headlineLead}{" "}
                   <span className="italic" style={{ color: PALETTE.teal }}>
-                    Devin.
+                    {c.headlineAccent}
                   </span>
                 </motion.h1>
 
@@ -68,23 +70,16 @@ export default function About() {
                   style={SERIF}
                   className="mt-8 max-w-xl text-[20px] leading-[1.55] text-[#2A2D28]/85 md:text-[22px]"
                 >
-                  B.S. in Biological Sciences from UC Davis. I started in
-                  Computer Science and switched into Bio Sci, which is how I
-                  ended up with a foot in both worlds, and how I landed my
-                  first real programming job stitching analysis scripts for a
-                  research lab drowning in fluorescence microscopy images. A
-                  few weeks later, runs that used to take a day finished in
-                  fifteen minutes. That was the hook. I do that for labs
-                  full-time now.
+                  {c.bio}
                 </motion.p>
 
                 <motion.div {...rise(0.3)} className="mt-10 flex flex-wrap items-center gap-4">
-                  <BookCallButton label="Book a free 20-minute lab audit" />
+                  <BookCallButton label={c.ctaLabel} />
                 </motion.div>
 
                 <motion.div {...rise(0.4)} className="mt-12">
                   <p style={{ ...MONO, color: PALETTE.teal }} className="text-[10px] uppercase tracking-[0.28em]">
-                    · Tools I reach for
+                    {c.toolsEyebrow}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {TOOLS.map((s) => (
@@ -133,7 +128,7 @@ export default function About() {
                     style={MONO}
                     className="text-[10px] uppercase tracking-[0.22em] text-[#1a1a18]/65"
                   >
-                    Redlands, CA
+                    {c.locationLabel}
                   </span>
                 </div>
               </motion.div>

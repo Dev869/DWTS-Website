@@ -9,6 +9,7 @@ import {
   FooterBlock,
   BookCallButton,
 } from "./_shared.jsx";
+import { usePageCopy } from "../hooks/useSiteCopy";
 
 function useRise() {
   const reduced = useReducedMotion();
@@ -23,71 +24,36 @@ function useRise() {
         };
 }
 
-const ENGAGEMENTS = [
-  {
-    kicker: "01 · Pilot",
-    title: "Pilot engagement",
-    accent: PALETTE.teal,
-    price: "Starts at $1,500",
-    duration: "30 days · One specific automation",
-    body:
-      "Half upfront. We pick one task that's clearly automatable, I build it, you start using it. Limited spots while I'm building case studies — once I have five paid pilots in market, this offer goes away.",
-  },
-  {
-    kicker: "02 · Standard",
-    title: "Standard build",
-    accent: PALETTE.orange,
-    price: "Typically $5,000–$7,500",
-    duration: "30–45 days · Scoped per lab",
-    body:
-      "For builds that touch more than one workflow, integrate with an instrument or LIMS, or need a small UI. Half upfront, half on delivery. Fixed price, written scope before any work starts.",
-  },
-  {
-    kicker: "03 · Ongoing",
-    title: "Ongoing partnership",
-    accent: PALETTE.gold,
-    price: "Retainer pricing on request",
-    duration: "After we've shipped together",
-    body:
-      "Monthly check-ins, maintenance on what we've built, and one new build per quarter. Only available after a successful pilot or standard build — I want to know your lab before I commit to standing by it.",
-  },
+const ENGAGEMENT_KEYS = [
+  { id: "pilot", accent: PALETTE.teal },
+  { id: "standard", accent: PALETTE.orange },
+  { id: "ongoing", accent: PALETTE.gold },
 ];
 
-const STEPS = [
-  {
-    n: "01",
-    title: "20-minute lab audit call",
-    body:
-      "We talk through the task you want gone. No slides, no pitch deck. If it's a fit, we move forward. If it's not, I'll point you at the right tool.",
-  },
-  {
-    n: "02",
-    title: "Written scope + fixed price",
-    body:
-      "Within 48 hours: one page describing exactly what gets built, what it integrates with, what's out of scope, and what it costs. You sign or you don't.",
-  },
-  {
-    n: "03",
-    title: "Build",
-    body:
-      "Two to six weeks depending on engagement. You see progress weekly. I ask questions in writing so they don't pile up in your inbox during the day.",
-  },
-  {
-    n: "04",
-    title: "Handoff",
-    body:
-      "Working tool, runbook, and a 30-minute training session for whoever on your team owns it. The code is yours. The accounts are in your name.",
-  },
-  {
-    n: "05",
-    title: "Two-week follow-up",
-    body:
-      "Two weeks after handoff we get on a call. Whatever broke or felt clunky, I fix. Reality always teaches us something the scope didn't catch.",
-  },
-];
+function buildEngagements(c) {
+  return ENGAGEMENT_KEYS.map((e) => ({
+    accent: e.accent,
+    kicker: c[`${e.id}Kicker`],
+    title: c[`${e.id}Title`],
+    price: c[`${e.id}Price`],
+    duration: c[`${e.id}Duration`],
+    body: c[`${e.id}Body`],
+  }));
+}
+
+function buildSteps(c) {
+  return [1, 2, 3, 4, 5].map((n) => ({
+    n: String(n).padStart(2, "0"),
+    title: c[`step${n}Title`],
+    body: c[`step${n}Body`],
+  }));
+}
 
 export default function Engagement() {
   const rise = useRise();
+  const { c } = usePageCopy("engagement");
+  const ENGAGEMENTS = buildEngagements(c);
+  const STEPS = buildSteps(c);
 
   return (
     <div className="text-[#1a1a18]">
@@ -101,7 +67,7 @@ export default function Engagement() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="mb-6 text-[11px] uppercase tracking-[0.28em]"
             >
-              · Engagement
+              {c.heroEyebrow}
             </motion.p>
 
             <motion.h1
@@ -109,9 +75,9 @@ export default function Engagement() {
               style={SERIF}
               className="max-w-4xl text-[44px] leading-[0.98] tracking-[-0.02em] text-[#2A2D28] sm:text-[56px] md:text-[88px]"
             >
-              How I work{" "}
+              {c.heroHeadlineLead}{" "}
               <span className="italic" style={{ color: PALETTE.teal }}>
-                with labs.
+                {c.heroHeadlineAccent}
               </span>
             </motion.h1>
 
@@ -120,9 +86,7 @@ export default function Engagement() {
               style={SERIF}
               className="mt-6 max-w-2xl text-[18px] leading-[1.5] text-[#2A2D28]/80 md:text-[22px]"
             >
-              Three ways to engage. Pricing is intentionally flexible while
-              I&rsquo;m building case studies — it lets me calibrate as I learn
-              what different lab types actually pay.
+              {c.heroSubhead}
             </motion.p>
 
             <motion.div {...rise(0.3)} className="mt-10 max-w-xs">
@@ -185,14 +149,14 @@ export default function Engagement() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="text-[11px] uppercase tracking-[0.28em]"
             >
-              · How a typical project goes
+              {c.processEyebrow}
             </motion.p>
             <motion.h2
               {...rise(0.05)}
               style={SERIF}
               className="mt-3 max-w-3xl text-[36px] leading-[1.02] tracking-[-0.02em] text-[#2A2D28] sm:text-[48px] md:text-[64px]"
             >
-              Five steps. No surprises.
+              {c.processHeadline}
             </motion.h2>
 
             <ol className="mt-12 space-y-px overflow-hidden rounded-2xl border" style={{ borderColor: `${PALETTE.ink}15`, background: `${PALETTE.ink}10` }}>
@@ -230,21 +194,19 @@ export default function Engagement() {
               style={SERIF}
               className="text-[36px] leading-[1.02] tracking-[-0.02em] text-[#2A2D28] sm:text-[48px] md:text-[64px]"
             >
-              Tell me what to{" "}
+              {c.ctaHeadlineLead}{" "}
               <span className="italic" style={{ color: PALETTE.teal }}>
-                automate.
+                {c.ctaHeadlineAccent}
               </span>
             </motion.h2>
             <motion.p
               {...rise(0.1)}
               className="mt-5 text-[15px] leading-relaxed text-[#1a1a18]/65"
             >
-              Twenty minutes, no slides. If it&rsquo;s a fit we&rsquo;ll talk
-              scope. If it&rsquo;s not, I&rsquo;ll tell you what tool would be
-              cheaper.
+              {c.ctaBody}
             </motion.p>
             <motion.div {...rise(0.2)} className="mt-8 flex justify-center">
-              <BookCallButton label="Book a free 20-minute lab audit" />
+              <BookCallButton label={c.ctaButtonLabel} />
             </motion.div>
           </div>
         </section>

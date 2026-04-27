@@ -9,6 +9,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useProjects } from "../hooks/useProjects";
+import { usePageCopy } from "../hooks/useSiteCopy";
 import { getProjectHighlights } from "../data/projects.js";
 import ProjectArtwork from "../components/ProjectArtwork.jsx";
 import {
@@ -25,6 +26,23 @@ import {
   ProjectBadges,
   ProjectLinks,
 } from "./_shared.jsx";
+
+// Render a string with the trailing `accent` substring wrapped in italic teal.
+// If `accent` is empty or not present in `text`, returns plain text.
+function renderWithAccent(text, accent, color) {
+  if (!text) return null;
+  if (!accent || !text.includes(accent)) return text;
+  const idx = text.lastIndexOf(accent);
+  return (
+    <>
+      {text.slice(0, idx)}
+      <span className="italic" style={{ color }}>
+        {accent}
+      </span>
+      {text.slice(idx + accent.length)}
+    </>
+  );
+}
 
 function useMotion() {
   const reduced = useReducedMotion();
@@ -44,6 +62,7 @@ function useMotion() {
 
 function Hero() {
   const m = useMotion();
+  const { c } = usePageCopy("home");
   return (
     <section id="top" className="relative px-5 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 md:px-12 md:pt-32 md:pb-28 lg:px-20">
       <div className="relative mx-auto max-w-6xl">
@@ -57,7 +76,7 @@ function Hero() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="mb-5 text-[11px] uppercase tracking-[0.28em]"
             >
-              · AI Automation for Labs
+              {c.heroEyebrow}
             </motion.p>
 
             <motion.h1
@@ -67,9 +86,9 @@ function Hero() {
               transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
               className="text-[44px] leading-[0.98] tracking-[-0.02em] text-[#2A2D28] sm:text-[56px] md:text-[80px] lg:text-[96px]"
             >
-              I build AI automations for{" "}
+              {c.heroHeadlineLead}{" "}
               <span className="relative inline-block italic" style={{ color: PALETTE.teal }}>
-                research and clinical labs
+                {c.heroHeadlineAccent}
                 <motion.span
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
@@ -78,7 +97,7 @@ function Hero() {
                   style={{ background: PALETTE.teal }}
                 />
               </span>
-              .
+              {c.heroHeadlineTrail}
             </motion.h1>
 
             <motion.p
@@ -86,17 +105,14 @@ function Hero() {
               style={SERIF}
               className="mt-7 max-w-xl text-[18px] leading-[1.45] text-[#2A2D28]/85 sm:text-[20px] md:text-[24px]"
             >
-              Biology degree, working code. Most pilots ship in{" "}
-              <span className="italic" style={{ color: PALETTE.teal }}>
-                two weeks.
-              </span>
+              {renderWithAccent(c.heroSubhead, c.heroSubheadAccent, PALETTE.teal)}
             </motion.p>
 
             <motion.div {...m.rise(0.5)} className="mt-10 flex flex-wrap items-center gap-4">
               {/* TODO: replace href with Loom URL once 60-second demo is recorded.
-                  Falls back to scrolling to #what-i-automate so it never dead-ends. */}
+                  Defaults to scrolling to #what-i-automate so it never dead-ends. */}
               <a
-                href="#what-i-automate"
+                href={c.heroPrimaryCtaHref || "#what-i-automate"}
                 style={MONO}
                 className="group inline-flex items-center gap-3 rounded-full bg-[#049B9F] px-6 py-3 text-[11px] uppercase tracking-[0.22em] text-[#F8F6F0] shadow-[0_10px_30px_-12px_rgba(4,155,159,0.5)] transition-all duration-500 hover:-translate-y-0.5 hover:bg-[#037B7E]"
               >
@@ -104,9 +120,9 @@ function Hero() {
                   <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
                   <path d="M6.5 5.5v5l4-2.5-4-2.5Z" fill="currentColor" />
                 </svg>
-                <span>Watch a 60-second demo</span>
+                <span>{c.heroPrimaryCtaLabel}</span>
               </a>
-              <BookCallButton label="Book a free 20-minute lab audit" variant="ghost" />
+              <BookCallButton label={c.heroSecondaryCtaLabel} variant="ghost" />
             </motion.div>
 
             <motion.div {...m.rise(0.6)} className="mt-10 max-w-xs">
@@ -118,7 +134,7 @@ function Hero() {
               style={MONO}
               className="mt-6 text-[11px] uppercase tracking-[0.22em] text-[#1a1a18]/55"
             >
-              Devin Wilson &nbsp;·&nbsp; B.S. Biological Sciences, UC Davis
+              {c.heroFootnote}
             </motion.p>
           </div>
 
@@ -865,6 +881,7 @@ function tileSpanClasses(weight, idx) {
 }
 
 function SelectedWork({ projects }) {
+  const { c } = usePageCopy("home");
   // Featured projects lead so the hero tile is whatever the admin promotes.
   const ordered = [...projects].sort(
     (a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0),
@@ -876,6 +893,11 @@ function SelectedWork({ projects }) {
     key: "pilot-openings",
     accent: PALETTE.teal,
     weight: "wide",
+    eyebrow: c.pilotTileEyebrow,
+    headlineLead: c.pilotTileHeadlineLead,
+    headlineAccent: c.pilotTileHeadlineAccent,
+    body: c.pilotTileBody,
+    ctaLabel: c.pilotTileCtaLabel,
   });
   if (tiles.length === 0) return null;
 
@@ -1031,20 +1053,20 @@ function SelectedTile({ tile, index }) {
         style={{ background: PALETTE.tealDeep }}
       >
         <p style={MONO} className="text-[10px] uppercase tracking-[0.24em] text-[#F5F1E6]/70">
-          · Pilot openings available
+          {tile.eyebrow}
         </p>
         <div>
           <h3
             style={SERIF}
             className="text-[24px] leading-[1.1] tracking-tight text-[#F5F1E6] md:text-[30px]"
           >
-            $1,500. 30 days.{" "}
+            {tile.headlineLead}{" "}
             <span className="italic" style={{ color: "#7BE0E3" }}>
-              One specific automation.
+              {tile.headlineAccent}
             </span>
           </h3>
           <p className="mt-2 max-w-md text-[13px] leading-[1.5] text-[#F5F1E6]/75">
-            Half upfront. Limited spots while I&rsquo;m building case studies.
+            {tile.body}
           </p>
         </div>
         <Link
@@ -1052,7 +1074,7 @@ function SelectedTile({ tile, index }) {
           style={MONO}
           className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-[#F5F1E6] transition-all duration-500 hover:gap-3"
         >
-          See engagement details &rarr;
+          {tile.ctaLabel}
         </Link>
       </motion.div>
     );
@@ -1088,32 +1110,21 @@ function SelectedTile({ tile, index }) {
   );
 }
 
-const AUTOMATIONS = [
-  {
-    kicker: "01",
-    title: "Instrument & assay output",
-    body:
-      "Parsing plate reader exports, qPCR runs, mass spec output, and pushing the cleaned data into your ELN or LIMS without copy-paste.",
-    accent: PALETTE.teal,
-  },
-  {
-    kicker: "02",
-    title: "Sample, reagent & inventory ops",
-    body:
-      "Reconciling reagent inventory, auditing sample logs, flagging chain-of-custody gaps, and generating recall reminders before reagents expire.",
-    accent: PALETTE.orange,
-  },
-  {
-    kicker: "03",
-    title: "Reports, intake & follow-up",
-    body:
-      "Turning intake forms and ELN entries into the weekly report, the insurance claim follow-up, the PI update — drafted and ready for review.",
-    accent: PALETTE.gold,
-  },
-];
+const AUTOMATION_ACCENTS = [PALETTE.teal, PALETTE.orange, PALETTE.gold];
+
+function buildAutomations(c) {
+  return [1, 2, 3].map((n, i) => ({
+    kicker: c[`automation${n}Kicker`],
+    title: c[`automation${n}Title`],
+    body: c[`automation${n}Body`],
+    accent: AUTOMATION_ACCENTS[i],
+  }));
+}
 
 function WhatIAutomate() {
   const m = useMotion();
+  const { c } = usePageCopy("home");
+  const AUTOMATIONS = buildAutomations(c);
   return (
     <section
       id="what-i-automate"
@@ -1125,18 +1136,18 @@ function WhatIAutomate() {
           style={{ ...MONO, color: PALETTE.teal }}
           className="text-[11px] uppercase tracking-[0.28em]"
         >
-          · What I automate
+          {c.whatIAutomateEyebrow}
         </motion.p>
         <motion.h2
           {...m.rise(0.05)}
           style={SERIF}
           className="mt-3 max-w-3xl text-[36px] leading-[1.02] tracking-[-0.02em] text-[#2A2D28] sm:text-[48px] md:text-[64px]"
         >
-          The hours your team{" "}
+          {c.whatIAutomateHeadlineLead}{" "}
           <span className="italic" style={{ color: PALETTE.teal }}>
-            already knows
+            {c.whatIAutomateHeadlineAccent}
           </span>{" "}
-          should be running themselves.
+          {c.whatIAutomateHeadlineTrail}
         </motion.h2>
 
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border md:grid-cols-3"
