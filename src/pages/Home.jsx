@@ -854,6 +854,9 @@ export default function Mockup() {
       <div className="min-h-screen bg-gradient-to-b from-[#F1EEE6] via-[#ECE9E2] to-[#E4E0D5]">
         <Hero />
 
+        {!loading && projects.length > 0 && <AllWorkRow projects={projects} />}
+
+        {/* TODO: Creative gallery showcasing best work goes here */}
         <section id="work" className="py-16">
           <SectionRule left="· Featured work" right="Curated projects" />
           {loading ? (
@@ -862,8 +865,6 @@ export default function Mockup() {
             featured.map((p, i) => <FeaturedCase key={p.id} project={p} index={i} flip={i % 2 === 1} accent={accents[i % accents.length]} />)
           )}
         </section>
-
-        {!loading && projects.length > 0 && <AllWorkRow projects={projects} />}
 
         <About />
         <FooterBlock />
