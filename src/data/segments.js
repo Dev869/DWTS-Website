@@ -37,17 +37,27 @@
 export const SEGMENTS = [
   {
     slug: "labs",
-    name: "Research Tools",
-    audience: "Research and biotech teams drowning in sample tracking and instrument data.",
-    headline: "Hours back at the bench. Data that passes audit.",
-    subheadline: "Custom lab automation for teams too small for a LIMS contract and too serious for spreadsheets.",
-    problem: "",
-    solution: "",
-    whoItsFor: [],
-    whoItsNotFor: [],
-    engagement: "4 to 8 week custom builds, project-based.",
-    projectSlugs: ["pwv-analysis"],
-    ctaLabel: "Book a lab call",
+    name: "Labs",
+    audience: "Research and clinical labs spending hours on tasks they know are automatable.",
+    headline: "AI automation for research and clinical labs.",
+    subheadline: "Biology degree, working code. Most pilots ship in two weeks.",
+    problem:
+      "Lab managers and PIs lose hours every week to instrument data parsing, sample log audits, reagent reconciliation, ELN-to-spreadsheet exports, intake forms, recall reminders, insurance follow-up, and manual report generation. The tasks are obviously automatable, but there's no postdoc with the bandwidth or skill to build it.",
+    solution:
+      "I scope one specific automation, build it in 2–6 weeks, hand it off with a runbook, and follow up two weeks later to fix what reality teaches us. I have a B.S. in Biological Sciences from UC Davis, so we skip the part where I learn what a plate reader is.",
+    whoItsFor: [
+      "Wet labs, vet clinics, dental practices, environmental and cannabis testing labs, university research labs, and contract research orgs",
+      "Lab managers, ops leads, or junior PIs with discretionary signing authority for $1,500–$10,000",
+      "Teams that already know which task they want to automate",
+    ],
+    whoItsNotFor: [
+      "Labs that need a full LIMS replacement (I integrate with yours, not replace it)",
+      "Procurement-heavy organizations where a $5K project takes six months to approve",
+      "Anyone looking for a generic SaaS subscription",
+    ],
+    engagement: "Pilot from $1,500. Standard builds $5K–$7.5K. 2–6 weeks.",
+    projectSlugs: ["fluorescence-pipeline", "pulse-wave-toolkit"],
+    ctaLabel: "Book a free 20-minute lab audit",
     // Cool clinical teal. Visuals lean scientific: orbits (instruments),
     // constellations (sample maps), topo lines (signal traces).
     theme: { from: "#049B9F", via: "#06B5B9", to: "#ECE9E2" },
@@ -70,6 +80,7 @@ export const SEGMENTS = [
     projectSlugs: [],
     ctaLabel: "Book a website call",
     comingSoon: true,
+    hidden: true,
     // Warm editorial palette. Visuals lean expressive: ribbons (flow),
     // topo (organic), constellations (curated link maps).
     theme: { from: "#C05A30", via: "#D4A843", to: "#ECE9E2" },
@@ -89,8 +100,9 @@ export const SEGMENTS = [
     whoItsFor: [],
     whoItsNotFor: [],
     engagement: "Discovery → 4 to 8 week build → optional retainer.",
-    projectSlugs: ["subhub", "ten99"],
+    projectSlugs: [],
     ctaLabel: "Book an ops call",
+    hidden: true,
     // Grounded operational palette. Visuals lean structural: grids
     // (dashboards/spreadsheets), orbits (workflow), tight typography.
     theme: { from: "#7A8B4A", via: "#D4A843", to: "#E4E0D5" },

@@ -8,6 +8,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import { SEGMENTS } from "../data/segments";
+import { usePageCopy } from "../hooks/useSiteCopy";
 
 // Cal.com embed loader. Uses their official popup snippet; no npm package needed.
 // Configure CAL_LINK to your actual handle (e.g. "devinwilson/intro-call").
@@ -130,6 +131,7 @@ export const EASE = [0.22, 1, 0.36, 1];
 
 export const NAV_LINKS = [
   { label: "Work", to: "/work" },
+  { label: "Engagement", to: "/engagement" },
   { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
 ];
@@ -152,7 +154,7 @@ function WorkDropdown({ open, onEnter }) {
   const location = useLocation();
   const items = [
     { label: "All work", to: "/work", hint: "Every project" },
-    ...SEGMENTS.map((s) => ({
+    ...SEGMENTS.filter((s) => !s.hidden).map((s) => ({
       label: s.name,
       to: `/for/${s.slug}`,
       hint: s.comingSoon ? "Coming soon" : s.audience,
@@ -244,12 +246,13 @@ function MobileMenu({ open, onClose }) {
   const items = [
     { label: "Home", to: "/", hint: null },
     { label: "All work", to: "/work", hint: "Every project" },
-    ...SEGMENTS.map((s) => ({
+    ...SEGMENTS.filter((s) => !s.hidden).map((s) => ({
       label: s.name,
       to: `/for/${s.slug}`,
       hint: s.comingSoon ? "Coming soon" : s.audience,
       comingSoon: s.comingSoon,
     })),
+    { label: "Engagement", to: "/engagement", hint: "How I work with labs" },
     { label: "About", to: "/about", hint: null },
     { label: "Contact", to: "/contact", hint: null },
   ];
@@ -336,6 +339,7 @@ export function PillNav() {
   const currentKey = (() => {
     if (location.pathname === "/about") return "About";
     if (location.pathname === "/contact") return "Contact";
+    if (location.pathname === "/engagement") return "Engagement";
     if (
       location.pathname.startsWith("/work") ||
       location.pathname.startsWith("/project") ||
@@ -691,6 +695,7 @@ export function Portrait({ id, alt, className = "", sizes = "(min-width: 768px) 
 
 export function FooterBlock() {
   const reduced = useReducedMotion();
+  const { c } = usePageCopy("footer");
   const rise = (delay = 0) =>
     reduced
       ? { initial: false }
@@ -713,22 +718,22 @@ export function FooterBlock() {
             style={SERIF}
             className="text-[34px] leading-[1.05] tracking-tight text-[#2A2D28] sm:text-[44px] md:text-[72px]"
           >
-            Let&rsquo;s build
+            {c.headlineLead}
             <br />
-            something{" "}
+            {c.headlineMid}{" "}
             <span className="italic" style={{ color: PALETTE.teal }}>
-              tailored.
+              {c.headlineAccent}
             </span>
           </motion.p>
           <motion.div {...rise(0.15)} className="mt-6 flex flex-wrap items-center gap-4">
-            <BookCallButton label="Book a call" />
+            <BookCallButton label={c.ctaLabel} />
             <a
-              href="mailto:devin@dwtailored.com"
+              href={`mailto:${c.contactEmail}`}
               style={MONO}
               className="group inline-flex items-center gap-2 border-b pb-1 text-[11px] uppercase tracking-[0.25em]"
             >
               <span style={{ color: PALETTE.teal, borderColor: PALETTE.teal }}>
-                or write to me
+                {c.contactLinkLabel}
               </span>
               <span
                 aria-hidden
@@ -744,9 +749,11 @@ export function FooterBlock() {
           <StripeBar className="w-40" />
           <div
             style={MONO}
-            className="text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/55"
+            className="flex flex-col items-start gap-1 text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/55 md:items-end"
           >
-            &copy; {new Date().getFullYear()} &nbsp;·&nbsp; DW Tailored Systems
+            <span>{c.line1}</span>
+            <span>{c.line2}</span>
+            <span>&copy; {new Date().getFullYear()}</span>
           </div>
         </div>
       </div>

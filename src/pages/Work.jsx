@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useProjects } from "../hooks/useProjects";
+import { usePageCopy } from "../hooks/useSiteCopy";
 import { getProjectHighlights } from "../data/projects.js";
 import ProjectArtwork from "../components/ProjectArtwork.jsx";
 import {
@@ -36,7 +37,7 @@ function ProjectRow({ project, index }) {
   const description =
     project.headline ||
     project.description?.slice(0, 140) ||
-    "A bespoke system built to fit the exact shape of the problem.";
+    "A working tool built to fit the exact shape of the problem.";
 
   return (
     <article className="relative py-16 md:py-24">
@@ -251,6 +252,7 @@ function ProjectRow({ project, index }) {
 
 export default function Work() {
   const { projects, loading } = useProjects();
+  const { c } = usePageCopy("work");
 
   return (
     <div className="text-[#1a1a18]">
@@ -266,7 +268,7 @@ export default function Work() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="mb-5 text-[11px] uppercase tracking-[0.28em]"
             >
-              · Portfolio
+              {c.eyebrow}
             </motion.p>
 
             <div className="flex flex-wrap items-end justify-between gap-8">
@@ -277,8 +279,8 @@ export default function Work() {
                 style={SERIF}
                 className="text-[56px] leading-[0.9] tracking-[-0.03em] text-[#2A2D28] sm:text-[80px] md:text-[144px] lg:text-[176px]"
               >
-                My work
-                <span style={{ color: PALETTE.teal }}>.</span>
+                {c.headlineLead}
+                <span style={{ color: PALETTE.teal }}>{c.headlineAccent}</span>
               </motion.h1>
 
               {/* Counter */}
@@ -291,11 +293,11 @@ export default function Work() {
                 <div className="hidden h-12 w-px md:block" style={{ background: `${PALETTE.ink}20` }} />
                 <div>
                   <span style={MONO} className="text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/45">
-                    Selected projects
+                    {c.counterLabel}
                   </span>
                   <div style={MONO} className="mt-1 text-[14px] tracking-[0.1em] text-[#2A2D28]">
                     <span style={{ color: PALETTE.teal }}>{String(projects.length).padStart(2, "0")}</span>
-                    <span className="text-[#1a1a18]/35"> / ongoing</span>
+                    <span className="text-[#1a1a18]/35">{c.counterTrail}</span>
                   </div>
                 </div>
               </motion.div>
@@ -308,9 +310,7 @@ export default function Work() {
               style={SERIF}
               className="mt-8 max-w-2xl text-[17px] leading-[1.5] text-[#2A2D28]/80 sm:text-[20px] md:text-[24px]"
             >
-              A selection of systems I&rsquo;ve shipped: research toolkits,
-              operations platforms, and internal tools built to fit the exact
-              shape of the problem.
+              {c.intro}
             </motion.p>
 
             <motion.div
@@ -334,6 +334,48 @@ export default function Work() {
             ) : (
               projects.map((p, i) => <ProjectRow key={p.id} project={p} index={i} />)
             )}
+          </div>
+        </section>
+
+        {/* TODO: replace with the first paid pilot case study once shipped */}
+        <section className="px-5 pb-24 sm:px-6 md:px-12 md:pb-32 lg:px-20">
+          <div className="mx-auto max-w-4xl">
+            <div
+              className="relative overflow-hidden rounded-2xl p-8 md:p-12"
+              style={{ background: PALETTE.tealDeep }}
+            >
+              <p style={MONO} className="text-[10px] uppercase tracking-[0.28em] text-[#F5F1E6]/70">
+                {c.pilotEyebrow}
+              </p>
+              <h2
+                style={SERIF}
+                className="mt-3 text-[28px] leading-[1.05] tracking-tight text-[#F5F1E6] md:text-[40px]"
+              >
+                {c.pilotHeadlineLead}{" "}
+                <span className="italic" style={{ color: "#7BE0E3" }}>
+                  {c.pilotHeadlineAccent}
+                </span>
+              </h2>
+              <p className="mt-4 max-w-xl text-[14px] leading-[1.6] text-[#F5F1E6]/80 md:text-[15px]">
+                {c.pilotBody}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <Link
+                  to="/engagement"
+                  style={MONO}
+                  className="inline-flex items-center gap-3 rounded-full border border-[#F5F1E6]/30 bg-white/10 px-5 py-2.5 text-[10px] uppercase tracking-[0.24em] text-[#F5F1E6] backdrop-blur transition-all duration-500 hover:bg-white/20"
+                >
+                  {c.pilotCtaPrimary}
+                </Link>
+                <Link
+                  to="/contact"
+                  style={MONO}
+                  className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.24em] text-[#F5F1E6]/80 transition-colors hover:text-white"
+                >
+                  {c.pilotCtaSecondary}
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 

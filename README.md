@@ -1,115 +1,66 @@
 # DW Tailored Systems
 
-A high-end, minimalistic portfolio site with an integrated AI concierge powered by Claude 3 Opus.
+Solo practice site. **AI workflow automation for research and clinical labs.**
+
+Live: [dwtailored.com](https://dwtailored.com)
 
 ## Tech Stack
 
-- **Frontend:** [Vite](https://vite.dev/) + [React 19](https://react.dev/) (SWC), [Tailwind CSS v4](https://tailwindcss.com/)
-- **Routing:** [React Router v7](https://reactrouter.com/)
-- **Animation:** [Framer Motion](https://www.framer.com/motion/)
-- **AI Chat:** [Anthropic SDK](https://docs.anthropic.com/) (Claude 3 Opus) via Firebase Cloud Functions
-- **Backend:** [Firebase](https://firebase.google.com/) (Hosting + Cloud Functions)
-- **Markdown:** [react-markdown](https://github.com/remarkjs/react-markdown) for AI response rendering
+- **Frontend:** Vite + React 19 (SWC), Tailwind v4, React Router v7, Framer Motion
+- **Backend:** Vercel Serverless Functions (`/api`) — Anthropic proxy, projects API, admin endpoints
+- **Storage:** `@vercel/blob` for project assets
+- **Booking:** Cal.com inline + popup
+- **Hosting:** Vercel
 
-## Getting Started
+## Scripts
 
-### Prerequisites
+| Command           | Description                      |
+| ----------------- | -------------------------------- |
+| `npm run dev`     | Vite dev server                  |
+| `npm run build`   | Production build                 |
+| `npm run preview` | Preview production build locally |
+| `npm run lint`    | ESLint                           |
+| `vercel dev`      | Local Vercel emulation           |
+| `vercel --prod`   | Deploy production                |
 
-- Node.js 18+
-- npm
-- Firebase CLI (`npm install -g firebase-tools`)
+## Environment
 
-### Installation
-
-```bash
-npm install
-cd functions && npm install && cd ..
-```
-
-### Development
-
-```bash
-npm run dev
-```
-
-### Firebase Emulators
-
-```bash
-firebase emulators:start
-```
-
-### Production Build
-
-```bash
-npm run build
-npm run preview
-```
-
-### Deploy
-
-```bash
-firebase deploy
-```
+`ANTHROPIC_API_KEY` set via `vercel env add` — never in client code.
 
 ## Project Structure
 
 ```
 src/
-  App.jsx                  # Root component with routing
-  main.jsx                 # Entry point
-  index.css                # Global styles (Tailwind)
-  assets/                  # Static assets
-  context/
-    ChatContext.jsx         # AI concierge chat state
-  data/
-    projects.js            # Project card data (title, tags, beta flag, etc.)
-  components/
-    Brand.jsx              # Logo / brand identity
-    Navbar.jsx             # Site navigation
-    Hero.jsx               # Landing hero section
-    Services.jsx           # Services overview
-    ProjectGrid.jsx        # Project cards grid layout
-    ProjectCard.jsx        # Individual project card (supports beta badge)
-    Contact.jsx            # Contact form / CTA
-    Clients.jsx            # Client logos / social proof
-    Footer.jsx             # Site footer
-    ScrollToTop.jsx        # Scroll restoration on route change
-    ScrollGraphics.jsx     # Scroll-driven visual effects
-    highlights/            # Project detail page sections
-    ui/                    # Reusable UI primitives
+  App.jsx                # Routes
   pages/
-    Home.jsx               # Landing page
-    ProjectHighlight.jsx   # Individual project detail page
-functions/
-  index.js                 # Firebase Cloud Function (AI chat proxy)
+    Home.jsx             # Hero + WhatIAutomate + filtered work + pilot CTA
+    Engagement.jsx       # Three engagement options + 5-step process
+    Work.jsx             # All projects index
+    About.jsx            # One-paragraph bio + tools
+    Contact.jsx          # Cal.com inline + form
+    ProjectDetail.jsx    # Case study template
+    Segment.jsx          # /for/:slug audience pages
+    Admin*.jsx           # Auth-gated CMS
+    _shared.jsx          # PillNav, FooterBlock, palette, BookCallButton
+  data/
+    projects.js          # Case study source of truth
+    segments.js          # Audience segments (only `labs` is publicly linked)
+  components/
+    ProjectArtwork.jsx   # Vector art for project cards
+api/
+  chat.js                # Anthropic proxy
+  projects.js            # Project data API
+  admin/                 # Admin endpoints
 ```
 
-## Design
+## Changelog
 
-- **Dark retro aesthetic:** warm `zinc` / parchment palette (`#F5F0E3` backgrounds, `#2C2C2C` text)
-- **Typography:** Inter + Bungee for headings
-- **Glassmorphism cards** with `backdrop-blur-md` and dashed borders
-- **Transitions:** `transition-all duration-500 ease-in-out`
-- **AI responses** rendered as Markdown in a terminal-style chat UI
+### 2026-04-27 — Repositioned for AI lab automation
 
-## Environment Variables
-
-The Anthropic API key is stored in Firebase environment config and never exposed to the client:
-
-```bash
-firebase functions:config:set anthropic.api_key="sk-..."
-```
-
-## Scripts
-
-| Command             | Description                        |
-| ------------------- | ---------------------------------- |
-| `npm run dev`       | Start Vite dev server              |
-| `npm run build`     | Production build                   |
-| `npm run preview`   | Preview production build locally   |
-| `npm run lint`      | Run ESLint                         |
-| `firebase deploy`   | Deploy to Firebase                 |
-
-## License
-
-Private project. All rights reserved.
+- Public positioning narrowed to AI workflow automation for research and clinical labs.
+- New `/engagement` page (Pilot $1.5K / Standard $5K–$7.5K / Ongoing retainer); no `/pricing` route.
+- Nav reduced to **Work / Engagement / About / Contact**.
+- Home rewritten: lab-AI hero, "What I automate" three-card section, filtered SelectedWork bento, pilot CTA tile.
+- About reduced to one-paragraph bio + tools list (Claude Code, n8n, Python, Anthropic API, Vercel, Postgres).
+- Removed `Ten99` project entry; segments `business-tools` and `websites` hidden from public nav.
+- Footer + CTAs updated to "Book a free 20-minute lab audit".
