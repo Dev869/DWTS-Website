@@ -7,11 +7,11 @@
 const siteCopy = {
   home: {
     heroEyebrow: "· AI Automation for Labs",
-    heroHeadlineLead: "I build AI automations for",
+    heroHeadlineLead: "Automations for",
     heroHeadlineAccent: "research and clinical labs",
     heroHeadlineTrail: ".",
-    heroSubhead: "Biology degree, working code. Most pilots ship in two weeks.",
-    heroSubheadAccent: "two weeks.",
+    heroSubhead: "Biology degree, working code. Most pilots ship in 14 days.",
+    heroSubheadAccent: "14 days.",
     heroPrimaryCtaLabel: "Watch a 60-second demo",
     heroPrimaryCtaHref: "#what-i-automate",
     heroSecondaryCtaLabel: "Book a free 20-minute lab audit",
@@ -23,11 +23,11 @@ const siteCopy = {
     whatIAutomateHeadlineTrail: "should be running themselves.",
 
     automation1Kicker: "01",
-    automation1Title: "Instrument & assay output",
+    automation1Title: "Workflows",
     automation1Body:
       "Parsing plate reader exports, qPCR runs, mass spec output, and pushing the cleaned data into your ELN or LIMS without copy-paste.",
     automation2Kicker: "02",
-    automation2Title: "Sample, reagent & inventory ops",
+    automation2Title: "Time-Consuming Operations",
     automation2Body:
       "Reconciling reagent inventory, auditing sample logs, flagging chain-of-custody gaps, and generating recall reminders before reagents expire.",
     automation3Kicker: "03",
@@ -36,7 +36,7 @@ const siteCopy = {
       "Turning intake forms and ELN entries into the weekly report, the insurance claim follow-up, the PI update — drafted and ready for review.",
 
     pilotTileEyebrow: "· Pilot openings available",
-    pilotTileHeadlineLead: "$1,500. 30 days.",
+    pilotTileHeadlineLead: "$1,500. 14 days.",
     pilotTileHeadlineAccent: "One specific automation.",
     pilotTileBody:
       "Half upfront. Limited spots while I'm building case studies.",
@@ -48,19 +48,19 @@ const siteCopy = {
     heroHeadlineLead: "How I work",
     heroHeadlineAccent: "with labs.",
     heroSubhead:
-      "Three ways to engage. Pricing is intentionally flexible while I'm building case studies — it lets me calibrate as I learn what different lab types actually pay.",
+      "Three ways to engage. This pricing model is intentionally flexible as I build more case studies.",
 
     pilotKicker: "01 · Pilot",
     pilotTitle: "Pilot engagement",
     pilotPrice: "Starts at $1,500",
-    pilotDuration: "30 days · One specific automation",
+    pilotDuration: "14 days · One specific automation",
     pilotBody:
-      "Half upfront. We pick one task that's clearly automatable, I build it, you start using it. Limited spots while I'm building case studies — once I have five paid pilots in market, this offer goes away.",
+      "Half upfront. We pick one task: I build it, you start using it.",
 
     standardKicker: "02 · Standard",
     standardTitle: "Standard build",
     standardPrice: "Typically $5,000–$7,500",
-    standardDuration: "30–45 days · Scoped per lab",
+    standardDuration: "30 days · Scoped per lab",
     standardBody:
       "For builds that touch more than one workflow, integrate with an instrument or LIMS, or need a small UI. Half upfront, half on delivery. Fixed price, written scope before any work starts.",
 
@@ -69,7 +69,7 @@ const siteCopy = {
     ongoingPrice: "Retainer pricing on request",
     ongoingDuration: "After we've shipped together",
     ongoingBody:
-      "Monthly check-ins, maintenance on what we've built, and one new build per quarter. Only available after a successful pilot or standard build — I want to know your lab before I commit to standing by it.",
+      "Maintenance on what we've built, and one new build per quarter. This keeps your tools running smoothly without hiccups. If something breaks, I fix it.",
 
     processEyebrow: "· How a typical project goes",
     processHeadline: "Five steps. No surprises.",
@@ -119,7 +119,7 @@ const siteCopy = {
 
     pilotEyebrow: "· Pilot openings available",
     pilotHeadlineLead: "Your lab's first AI automation,",
-    pilotHeadlineAccent: "shipped in 30 days.",
+    pilotHeadlineAccent: "shipped in 14 days.",
     pilotBody:
       "Starts at $1,500. One specific automation, half upfront, working tool at the end. Limited spots while I'm building case studies.",
     pilotCtaPrimary: "See engagement details →",
