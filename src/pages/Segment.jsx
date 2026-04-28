@@ -21,9 +21,18 @@ export default function Segment() {
 
   if (!segment) return <Navigate to="/" replace />;
 
-  const relatedProjects = segment.projectSlugs
+  // Show projects explicitly listed in the segment definition AND any project
+  // whose `segment` field (set in admin) matches this segment's slug.
+  // Hardcoded slugs come first to preserve curated order; admin-labeled
+  // projects fill in after, deduped.
+  const explicit = segment.projectSlugs
     .map((s) => projects.find((p) => p.slug === s))
     .filter(Boolean);
+  const explicitSlugs = new Set(explicit.map((p) => p.slug));
+  const labeled = projects.filter(
+    (p) => p.segment === segment.slug && !explicitSlugs.has(p.slug),
+  );
+  const relatedProjects = [...explicit, ...labeled];
 
   return (
     <div className="text-[#1a1a18]">
