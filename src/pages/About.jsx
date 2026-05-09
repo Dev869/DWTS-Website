@@ -25,18 +25,23 @@ function useRise() {
         };
 }
 
-const TOOLS = [
-  { label: "Claude Code", color: PALETTE.teal },
-  { label: "n8n", color: PALETTE.tealDark },
-  { label: "Python", color: PALETTE.orange },
-  { label: "Anthropic API", color: PALETTE.gold },
-  { label: "Vercel", color: PALETTE.olive },
-  { label: "Postgres", color: PALETTE.tealLight },
+// Color mapping stays in code; labels are pulled from siteCopy so all
+// editable text lives in one file (src/data/siteCopy.js).
+const TOOL_COLORS = [
+  PALETTE.teal,
+  PALETTE.tealDark,
+  PALETTE.orange,
+  PALETTE.gold,
+  PALETTE.olive,
+  PALETTE.tealLight,
 ];
 
 export default function About() {
   const rise = useRise();
   const { c } = usePageCopy("about");
+  const tools = [c.tool1Label, c.tool2Label, c.tool3Label, c.tool4Label, c.tool5Label, c.tool6Label]
+    .map((label, i) => ({ label, color: TOOL_COLORS[i] }))
+    .filter((t) => t.label);
 
   return (
     <div className="text-[#1a1a18]">
@@ -82,7 +87,7 @@ export default function About() {
                     {c.toolsEyebrow}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {TOOLS.map((s) => (
+                    {tools.map((s) => (
                       <span
                         key={s.label}
                         style={{ ...MONO, borderColor: `${s.color}45`, color: s.color }}

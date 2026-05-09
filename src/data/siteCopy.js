@@ -1,8 +1,14 @@
 // Site copy seed. Edit through /admin → Site Copy. This file is the
 // fallback used when the blob store is empty or unreachable.
 //
-// Shape is intentionally flat per page so the admin UI can render it as
-// labeled fields. Keep keys stable — pages read by key, not by order.
+// All editable on-page text lives here, organized by page. Each page is a
+// flat object of string keys so the admin UI can render labeled fields.
+// Keep keys stable — pages read by key, not by order.
+//
+// The "segment*" pages drive the /for/<slug> landing pages. Structural data
+// (slug, theme, artwork, projectSlugs, hidden, comingSoon, name, audience)
+// stays in src/data/segments.js — that file is imported synchronously at
+// module load by nav and admin so it can't depend on the runtime hook.
 
 const siteCopy = {
   home: {
@@ -34,6 +40,15 @@ const siteCopy = {
     automation3Title: "Reports, intake & follow-up",
     automation3Body:
       "Turning intake forms and ELN entries into the weekly report, the insurance claim follow-up, the PI update — drafted and ready for review.",
+
+    whatIAutomateEngageLink: "How I engage with operators →",
+    whatIAutomateAboutLink: "More about me →",
+
+    selectedWorkEyebrow: "· Selected work",
+    selectedWorkHeadlineLead: "Real systems.",
+    selectedWorkHeadlineAccent: "Real outcomes.",
+    selectedWorkBody:
+      "A working sample of the tools I've shipped — screens from production, with the numbers that matter.",
 
     pilotTileEyebrow: "· Pilot openings available",
     pilotTileHeadlineLead: "$1,500. 14 days.",
@@ -105,6 +120,12 @@ const siteCopy = {
       "B.S. in Biological Sciences from UC Davis. I started in Computer Science and switched into Bio Sci, which is how I ended up with a foot in both worlds, and how I landed my first real programming job stitching analysis scripts for a research lab drowning in fluorescence microscopy images. A few weeks later, runs that used to take a day finished in fifteen minutes. That was the hook. I build the same kind of automations now — for labs and for restaurant operators — full-time.",
     ctaLabel: "Book a free 20-minute audit",
     toolsEyebrow: "· Tools I reach for",
+    tool1Label: "Claude Code",
+    tool2Label: "n8n",
+    tool3Label: "Python",
+    tool4Label: "Anthropic API",
+    tool5Label: "Vercel",
+    tool6Label: "Postgres",
     locationLabel: "Redlands, CA",
   },
 
@@ -136,6 +157,102 @@ const siteCopy = {
     line1: "DW Tailored Systems",
     line2: "AI automation for labs & restaurants",
   },
+
+  // ─── Segment landing pages: /for/<slug> ──────────────────────────────────
+  // Structural data (slug, theme, artwork, projectSlugs, name, audience,
+  // hidden, comingSoon) lives in src/data/segments.js. Everything textual
+  // lives below.
+
+  segmentLabs: {
+    headline: "AI automation for research and clinical labs.",
+    subheadline:
+      "Biology degree, working code. Most pilots ship in two weeks.",
+    problem:
+      "Lab managers and PIs lose hours every week to instrument data parsing, sample log audits, reagent reconciliation, ELN-to-spreadsheet exports, intake forms, recall reminders, insurance follow-up, and manual report generation. The tasks are obviously automatable, but there's no postdoc with the bandwidth or skill to build it.",
+    solution:
+      "I scope one specific automation, build it in 2–6 weeks, hand it off with a runbook, and follow up two weeks later to fix what reality teaches us. I have a B.S. in Biological Sciences from UC Davis, so we skip the part where I learn what a plate reader is.",
+    whoFor1:
+      "Wet labs, vet clinics, dental practices, environmental and cannabis testing labs, university research labs, and contract research orgs",
+    whoFor2:
+      "Lab managers, ops leads, or junior PIs with discretionary signing authority for $1,500–$10,000",
+    whoFor3: "Teams that already know which task they want to automate",
+    whoNotFor1:
+      "Labs that need a full LIMS replacement (I integrate with yours, not replace it)",
+    whoNotFor2:
+      "Procurement-heavy organizations where a $5K project takes six months to approve",
+    whoNotFor3: "Anyone looking for a generic SaaS subscription",
+    engagement: "Pilot from $1,500. Standard builds $5K–$7.5K. 2–6 weeks.",
+    ctaLabel: "Book a free 20-minute lab audit",
+  },
+
+  segmentRestaurants: {
+    headline: "AI automation for restaurant operations.",
+    subheadline:
+      "Same-day visibility into food cost, waste, and margin. Most pilots ship in two weeks.",
+    problem:
+      "Owners and ops directors fight a slow, paper-driven loop: vendor invoices arrive in PDFs, deliveries don't match POs, recipe costs go stale the day prices change, and waste lives in a back-of-house notebook. By the time the spreadsheet is current, the week is over and margin moved without you.",
+    solution:
+      "I scope one specific automation — invoice ingestion, recipe costing, menu engineering, or waste tracking — build it in 2–6 weeks, hand it off with a runbook, and follow up two weeks later to fix what reality teaches us. Integrates with whatever you already run (Toast, Square, Restaurant365, MarginEdge, sheets).",
+    whoFor1:
+      "Independent single-location restaurants and small multi-unit groups (2–10 locations)",
+    whoFor2:
+      "Owner-operators, GMs, or ops directors with discretionary signing authority for $1,500–$10,000",
+    whoFor3: "Teams that already know which margin leak they want to plug",
+    whoNotFor1:
+      "Operators looking for a full POS or inventory replacement (I integrate, not replace)",
+    whoNotFor2: "Multi-unit chains with corporate procurement cycles",
+    whoNotFor3: "Anyone shopping for a generic SaaS subscription",
+    engagement: "Pilot from $1,500. Standard builds $5K–$7.5K. 2–6 weeks.",
+    ctaLabel: "Book a free 20-minute ops call",
+  },
+
+  segmentWebsites: {
+    headline: "A site wired into the tools your business actually runs on.",
+    subheadline:
+      "Design, engineering, and integration, shipped by one person who understands the ops side.",
+    problem: "",
+    solution: "",
+    whoFor1: "",
+    whoFor2: "",
+    whoFor3: "",
+    whoNotFor1: "",
+    whoNotFor2: "",
+    whoNotFor3: "",
+    engagement: "2 to 6 week fixed-scope projects.",
+    ctaLabel: "Book a website call",
+  },
+
+  segmentBusinessTools: {
+    headline: "Internal tools built around how your team actually works.",
+    subheadline:
+      "I embed with ops, learn the real process, and build exactly what you need, without the off-the-shelf compromise.",
+    problem: "",
+    solution: "",
+    whoFor1: "",
+    whoFor2: "",
+    whoFor3: "",
+    whoNotFor1: "",
+    whoNotFor2: "",
+    whoNotFor3: "",
+    engagement: "Discovery → 4 to 8 week build → optional retainer.",
+    ctaLabel: "Book an ops call",
+  },
 };
 
 export default siteCopy;
+
+// Map a segment slug to its siteCopy page key.
+export function segmentCopyKey(slug) {
+  switch (slug) {
+    case "labs":
+      return "segmentLabs";
+    case "restaurants":
+      return "segmentRestaurants";
+    case "websites":
+      return "segmentWebsites";
+    case "business-tools":
+      return "segmentBusinessTools";
+    default:
+      return null;
+  }
+}
