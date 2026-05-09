@@ -252,7 +252,7 @@ function MobileMenu({ open, onClose }) {
       hint: s.comingSoon ? "Coming soon" : s.audience,
       comingSoon: s.comingSoon,
     })),
-    { label: "Engagement", to: "/engagement", hint: "How I work with labs" },
+    { label: "Engagement", to: "/engagement", hint: "How I work with operators" },
     { label: "About", to: "/about", hint: null },
     { label: "Contact", to: "/contact", hint: null },
   ];

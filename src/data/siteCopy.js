@@ -6,15 +6,15 @@
 
 const siteCopy = {
   home: {
-    heroEyebrow: "· AI Automation for Labs",
+    heroEyebrow: "· AI Automation",
     heroHeadlineLead: "Automations for",
-    heroHeadlineAccent: "research and clinical labs",
+    heroHeadlineAccent: "labs and restaurants",
     heroHeadlineTrail: ".",
-    heroSubhead: "Biology degree, working code. Most pilots ship in 14 days.",
+    heroSubhead: "Operator-built, working code. Most pilots ship in 14 days.",
     heroSubheadAccent: "14 days.",
     heroPrimaryCtaLabel: "Watch a 60-second demo",
     heroPrimaryCtaHref: "#what-i-automate",
-    heroSecondaryCtaLabel: "Book a free 20-minute lab audit",
+    heroSecondaryCtaLabel: "Book a free 20-minute audit",
     heroFootnote: "Devin Wilson  ·  B.S. Biological Sciences, UC Davis",
 
     whatIAutomateEyebrow: "· What I automate",
@@ -46,7 +46,7 @@ const siteCopy = {
   engagement: {
     heroEyebrow: "· Engagement",
     heroHeadlineLead: "How I work",
-    heroHeadlineAccent: "with labs.",
+    heroHeadlineAccent: "with operators.",
     heroSubhead:
       "Three ways to engage. This pricing model is intentionally flexible as I build more case studies.",
 
@@ -60,7 +60,7 @@ const siteCopy = {
     standardKicker: "02 · Standard",
     standardTitle: "Standard build",
     standardPrice: "Typically $5,000–$7,500",
-    standardDuration: "30 days · Scoped per lab",
+    standardDuration: "30 days · Scoped per engagement",
     standardBody:
       "For builds that touch more than one workflow, integrate with an instrument or LIMS, or need a small UI. Half upfront, half on delivery. Fixed price, written scope before any work starts.",
 
@@ -74,7 +74,7 @@ const siteCopy = {
     processEyebrow: "· How a typical project goes",
     processHeadline: "Five steps. No surprises.",
 
-    step1Title: "20-minute lab audit call",
+    step1Title: "20-minute audit call",
     step1Body:
       "We talk through the task you want gone. No slides, no pitch deck. If it's a fit, we move forward. If it's not, I'll point you at the right tool.",
     step2Title: "Written scope + fixed price",
@@ -94,7 +94,7 @@ const siteCopy = {
     ctaHeadlineAccent: "automate.",
     ctaBody:
       "Twenty minutes, no slides. If it's a fit we'll talk scope. If it's not, I'll tell you what tool would be cheaper.",
-    ctaButtonLabel: "Book a free 20-minute lab audit",
+    ctaButtonLabel: "Book a free 20-minute audit",
   },
 
   about: {
@@ -102,8 +102,8 @@ const siteCopy = {
     headlineLead: "Hey, I'm",
     headlineAccent: "Devin.",
     bio:
-      "B.S. in Biological Sciences from UC Davis. I started in Computer Science and switched into Bio Sci, which is how I ended up with a foot in both worlds, and how I landed my first real programming job stitching analysis scripts for a research lab drowning in fluorescence microscopy images. A few weeks later, runs that used to take a day finished in fifteen minutes. That was the hook. I do that for labs full-time now.",
-    ctaLabel: "Book a free 20-minute lab audit",
+      "B.S. in Biological Sciences from UC Davis. I started in Computer Science and switched into Bio Sci, which is how I ended up with a foot in both worlds, and how I landed my first real programming job stitching analysis scripts for a research lab drowning in fluorescence microscopy images. A few weeks later, runs that used to take a day finished in fifteen minutes. That was the hook. I build the same kind of automations now — for labs and for restaurant operators — full-time.",
+    ctaLabel: "Book a free 20-minute audit",
     toolsEyebrow: "· Tools I reach for",
     locationLabel: "Redlands, CA",
   },
@@ -115,10 +115,10 @@ const siteCopy = {
     counterLabel: "Selected projects",
     counterTrail: " / ongoing",
     intro:
-      "Lab tools and earlier work. The lab automations are where I focus now — the rest is here for context on how I build.",
+      "Lab tools, restaurant ops automations, and earlier work. The automation builds are where I focus now — the rest is here for context on how I build.",
 
     pilotEyebrow: "· Pilot openings available",
-    pilotHeadlineLead: "Your lab's first AI automation,",
+    pilotHeadlineLead: "Your first AI automation,",
     pilotHeadlineAccent: "shipped in 14 days.",
     pilotBody:
       "Starts at $1,500. One specific automation, half upfront, working tool at the end. Limited spots while I'm building case studies.",
@@ -130,11 +130,11 @@ const siteCopy = {
     headlineLead: "Have a task that",
     headlineAccent: "run itself?",
     headlineMid: "should",
-    ctaLabel: "Book a free 20-minute lab audit",
+    ctaLabel: "Book a free 20-minute audit",
     contactLinkLabel: "or write to me",
     contactEmail: "devin@dwtailored.com",
     line1: "DW Tailored Systems",
-    line2: "AI automation for research & clinical labs",
+    line2: "AI automation for labs & restaurants",
   },
 };
 
