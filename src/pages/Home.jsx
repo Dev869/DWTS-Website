@@ -1185,7 +1185,7 @@ function WhatIAutomate() {
             style={MONO}
             className="inline-flex items-center gap-2 border-b border-[#049B9F] pb-1 text-[11px] uppercase tracking-[0.25em] text-[#049B9F] transition-colors hover:text-[#037B7E]"
           >
-            How I engage with labs &rarr;
+            How I engage with operators &rarr;
           </Link>
           <Link
             to="/about"
@@ -1200,17 +1200,19 @@ function WhatIAutomate() {
   );
 }
 
-function isLabProject(p) {
+function isVerticalProject(p) {
   const tags = (p.tags || []).map((t) => t.toLowerCase());
-  if (tags.some((t) => ["biotech", "lab", "clinical", "research"].includes(t))) return true;
+  const labTags = ["biotech", "lab", "clinical", "research"];
+  const restaurantTags = ["restaurant", "hospitality", "food-service", "fnb"];
+  if (tags.some((t) => labTags.includes(t) || restaurantTags.includes(t))) return true;
   if ((p.category || "").toLowerCase() === "analytics") return true;
-  if (p.segment === "labs") return true;
+  if (p.segment === "labs" || p.segment === "restaurants") return true;
   return false;
 }
 
 export default function Mockup() {
   const { projects, loading } = useProjects();
-  const labProjects = projects.filter(isLabProject);
+  const verticalProjects = projects.filter(isVerticalProject);
 
   return (
     <div className="text-[#1a1a18]">
@@ -1221,9 +1223,9 @@ export default function Mockup() {
 
         <WhatIAutomate />
 
-        {!loading && labProjects.length > 0 && <AllWorkRow projects={labProjects} />}
+        {!loading && verticalProjects.length > 0 && <AllWorkRow projects={verticalProjects} />}
 
-        {!loading && labProjects.length > 0 && <SelectedWork projects={labProjects} />}
+        {!loading && verticalProjects.length > 0 && <SelectedWork projects={verticalProjects} />}
 
         <FooterBlock />
       </div>

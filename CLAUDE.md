@@ -44,15 +44,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 DW Tailored Systems — Devin Wilson's solo practice. The site sells one thing:
-**AI workflow automation for research and clinical labs.** Everything on the
-public site flows from that positioning.
+**AI workflow automation for operators** — currently focused on two parallel
+verticals: **research and clinical labs** and **restaurants**. Everything on
+the public site flows from that positioning.
 
 ### Positioning (north star — do not drift)
 
-- One-liner: "I build AI automations for research and clinical labs. Most pilots ship in two weeks."
-- Buyer: lab manager / ops lead / junior PI at wet labs, vet clinics, dental practices, environmental and cannabis testing labs, university research labs, contract research orgs. Discretionary signing authority $1.5K–$10K.
-- Engagement progression: Pilot ($1,500 / 30 days) → Standard build ($5K–$7.5K / 30–45 days) → Ongoing partnership (retainer after a successful build).
-- Forbidden words in public copy: "bespoke," "websites," "Systems Architect," "transform," "leverage," "synergy," "unlock," "empower," "innovative," "cutting-edge," "revolutionize." Use first-person singular ("I"), never "we."
+- One-liner: "I build AI automations for labs and restaurants. Most pilots ship in two weeks."
+- Buyers (two parallel verticals):
+  - **Labs**: lab manager / ops lead / junior PI at wet labs, vet clinics, dental practices, environmental and cannabis testing labs, university research labs, contract research orgs.
+  - **Restaurants**: owner-operators of independent single-location restaurants and small multi-unit groups (2–10 locations); GMs and ops directors.
+  - Both verticals: discretionary signing authority $1.5K–$10K.
+- Engagement progression: Pilot ($1,500 / 14–30 days) → Standard build ($5K–$7.5K / 30–45 days) → Ongoing partnership (retainer after a successful build).
+- Forbidden words in public copy: "bespoke," "Systems Architect," "transform," "leverage," "synergy," "unlock," "empower," "innovative," "cutting-edge," "revolutionize." Use first-person singular ("I"), never "we."
 - Do not create a `/pricing` page or use the word "pricing" in nav. The page is `/engagement`.
 
 ## Tech Stack

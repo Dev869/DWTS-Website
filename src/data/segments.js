@@ -67,6 +67,38 @@ export const SEGMENTS = [
     },
   },
   {
+    slug: "restaurants",
+    name: "Restaurants",
+    audience: "Indie operators and small restaurant groups losing hours to invoice reconciliation, recipe costing, and waste tracking.",
+    headline: "AI automation for restaurant operations.",
+    subheadline: "Same-day visibility into food cost, waste, and margin. Most pilots ship in two weeks.",
+    problem:
+      "Owners and ops directors fight a slow, paper-driven loop: vendor invoices arrive in PDFs, deliveries don't match POs, recipe costs go stale the day prices change, and waste lives in a back-of-house notebook. By the time the spreadsheet is current, the week is over and margin moved without you.",
+    solution:
+      "I scope one specific automation — invoice ingestion, recipe costing, menu engineering, or waste tracking — build it in 2–6 weeks, hand it off with a runbook, and follow up two weeks later to fix what reality teaches us. Integrates with whatever you already run (Toast, Square, Restaurant365, MarginEdge, sheets).",
+    whoItsFor: [
+      "Independent single-location restaurants and small multi-unit groups (2–10 locations)",
+      "Owner-operators, GMs, or ops directors with discretionary signing authority for $1,500–$10,000",
+      "Teams that already know which margin leak they want to plug",
+    ],
+    whoItsNotFor: [
+      "Operators looking for a full POS or inventory replacement (I integrate, not replace)",
+      "Multi-unit chains with corporate procurement cycles",
+      "Anyone shopping for a generic SaaS subscription",
+    ],
+    engagement: "Pilot from $1,500. Standard builds $5K–$7.5K. 2–6 weeks.",
+    projectSlugs: [],
+    ctaLabel: "Book a free 20-minute ops call",
+    // Warm appetite-forward palette: terracotta + gold against paper.
+    // Visuals lean operational: grids (line items, menus), ribbons (order flow),
+    // topography (density / heat).
+    theme: { from: "#C05A30", via: "#D4A843", to: "#ECE9E2" },
+    artwork: {
+      motifs: ["grid", "ribbon", "topography"],
+      titleStyles: ["editorialStack", "capsGrotesk", "outlineSerif"],
+    },
+  },
+  {
     slug: "websites",
     name: "Websites",
     audience: "Operators and founders who need a site that works as a business asset, not a brochure.",
