@@ -918,7 +918,7 @@ function SelectedWork({ projects }) {
               style={{ ...MONO, color: PALETTE.teal }}
               className="text-[11px] uppercase tracking-[0.28em]"
             >
-              · Selected work
+              {c.selectedWorkEyebrow}
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 14 }}
@@ -928,9 +928,9 @@ function SelectedWork({ projects }) {
               style={SERIF}
               className="mt-3 text-[36px] leading-[1.02] tracking-[-0.02em] text-[#2A2D28] sm:text-[48px] md:text-[64px]"
             >
-              Real systems.{" "}
+              {c.selectedWorkHeadlineLead}{" "}
               <span className="italic" style={{ color: PALETTE.teal }}>
-                Real outcomes.
+                {c.selectedWorkHeadlineAccent}
               </span>
             </motion.h2>
           </div>
@@ -941,8 +941,7 @@ function SelectedWork({ projects }) {
             transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
             className="max-w-sm text-[14px] leading-[1.55] text-[#1a1a18]/65"
           >
-            A working sample of the tools I&rsquo;ve shipped — screens from production, with the
-            numbers that matter.
+            {c.selectedWorkBody}
           </motion.p>
         </div>
 
@@ -1185,14 +1184,14 @@ function WhatIAutomate() {
             style={MONO}
             className="inline-flex items-center gap-2 border-b border-[#049B9F] pb-1 text-[11px] uppercase tracking-[0.25em] text-[#049B9F] transition-colors hover:text-[#037B7E]"
           >
-            How I engage with operators &rarr;
+            {c.whatIAutomateEngageLink}
           </Link>
           <Link
             to="/about"
             style={MONO}
             className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#1a1a18]/55 transition-colors hover:text-[#049B9F]"
           >
-            More about me &rarr;
+            {c.whatIAutomateAboutLink}
           </Link>
         </motion.div>
       </div>
