@@ -68,11 +68,11 @@ export function useCalCom() {
 export function BookCallButton({ className = "", variant = "solid", label = "Book a call" }) {
   useCalCom();
   const base =
-    "group inline-flex items-center gap-3 rounded-full px-6 py-3 text-[11px] uppercase tracking-[0.22em] transition-all duration-500";
+    "inline-flex items-center px-5 py-3 text-[12px] font-medium transition-colors duration-200";
   const styles =
     variant === "solid"
-      ? "bg-[#049B9F] text-[#F8F6F0] shadow-[0_10px_30px_-12px_rgba(4,155,159,0.5)] hover:bg-[#037B7E] hover:-translate-y-0.5"
-      : "border border-[#1a1a18]/20 bg-white/60 text-[#1a1a18]/80 backdrop-blur hover:border-[#049B9F]/50 hover:text-[#049B9F]";
+      ? "bg-[#037B7E] text-[#F1EEE6] hover:bg-[#025D5F]"
+      : "border border-[#1a1a18]/35 text-[#1a1a18] hover:border-[#1a1a18] hover:bg-[#F5F3ED]";
   return (
     <button
       type="button"
@@ -82,21 +82,7 @@ export function BookCallButton({ className = "", variant = "solid", label = "Boo
       style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}
       className={`${base} ${styles} ${className}`}
     >
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-        <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M2 6h12M6 1v3M10 1v3" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-      <span>{label}</span>
-      <svg
-        width="14"
-        height="14"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden
-        className="transition-transform duration-500 group-hover:translate-x-0.5"
-      >
-        <path d="M0 8h14M14 8l-5-5M14 8l-5 5" stroke="currentColor" strokeWidth="1.6" />
-      </svg>
+      {label}
     </button>
   );
 }

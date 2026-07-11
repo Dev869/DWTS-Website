@@ -72,7 +72,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#ECE9E2] text-[#1a1a18]">
       <PillNav />
       <main className="mx-auto max-w-[1080px] px-5 pb-16 pt-28 sm:px-8 md:pt-32 lg:px-12">
-        <motion.header {...rise(0)}>
+        <header>
           <h1
             style={SERIF}
             className="m-0 text-[clamp(34px,4.5vw,50px)] font-medium leading-[1.05] tracking-[0.005em] [text-wrap:balance]"
@@ -89,42 +89,36 @@ export default function Home() {
           >
             Saving time without cutting corners — custom tools and automations.
           </p>
-        </motion.header>
+        </header>
 
-        <motion.div {...rise(0.1)} className="mb-9 mt-7">
+        <div className="mb-9 mt-7">
           <AccentStrip />
-        </motion.div>
+        </div>
 
         <section
           aria-label="Projects"
           className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3.5"
         >
           {projects.map((p, i) => (
-            <ProjectCard key={p.title} project={p} rise={rise(0.15 + i * 0.07)} />
+            <ProjectCard key={p.title} project={p} rise={rise(i * 0.06)} />
           ))}
         </section>
 
-        <motion.footer
-          {...rise(0.3)}
-          className="mt-16 flex flex-wrap items-center justify-between gap-6 border-t border-[#1a1a18]/15 pt-8"
-        >
-          <div className="flex flex-wrap items-center gap-4">
-            <BookCallButton label="Book a 30-minute intro call" />
+        <footer className="mt-16 flex flex-wrap items-center justify-between gap-6 border-t border-[#1a1a18]/15 pt-8">
+          <div className="flex flex-wrap items-center gap-5">
+            <BookCallButton label="Book a 20-minute intro call" />
             <a
               href="mailto:devin@dwtailored.com"
               style={{ ...MONO, color: PALETTE.tealDark }}
-              className="text-[11px] uppercase tracking-[0.22em] underline-offset-4 hover:underline"
+              className="text-[12px] underline-offset-4 hover:underline"
             >
               devin@dwtailored.com
             </a>
           </div>
-          <span
-            style={MONO}
-            className="text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/55"
-          >
+          <span style={MONO} className="text-[11px] text-[#1a1a18]/55">
             Devin Wilson &middot; Redlands, CA &middot; &copy; {new Date().getFullYear()}
           </span>
-        </motion.footer>
+        </footer>
       </main>
     </div>
   );
