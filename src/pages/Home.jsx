@@ -87,7 +87,7 @@ export default function Home() {
             style={MONO}
             className="mt-4 max-w-[62ch] text-[13px] leading-[1.8] tracking-[0.04em] text-[#1a1a18]/70"
           >
-            Saving time without cutting corners — custom tools and automations.
+            Custom tools and automations that save time without cutting corners.
           </p>
         </header>
 

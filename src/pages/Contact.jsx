@@ -100,19 +100,19 @@ function ChannelIcon({ name }) {
 const FAQ = [
   {
     q: "What kinds of projects fit best?",
-    a: "Research labs automating repetitive analysis, restaurants and logistics teams outgrowing spreadsheets, or founders who need a purpose-built internal tool in weeks rather than quarters.",
+    a: "Labs with repetitive analysis work to automate, and restaurants that run on spreadsheets and are tired of it. If you need an internal tool built in a few weeks, that fits too.",
   },
   {
-    q: "How do engagements usually work?",
-    a: "Most start with a 20-minute call to sketch the problem. If it's a good fit, we scope a small first milestone, usually 2 to 4 weeks, and go from there.",
+    q: "How does a project usually start?",
+    a: "With a 20-minute call to sketch the problem. If it's a good fit, I scope a small first milestone, usually 2 to 4 weeks, and go from there.",
   },
   {
     q: "Can you work with an existing team?",
-    a: "Yes. I often embed alongside an internal team, owning the one thing nobody else has bandwidth for.",
+    a: "Yes. I can work alongside your team and take the project nobody has time for.",
   },
   {
     q: "Timezones?",
-    a: "I'm based in Redlands, CA (Pacific). Happy to sync with teams across North America and Europe.",
+    a: "I'm in Redlands, CA (Pacific), and regularly work with teams across North America and Europe.",
   },
 ];
 
@@ -218,9 +218,8 @@ export default function Contact() {
                     </span>
                   </div>
                   <p className="mt-3 text-[14px] leading-relaxed text-[#1a1a18]/65">
-                    Based in Redlands, CA (Pacific). Currently taking on new
-                    engagements, and open to short discovery calls any
-                    weekday.
+                    Based in Redlands, CA (Pacific). I'm taking new projects and
+                    can usually do a short call any weekday.
                   </p>
                 </motion.div>
               </motion.div>
