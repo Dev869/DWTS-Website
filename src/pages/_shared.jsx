@@ -7,7 +7,6 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { SEGMENTS } from "../data/segments";
 import { usePageCopy } from "../hooks/useSiteCopy";
 
 // Cal.com embed loader. Uses their official popup snippet; no npm package needed.
@@ -69,11 +68,11 @@ export function useCalCom() {
 export function BookCallButton({ className = "", variant = "solid", label = "Book a call" }) {
   useCalCom();
   const base =
-    "group inline-flex items-center gap-3 rounded-full px-6 py-3 text-[11px] uppercase tracking-[0.22em] transition-all duration-500";
+    "inline-flex items-center px-5 py-3 text-[12px] font-medium transition-colors duration-200";
   const styles =
     variant === "solid"
-      ? "bg-[#049B9F] text-[#F8F6F0] shadow-[0_10px_30px_-12px_rgba(4,155,159,0.5)] hover:bg-[#037B7E] hover:-translate-y-0.5"
-      : "border border-[#1a1a18]/20 bg-white/60 text-[#1a1a18]/80 backdrop-blur hover:border-[#049B9F]/50 hover:text-[#049B9F]";
+      ? "bg-[#037B7E] text-[#F1EEE6] hover:bg-[#025D5F]"
+      : "border border-[#1a1a18]/35 text-[#1a1a18] hover:border-[#1a1a18] hover:bg-[#F5F3ED]";
   return (
     <button
       type="button"
@@ -83,21 +82,7 @@ export function BookCallButton({ className = "", variant = "solid", label = "Boo
       style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}
       className={`${base} ${styles} ${className}`}
     >
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-        <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M2 6h12M6 1v3M10 1v3" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-      <span>{label}</span>
-      <svg
-        width="14"
-        height="14"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden
-        className="transition-transform duration-500 group-hover:translate-x-0.5"
-      >
-        <path d="M0 8h14M14 8l-5-5M14 8l-5 5" stroke="currentColor" strokeWidth="1.6" />
-      </svg>
+      {label}
     </button>
   );
 }
@@ -124,16 +109,14 @@ export const STRIPE_COLORS = [
   PALETTE.olive,
 ];
 
-export const SERIF = { fontFamily: "'Fraunces', 'Times New Roman', serif" };
+export const SERIF = { fontFamily: "'Newsreader', 'Times New Roman', serif" };
 export const MONO = { fontFamily: "'IBM Plex Mono', ui-monospace, monospace" };
 
 export const EASE = [0.22, 1, 0.36, 1];
 
 export const NAV_LINKS = [
-  { label: "Work", to: "/work" },
-  { label: "Engagement", to: "/engagement" },
-  { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
+  { label: "GitHub", to: "https://github.com/Dev869", external: true },
 ];
 
 export function useScrollHideNav() {
@@ -150,90 +133,6 @@ export function useScrollHideNav() {
   return hidden;
 }
 
-function WorkDropdown({ open, onEnter }) {
-  const location = useLocation();
-  const items = [
-    { label: "All work", to: "/work", hint: "Every project" },
-    ...SEGMENTS.filter((s) => !s.hidden).map((s) => ({
-      label: s.name,
-      to: `/for/${s.slug}`,
-      hint: s.comingSoon ? "Coming soon" : s.audience,
-      comingSoon: s.comingSoon,
-    })),
-  ];
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          key="work-dropdown"
-          onMouseEnter={onEnter}
-          initial={{ opacity: 0, y: -6, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -4, scale: 0.97, transition: { duration: 0.22, ease: EASE } }}
-          transition={{ duration: 0.35, ease: EASE }}
-          className="absolute left-1/2 top-full z-50 mt-3 w-[280px] -translate-x-1/2"
-          style={{ transformOrigin: "top center" }}
-        >
-          {/* Invisible bridge so the cursor can cross the gap without triggering leave */}
-          <div aria-hidden className="absolute inset-x-0 -top-3 h-3" />
-          <div
-            className="overflow-hidden rounded-2xl border border-[#1a1a18]/10 bg-[#F1EEE6]/95 p-1.5 shadow-[0_18px_50px_-20px_rgba(26,26,24,0.35)] backdrop-blur-xl"
-          >
-            {items.map((item, i) => {
-              const isActive = location.pathname === item.to;
-              return (
-                <motion.div
-                  key={item.to}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.35, ease: EASE, delay: 0.05 + i * 0.04 }}
-                >
-                  <Link
-                    to={item.to}
-                    className="group relative flex items-center justify-between gap-3 rounded-xl px-3.5 py-2.5 transition-colors duration-300 hover:bg-white/80"
-                  >
-                    <div className="flex flex-col">
-                      <span
-                        style={MONO}
-                        className={`text-[11px] uppercase tracking-[0.22em] ${
-                          isActive ? "text-[#049B9F]" : "text-[#1a1a18]/85"
-                        }`}
-                      >
-                        {item.label}
-                      </span>
-                      <span className="mt-0.5 text-[11px] leading-tight text-[#1a1a18]/50">
-                        {item.hint}
-                      </span>
-                    </div>
-                    <motion.span
-                      aria-hidden
-                      initial={false}
-                      animate={{ x: 0, opacity: 0.5 }}
-                      whileHover={{ x: 3, opacity: 1 }}
-                      transition={{ duration: 0.3, ease: EASE }}
-                      className="text-[13px] text-[#049B9F] group-hover:translate-x-1"
-                    >
-                      &rarr;
-                    </motion.span>
-                    {item.comingSoon && (
-                      <span
-                        aria-hidden
-                        className="absolute right-3 top-2 h-1.5 w-1.5 rounded-full"
-                        style={{ background: PALETTE.teal }}
-                      />
-                    )}
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
 function MobileMenu({ open, onClose }) {
   const location = useLocation();
   useEffect(() => {
@@ -245,16 +144,8 @@ function MobileMenu({ open, onClose }) {
 
   const items = [
     { label: "Home", to: "/", hint: null },
-    { label: "All work", to: "/work", hint: "Every project" },
-    ...SEGMENTS.filter((s) => !s.hidden).map((s) => ({
-      label: s.name,
-      to: `/for/${s.slug}`,
-      hint: s.comingSoon ? "Coming soon" : s.audience,
-      comingSoon: s.comingSoon,
-    })),
-    { label: "Engagement", to: "/engagement", hint: "How I work with operators" },
-    { label: "About", to: "/about", hint: null },
-    { label: "Contact", to: "/contact", hint: null },
+    { label: "Contact", to: "/contact", hint: "Book a call or email" },
+    { label: "GitHub", to: "https://github.com/Dev869", hint: "Code and repos", external: true },
   ];
 
   return (
@@ -280,6 +171,10 @@ function MobileMenu({ open, onClose }) {
           >
             {items.map((item, i) => {
               const isActive = location.pathname === item.to;
+              const Comp = item.external ? "a" : Link;
+              const compProps = item.external
+                ? { href: item.to, target: "_blank", rel: "noreferrer" }
+                : { to: item.to };
               return (
                 <motion.div
                   key={item.to}
@@ -287,8 +182,8 @@ function MobileMenu({ open, onClose }) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, ease: EASE, delay: 0.04 + i * 0.03 }}
                 >
-                  <Link
-                    to={item.to}
+                  <Comp
+                    {...compProps}
                     onClick={onClose}
                     className="group relative flex items-center justify-between gap-3 rounded-xl px-4 py-3 transition-colors duration-200 hover:bg-white/80 active:bg-white"
                   >
@@ -308,14 +203,7 @@ function MobileMenu({ open, onClose }) {
                       )}
                     </div>
                     <span aria-hidden className="text-[14px] text-[#049B9F]">&rarr;</span>
-                    {item.comingSoon && (
-                      <span
-                        aria-hidden
-                        className="absolute right-3 top-2 h-1.5 w-1.5 rounded-full"
-                        style={{ background: PALETTE.teal }}
-                      />
-                    )}
-                  </Link>
+                  </Comp>
                 </motion.div>
               );
             })}
@@ -336,18 +224,7 @@ export function PillNav() {
   // Close mobile menu on route change
   useEffect(() => { setMobileOpen(false); }, [location.pathname]);
 
-  const currentKey = (() => {
-    if (location.pathname === "/about") return "About";
-    if (location.pathname === "/contact") return "Contact";
-    if (location.pathname === "/engagement") return "Engagement";
-    if (
-      location.pathname.startsWith("/work") ||
-      location.pathname.startsWith("/project") ||
-      location.pathname.startsWith("/for")
-    )
-      return "Work";
-    return null;
-  })();
+  const currentKey = location.pathname === "/contact" ? "Contact" : null;
 
   // When hovering: show hovered pill. When not hovering: show current page's pill (if any).
   // The leave handler is delayed so the pill doesn't instantly vanish; attack/release feels natural.
@@ -383,7 +260,7 @@ export function PillNav() {
     >
       <nav
         onMouseLeave={handleLeave}
-        className="mx-auto flex max-w-6xl items-center rounded-full border border-[#1a1a18]/8 bg-[#ECE9E2]/85 px-2 py-2 shadow-[0_8px_30px_-15px_rgba(26,26,24,0.25)] backdrop-blur-md"
+        className="mx-auto flex items-center rounded-full border border-[#1a1a18]/8 bg-[#ECE9E2]/85 px-2 py-2 shadow-[0_8px_30px_-15px_rgba(26,26,24,0.25)] backdrop-blur-md md:w-fit"
       >
         <Link
           to="/"
@@ -419,10 +296,9 @@ export function PillNav() {
           </motion.svg>
         </Link>
 
-        <div className="hidden flex-1 items-center justify-around md:flex">
+        <div className="hidden items-center md:flex">
           {NAV_LINKS.map((l) => {
             const active = activeKey === l.label;
-            const isWork = l.label === "Work";
             const common = {
               onMouseEnter: () => handleEnter(l.label),
               style: MONO,
@@ -452,38 +328,12 @@ export function PillNav() {
                   className="relative inline-flex items-center gap-1.5"
                 >
                   {l.label}
-                  {isWork && (
-                    <motion.svg
-                      viewBox="0 0 10 6"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      animate={{ rotate: hovered === "Work" ? 180 : 0 }}
-                      transition={{ duration: 0.4, ease: EASE }}
-                      className="h-[5px] w-[9px] opacity-70"
-                      aria-hidden
-                    >
-                      <path d="M1 1l4 4 4-4" />
-                    </motion.svg>
-                  )}
                 </motion.span>
               </>
             );
-            if (isWork) {
-              return (
-                <div key={l.label} className="relative">
-                  <Link to={l.to} {...common}>
-                    {content}
-                  </Link>
-                  <WorkDropdown open={hovered === "Work"} onEnter={() => handleEnter("Work")} />
-                </div>
-              );
-            }
             if (l.external) {
               return (
-                <a key={l.label} href={l.to} {...common}>
+                <a key={l.label} href={l.to} target="_blank" rel="noreferrer" {...common}>
                   {content}
                 </a>
               );
@@ -532,123 +382,6 @@ export function PillNav() {
   );
 }
 
-function GithubGlyph({ size = 14 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.12 3.06.74.81 1.18 1.83 1.18 3.09 0 4.43-2.7 5.4-5.26 5.69.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z" />
-    </svg>
-  );
-}
-
-function ExternalGlyph({ size = 14 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <polyline points="15 3 21 3 21 9" />
-      <line x1="10" y1="14" x2="21" y2="3" />
-    </svg>
-  );
-}
-
-export function isGithubUrl(url) {
-  return typeof url === "string" && /github\.com/i.test(url);
-}
-
-export function ProjectBadges({ project, className = "", compact = false }) {
-  if (!project) return null;
-  const items = [];
-  if (project.beta) {
-    items.push({
-      key: "beta",
-      label: "Beta",
-      bg: "#D97706",
-      fg: "#FFF8EC",
-      border: "rgba(255, 248, 236, 0.5)",
-      pulse: true,
-    });
-  }
-  if (project.openSource || isGithubUrl(project.link)) {
-    items.push({
-      key: "oss",
-      label: "Open Source",
-      bg: "#037B7E",
-      fg: "#F5F1E6",
-      border: "rgba(245, 241, 230, 0.5)",
-      pulse: false,
-    });
-  }
-  if (!items.length) return null;
-  const px = compact ? "px-2.5 py-1" : "px-3.5 py-1.5";
-  const fs = compact ? "text-[10px]" : "text-[11px]";
-  return (
-    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
-      {items.map((b) => (
-        <span
-          key={b.key}
-          style={{
-            ...MONO,
-            color: b.fg,
-            background: b.bg,
-            borderColor: b.border,
-            boxShadow: "0 6px 18px -6px rgba(26, 26, 24, 0.45)",
-            fontWeight: 600,
-          }}
-          className={`inline-flex items-center gap-1.5 rounded-full border ${px} ${fs} uppercase tracking-[0.18em]`}
-        >
-          <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
-            {b.pulse && (
-              <span
-                className="absolute inset-0 animate-ping rounded-full"
-                style={{ background: b.fg, opacity: 0.7 }}
-              />
-            )}
-            <span className="relative inline-block h-1.5 w-1.5 rounded-full" style={{ background: b.fg }} />
-          </span>
-          {b.label}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-export function ProjectLinks({ project, className = "", variant = "light" }) {
-  if (!project) return null;
-  const links = [];
-  if (project.link) {
-    links.push({
-      href: project.link,
-      label: isGithubUrl(project.link) ? "View code" : "View project",
-      Icon: isGithubUrl(project.link) ? GithubGlyph : ExternalGlyph,
-    });
-  }
-  if (project.demoUrl && project.demoUrl !== project.link) {
-    links.push({ href: project.demoUrl, label: "Live demo", Icon: ExternalGlyph });
-  }
-  if (!links.length) return null;
-  const base =
-    variant === "dark"
-      ? "text-[#F5F1E6]/80 hover:text-white border-white/25 hover:border-white/60"
-      : "text-[#1a1a18]/70 hover:text-[#049B9F] border-[#1a1a18]/15 hover:border-[#049B9F]";
-  return (
-    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
-      {links.map((l) => (
-        <a
-          key={l.href}
-          href={l.href}
-          target="_blank"
-          rel="noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          style={MONO}
-          className={`inline-flex items-center gap-2 rounded-full border bg-white/40 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] transition-all duration-300 ${base}`}
-        >
-          <l.Icon size={13} />
-          {l.label}
-        </a>
-      ))}
-    </div>
-  );
-}
-
 export function StripeBar({ className = "" }) {
   return (
     <div className={`flex h-1 overflow-hidden ${className}`}>
@@ -664,32 +397,6 @@ export function StripeBar({ className = "" }) {
         />
       ))}
     </div>
-  );
-}
-
-/**
- * Responsive portrait image with WebP + JPG fallback.
- * @param {{ id: 1 | 2 | 3, alt: string, className?: string, sizes?: string, eager?: boolean, style?: object }} props
- */
-export function Portrait({ id, alt, className = "", sizes = "(min-width: 768px) 360px, 280px", eager = false, style }) {
-  const base = `/portraits/devin-${id}`;
-  return (
-    <picture>
-      <source
-        type="image/webp"
-        srcSet={`${base}-480.webp 480w, ${base}-960.webp 960w, ${base}-1280.webp 1280w`}
-        sizes={sizes}
-      />
-      <img
-        src={`${base}-960.jpg`}
-        alt={alt}
-        loading={eager ? "eager" : "lazy"}
-        decoding="async"
-        fetchpriority={eager ? "high" : "auto"}
-        className={className}
-        style={style}
-      />
-    </picture>
   );
 }
 

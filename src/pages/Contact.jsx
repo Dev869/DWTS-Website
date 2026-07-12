@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   PALETTE,
-  STRIPE_COLORS,
   SERIF,
   MONO,
   EASE,
@@ -101,19 +100,19 @@ function ChannelIcon({ name }) {
 const FAQ = [
   {
     q: "What kinds of projects fit best?",
-    a: "Research labs automating repetitive analysis, restaurants and logistics teams outgrowing spreadsheets, or founders who need a purpose-built internal tool in weeks rather than quarters.",
+    a: "Labs with repetitive analysis work to automate, and restaurants that run on spreadsheets and are tired of it. If you need an internal tool built in a few weeks, that fits too.",
   },
   {
-    q: "How do engagements usually work?",
-    a: "Most start with a 30-minute call to sketch the problem. If it's a good fit, we scope a small first milestone, usually 2 to 4 weeks, and go from there.",
+    q: "How does a project usually start?",
+    a: "With a 20-minute call to sketch the problem. If it's a good fit, I scope a small first milestone, usually 2 to 4 weeks, and go from there.",
   },
   {
     q: "Can you work with an existing team?",
-    a: "Yes. I often embed alongside an internal team, owning the one thing nobody else has bandwidth for.",
+    a: "Yes. I can work alongside your team and take the project nobody has time for.",
   },
   {
     q: "Timezones?",
-    a: "I'm based in Redlands, CA (Pacific). Happy to sync with teams across North America and Europe.",
+    a: "I'm in Redlands, CA (Pacific), and regularly work with teams across North America and Europe.",
   },
 ];
 
@@ -129,7 +128,7 @@ export default function Contact() {
           <div className="mx-auto mb-10 flex max-w-6xl items-baseline justify-between gap-4">
             <div className="flex items-baseline gap-4">
               <span style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.28em]">
-                · Contact
+                Contact
               </span>
               <span style={MONO} className="hidden text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/45 md:inline">
                 Replies within 24h
@@ -147,7 +146,7 @@ export default function Contact() {
               {/* Channels */}
               <motion.div {...rise(0)}>
                 <p style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.28em]">
-                  · Where to find me
+                  Where to find me
                 </p>
                 <h2 style={SERIF} className="mt-4 text-[32px] leading-tight text-[#2A2D28] md:text-[42px]">
                   Pick your channel.
@@ -219,9 +218,8 @@ export default function Contact() {
                     </span>
                   </div>
                   <p className="mt-3 text-[14px] leading-relaxed text-[#1a1a18]/65">
-                    Based in Redlands, CA (Pacific). Currently taking on new
-                    engagements, and open to short discovery calls any
-                    weekday.
+                    Based in Redlands, CA (Pacific). I'm taking new projects and
+                    can usually do a short call any weekday.
                   </p>
                 </motion.div>
               </motion.div>
@@ -230,10 +228,10 @@ export default function Contact() {
               <motion.div {...rise(0.1)}>
                 <div className="mb-4 flex items-center justify-between">
                   <p style={{ ...MONO, color: PALETTE.teal }} className="text-[11px] uppercase tracking-[0.28em]">
-                    · Book a call
+                    Book a call
                   </p>
                   <span style={MONO} className="text-[10px] uppercase tracking-[0.25em] text-[#1a1a18]/45">
-                    30 minutes &nbsp;·&nbsp; video
+                    20 minutes &nbsp;·&nbsp; video
                   </span>
                 </div>
                 <CalInline />
@@ -259,7 +257,7 @@ export default function Contact() {
               style={{ ...MONO, color: PALETTE.teal }}
               className="text-[11px] uppercase tracking-[0.25em]"
             >
-              · Before we talk
+              Before we talk
             </motion.p>
 
             <div>
@@ -278,12 +276,9 @@ export default function Contact() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
-                    className="grid grid-cols-[auto_1fr] gap-6 border-t py-7"
+                    className="border-t py-7"
                     style={{ borderColor: `${PALETTE.ink}15` }}
                   >
-                    <span style={{ ...MONO, color: STRIPE_COLORS[i % STRIPE_COLORS.length] }} className="text-[13px] tracking-[0.12em]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
                     <div>
                       <h3 style={SERIF} className="text-[22px] leading-tight text-[#2A2D28] md:text-[26px]">
                         {f.q}
