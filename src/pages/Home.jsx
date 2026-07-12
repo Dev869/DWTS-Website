@@ -73,15 +73,21 @@ export default function Home() {
       <PillNav />
       <main className="mx-auto max-w-[1080px] px-5 pb-16 pt-28 sm:px-8 md:pt-32 lg:px-12">
         <header>
-          <h1
-            style={SERIF}
-            className="m-0 text-[clamp(34px,4.5vw,50px)] font-medium leading-[1.05] tracking-[0.005em] [text-wrap:balance]"
-          >
-            DW{" "}
-            <em style={{ color: PALETTE.tealDark }} className="font-normal">
+          <h1 className="m-0 flex items-center gap-5">
+            <img
+              src="/logo-mark.png"
+              alt="DW"
+              className="h-16 w-auto sm:h-20"
+              fetchPriority="high"
+            />
+            <span
+              style={SERIF}
+              className="text-[clamp(17px,2.2vw,26px)] font-medium uppercase leading-[1.2] tracking-[0.14em]"
+            >
               Tailored
-            </em>{" "}
-            Systems
+              <br />
+              Systems
+            </span>
           </h1>
           <p
             style={MONO}
