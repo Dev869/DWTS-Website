@@ -8,20 +8,10 @@ const projects = [
     link: "https://github.com/Dev869/Pulse-Wave-Analysis-Toolkit",
   },
   {
-    title: "Quikshift AI Coaching Platform",
-    desc: "Coaching platform that drafts the plan and the follow-ups from a coach's raw session notes.",
-    tags: ["AI", "Web app"],
-  },
-  {
     title: "Fluorescence Analysis Kit",
     desc: "Finds and measures calcium sparks in microscopy images. A full day of manual tracing at Loma Linda University now runs in about 15 minutes.",
     tags: ["Python", "Imaging"],
     link: "https://github.com/Dev869/Fluorescence-Analysis-Regarding-Time-Space",
-  },
-  {
-    title: "Photocopy-AI",
-    desc: "Reads scans and photocopies and hands back structured data instead of a folder of images.",
-    tags: ["AI", "Automation"],
   },
   {
     title: "Restaurant Operations Suite",
